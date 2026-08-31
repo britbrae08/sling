@@ -1,8 +1,9 @@
-const CACHE_NAME = 'sling-multi-target-v1';
+const CACHE_NAME = 'sling-arc-physics-v1';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
+  './game-loader.js',
   './game.js',
   './manifest.webmanifest',
   './icon.svg'
