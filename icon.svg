@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SLING icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#183429"/>
+      <stop offset="1" stop-color="#0d1d17"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0c97d"/>
+      <stop offset="1" stop-color="#c9964d"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <circle cx="394" cy="112" r="54" fill="#f0c97d" opacity=".92"/>
+  <path d="M0 346c104-77 174-61 241-8 75-96 176-87 271-8v182H0z" fill="#516b56"/>
+  <path d="M0 393c102-53 189-29 271 32 68-42 145-42 241 10v77H0z" fill="#7e6b49"/>
+  <path d="M155 421V271m0 36-45-89m45 89 61-98" fill="none" stroke="url(#gold)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M110 221 244 334M216 211 244 334" fill="none" stroke="#4b2b1e" stroke-width="15" stroke-linecap="round"/>
+  <circle cx="244" cy="334" r="23" fill="#ded4bf"/>
+  <circle cx="236" cy="326" r="7" fill="#fff" opacity=".42"/>
+  <text x="256" y="477" text-anchor="middle" fill="#f7eddc" font-size="70" font-family="Georgia, serif" font-weight="700" letter-spacing="8">SLING</text>
+</svg>
