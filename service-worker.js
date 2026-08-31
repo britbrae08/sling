@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sling-prototype-v2';
+const CACHE_NAME = 'sling-prototype-v3';
 const APP_SHELL = [
   './',
   './index.html',
