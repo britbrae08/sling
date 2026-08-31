@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sling-follow-camera-v2';
+const CACHE_NAME = 'sling-multi-target-v1';
 const APP_SHELL = [
   './',
   './index.html',
