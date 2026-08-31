@@ -58,18 +58,109 @@
   ];
 
   const levels = [
-    { name: 'First Range', world: 'Bethlehem Range', maxShots: 4, par: 1, target: { x: 0, y: 1.5, z: 42, radius: 2.2, kind: 'gong' }, objective: 'Bronze target • 42 m', startYaw: 0, startPitch: 0.22 },
-    { name: 'Olive Grove', world: 'Bethlehem Range', maxShots: 4, par: 1, target: { x: -7, y: 1.6, z: 58, radius: 2.0, kind: 'gong' }, objective: 'Left target • 58 m', startYaw: -0.08, startPitch: 0.22 },
-    { name: 'Long Field', world: 'Valley Road', maxShots: 5, par: 2, target: { x: 9, y: 1.8, z: 78, radius: 1.9, kind: 'gong' }, objective: 'Long target • 78 m', startYaw: 0.08, startPitch: 0.26 },
-    { name: 'High Mark', world: 'Valley Road', maxShots: 5, par: 2, target: { x: -4, y: 6.8, z: 70, radius: 2.0, kind: 'shield' }, objective: 'Elevated target • 70 m', startYaw: -0.04, startPitch: 0.32 },
-    { name: 'Narrow Strike', world: 'Valley Road', maxShots: 5, par: 2, target: { x: 13, y: 1.4, z: 94, radius: 1.45, kind: 'shield' }, objective: 'Small target • 94 m', startYaw: 0.12, startPitch: 0.28 },
-    { name: 'Far Hill', world: 'Valley of Elah', maxShots: 5, par: 2, target: { x: -14, y: 3.8, z: 112, radius: 1.7, kind: 'gong' }, objective: 'Far hill • 112 m', startYaw: -0.12, startPitch: 0.31 },
-    { name: 'Pottery Row', world: 'Valley of Elah', maxShots: 5, par: 2, target: { x: 6, y: 0.9, z: 82, radius: 1.25, kind: 'pot' }, objective: 'Break the jar • 82 m', startYaw: 0.06, startPitch: 0.22 },
-    { name: 'Drop Shot', world: 'Valley of Elah', maxShots: 6, par: 3, target: { x: -10, y: 1.2, z: 128, radius: 1.6, kind: 'pot' }, objective: 'Arc it in • 128 m', startYaw: -0.07, startPitch: 0.35 },
-    { name: 'Distant Shield', world: 'Judean Hills', maxShots: 6, par: 3, target: { x: 19, y: 5.4, z: 142, radius: 1.6, kind: 'shield' }, objective: 'High right • 142 m', startYaw: 0.12, startPitch: 0.34 },
-    { name: 'The Valley', world: 'Valley of Elah', maxShots: 6, par: 3, target: { x: -21, y: 2.1, z: 158, radius: 1.55, kind: 'gong' }, objective: 'Master the distance • 158 m', startYaw: -0.13, startPitch: 0.38 },
-    { name: 'Giant Distance', world: 'Valley of Elah', maxShots: 5, par: 2, target: { x: 8, y: 3.6, z: 176, radius: 2.4, kind: 'boss' }, objective: 'The giant target • 176 m', startYaw: 0.05, startPitch: 0.41, boss: true },
-    { name: 'Impossible Shot', world: 'Valley of Elah', maxShots: 6, par: 3, target: { x: -18, y: 8.2, z: 196, radius: 1.7, kind: 'boss' }, objective: 'Final mark • 196 m', startYaw: -0.09, startPitch: 0.46, boss: true }
+    {
+      name: 'First Range', world: 'Bethlehem Range', maxShots: 4, par: 1,
+      objective: 'Hit the target • 42 m', startYaw: 0.12, startPitch: 0.20,
+      targets: [{ x: -7, y: 1.7, z: 42, radius: 2.3, kind: 'gong' }]
+    },
+    {
+      name: 'Two Marks', world: 'Bethlehem Range', maxShots: 5, par: 2,
+      objective: 'Clear 2 targets', startYaw: -0.08, startPitch: 0.20,
+      targets: [
+        { x: 11, y: 1.6, z: 48, radius: 2.1, kind: 'gong' },
+        { x: -13, y: 4.4, z: 62, radius: 2.0, kind: 'shield' }
+      ]
+    },
+    {
+      name: 'Near and Far', world: 'Olive Grove', maxShots: 6, par: 2,
+      objective: 'Clear 2 distances', startYaw: 0.06, startPitch: 0.22,
+      targets: [
+        { x: -16, y: 1.5, z: 38, radius: 2.1, kind: 'pot' },
+        { x: 15, y: 2.2, z: 82, radius: 2.0, kind: 'gong' }
+      ]
+    },
+    {
+      name: 'High and Low', world: 'Valley Road', maxShots: 6, par: 2,
+      objective: 'Clear high + low', startYaw: -0.02, startPitch: 0.26,
+      targets: [
+        { x: 13, y: 7.6, z: 66, radius: 2.0, kind: 'shield' },
+        { x: -17, y: 1.0, z: 74, radius: 1.8, kind: 'pot' }
+      ]
+    },
+    {
+      name: 'Three Across', world: 'Valley Road', maxShots: 7, par: 3,
+      objective: 'Clear 3 targets', startYaw: 0.0, startPitch: 0.24,
+      targets: [
+        { x: -22, y: 2.0, z: 76, radius: 1.8, kind: 'gong' },
+        { x: 5, y: 5.6, z: 88, radius: 1.7, kind: 'shield' },
+        { x: 25, y: 1.4, z: 96, radius: 1.9, kind: 'gong' }
+      ]
+    },
+    {
+      name: 'Depth Test', world: 'Valley of Elah', maxShots: 8, par: 3,
+      objective: 'Clear 3 distances', startYaw: 0.10, startPitch: 0.26,
+      targets: [
+        { x: 18, y: 1.3, z: 52, radius: 1.8, kind: 'pot' },
+        { x: -12, y: 3.8, z: 104, radius: 1.8, kind: 'shield' },
+        { x: 25, y: 2.0, z: 132, radius: 2.0, kind: 'gong' }
+      ]
+    },
+    {
+      name: 'Pottery Row', world: 'Valley of Elah', maxShots: 7, par: 3,
+      objective: 'Break 3 jars', startYaw: -0.12, startPitch: 0.20,
+      targets: [
+        { x: -19, y: 0.9, z: 58, radius: 1.55, kind: 'pot' },
+        { x: 2, y: 1.0, z: 72, radius: 1.45, kind: 'pot' },
+        { x: 21, y: 1.0, z: 87, radius: 1.5, kind: 'pot' }
+      ]
+    },
+    {
+      name: 'Corner Shots', world: 'Judean Hills', maxShots: 8, par: 3,
+      objective: 'Find all 3 marks', startYaw: 0.0, startPitch: 0.30,
+      targets: [
+        { x: -26, y: 6.8, z: 92, radius: 1.75, kind: 'shield' },
+        { x: 27, y: 5.4, z: 116, radius: 1.75, kind: 'shield' },
+        { x: -8, y: 1.5, z: 138, radius: 1.9, kind: 'gong' }
+      ]
+    },
+    {
+      name: 'Four Winds', world: 'Judean Hills', maxShots: 10, par: 4,
+      objective: 'Clear 4 targets', startYaw: 0.08, startPitch: 0.28,
+      targets: [
+        { x: -30, y: 2.0, z: 74, radius: 1.75, kind: 'gong' },
+        { x: 26, y: 2.2, z: 84, radius: 1.75, kind: 'gong' },
+        { x: -18, y: 7.2, z: 108, radius: 1.7, kind: 'shield' },
+        { x: 20, y: 6.4, z: 126, radius: 1.7, kind: 'shield' }
+      ]
+    },
+    {
+      name: 'Long Range', world: 'Valley of Elah', maxShots: 8, par: 3,
+      objective: 'Clear the far line', startYaw: -0.08, startPitch: 0.36,
+      targets: [
+        { x: -26, y: 2.0, z: 146, radius: 1.9, kind: 'gong' },
+        { x: 8, y: 4.6, z: 162, radius: 1.85, kind: 'shield' },
+        { x: 29, y: 2.3, z: 178, radius: 2.0, kind: 'gong' }
+      ]
+    },
+    {
+      name: 'Giant Range', world: 'Valley of Elah', maxShots: 8, par: 3, boss: true,
+      objective: 'Clear the giant range', startYaw: 0.04, startPitch: 0.40,
+      targets: [
+        { x: -22, y: 3.0, z: 148, radius: 2.0, kind: 'gong' },
+        { x: 24, y: 4.4, z: 172, radius: 2.1, kind: 'shield' },
+        { x: 5, y: 5.2, z: 192, radius: 3.0, kind: 'boss' }
+      ]
+    },
+    {
+      name: 'Master Range', world: 'Valley of Elah', maxShots: 11, par: 4, boss: true,
+      objective: 'Clear all 4 final marks', startYaw: -0.06, startPitch: 0.42,
+      targets: [
+        { x: -31, y: 7.8, z: 142, radius: 1.8, kind: 'shield' },
+        { x: 30, y: 1.8, z: 160, radius: 1.8, kind: 'gong' },
+        { x: -17, y: 2.0, z: 185, radius: 1.75, kind: 'gong' },
+        { x: 17, y: 8.6, z: 205, radius: 2.6, kind: 'boss' }
+      ]
+    }
   ];
 
   const scenery = [
@@ -80,9 +171,10 @@
     { x: -34, z: 218, type: 'tree' }, { x: 11, z: 238, type: 'rock' }
   ];
 
-  const saveKey = 'slingFirstPersonProgressV2';
+  const saveKey = 'slingMultiTargetProgressV1';
   const progress = loadProgress();
   let levelIndex = Math.min(progress.lastLevel || 0, levels.length - 1);
+  let targets = [];
   let shots = 0;
   let mode = 'ready';
   let aimYaw = levels[levelIndex].startYaw;
@@ -100,14 +192,16 @@
   let nextLevelAfterVerse = 0;
   let lastVerseIndex = -1;
   let lastLanding = null;
+  let hitMessage = '';
+  let hitMessageUntil = 0;
 
   const camera = { x: 0, y: CAMERA_START_Y, z: 0, yaw: 0, pitch: 0.22 };
-  const stone = { x: 0, y: 1.25, z: 0.9, vx: 0, vy: 0, vz: 0, active: false, bounces: 0, maxHeight: 0, maxDistance: 0 };
+  const stone = { x: 0, y: 1.25, z: 0.9, vx: 0, vy: 0, vz: 0, active: false, bounces: 0 };
   const verseUi = createVerseOverlay();
 
   function loadProgress() {
     try {
-      const previous = JSON.parse(localStorage.getItem('slingFirstPersonProgressV1') || '{}');
+      const previous = JSON.parse(localStorage.getItem('slingFirstPersonProgressV2') || '{}');
       const raw = JSON.parse(localStorage.getItem(saveKey) || '{}');
       return {
         unlocked: Math.max(1, Number(raw.unlocked || previous.unlocked) || 1),
@@ -138,6 +232,7 @@
   function loadLevel(index) {
     levelIndex = Math.max(0, Math.min(index, levels.length - 1));
     const level = levels[levelIndex];
+    targets = level.targets.map((target, i) => ({ ...target, id: i, hit: false }));
     shots = 0;
     mode = 'ready';
     pointerMode = null;
@@ -145,27 +240,34 @@
     aimYaw = level.startYaw;
     aimPitch = level.startPitch;
     lastLanding = null;
+    hitMessage = '';
     verseUi.wrap.classList.remove('visible');
     ui.resultOverlay.classList.remove('visible');
     resetStone();
     resetCameraToAim();
+    updateHud();
+    renderLevelGrid();
+    saveProgress();
+  }
+
+  function updateHud() {
+    const remainingTargets = targets.filter(t => !t.hit).length;
     ui.levelLabel.textContent = String(levelIndex + 1);
-    ui.worldLabel.textContent = level.world;
-    ui.objectiveLabel.textContent = level.objective;
+    ui.worldLabel.textContent = levels[levelIndex].world;
+    ui.objectiveLabel.textContent = remainingTargets > 0
+      ? `${levels[levelIndex].objective} • ${remainingTargets} left`
+      : levels[levelIndex].objective;
     ui.progressText.textContent = `${levelIndex + 1} / ${levels.length}`;
     ui.progressFill.style.width = `${((levelIndex + 1) / levels.length) * 100}%`;
     updateStones();
-    renderLevelGrid();
-    saveProgress();
   }
 
   function resetStone() {
     stone.x = 0; stone.y = 1.25; stone.z = 0.9;
     stone.vx = 0; stone.vy = 0; stone.vz = 0;
     stone.active = false; stone.bounces = 0;
-    stone.maxHeight = stone.y; stone.maxDistance = stone.z;
     shotTime = 0; restTime = 0;
-    if (!['complete', 'failed', 'verse'].includes(mode)) mode = 'ready';
+    if (!['complete', 'failed', 'verse', 'targetHit'].includes(mode)) mode = 'ready';
   }
 
   function resetCameraToAim() {
@@ -217,7 +319,7 @@
       camera.yaw = aimYaw;
       camera.pitch = aimPitch;
       lastPointer = p;
-    } else if (pointerMode === 'power') {
+    } else {
       const drag = Math.max(0, p.y - powerStartY);
       power = clamp(drag / MAX_POWER_PULL, 0, 1);
     }
@@ -246,10 +348,8 @@
     stone.vz = Math.cos(aimYaw) * horizontal;
     stone.active = true;
     stone.bounces = 0;
-    stone.maxHeight = stone.y;
-    stone.maxDistance = stone.z;
     shots += 1;
-    updateStones();
+    updateHud();
     power = 0;
     shotTime = 0;
     restTime = 0;
@@ -267,16 +367,16 @@
     if (mode === 'flying') {
       stone.vy -= GRAVITY * dt;
       const drag = Math.pow(AIR_DRAG_PER_SECOND, dt);
-      stone.vx *= drag;
-      stone.vy *= drag;
-      stone.vz *= drag;
+      stone.vx *= drag; stone.vy *= drag; stone.vz *= drag;
       stone.x += stone.vx * dt;
       stone.y += stone.vy * dt;
       stone.z += stone.vz * dt;
-      stone.maxHeight = Math.max(stone.maxHeight, stone.y);
-      stone.maxDistance = Math.max(stone.maxDistance, horizontalDistance(stone.x, stone.z));
 
-      if (checkTargetHit(previous)) return;
+      const hit = checkTargetHit(previous);
+      if (hit) {
+        handleTargetHit(hit);
+        return;
+      }
 
       if (stone.y - STONE_RADIUS <= 0 && stone.vy < 0) {
         stone.y = STONE_RADIUS;
@@ -298,8 +398,13 @@
       stone.vz *= retention;
       stone.x += stone.vx * dt;
       stone.z += stone.vz * dt;
-      stone.maxDistance = Math.max(stone.maxDistance, horizontalDistance(stone.x, stone.z));
-      if (checkTargetHit(previous)) return;
+
+      const hit = checkTargetHit(previous);
+      if (hit) {
+        handleTargetHit(hit);
+        return;
+      }
+
       const speed = Math.hypot(stone.vx, stone.vz);
       if (speed < 0.28) {
         restTime += dt;
@@ -311,23 +416,53 @@
 
     updateFollowCamera(dt);
 
-    if (horizontalDistance(stone.x, stone.z) > 340 || stone.y < -10 || shotTime > MAX_SHOT_TIME) {
+    if (horizontalDistance(stone.x, stone.z) > 350 || stone.y < -10 || shotTime > MAX_SHOT_TIME) {
       finishShot();
     }
   }
 
   function checkTargetHit(previous) {
-    const t = levels[levelIndex].target;
-    const radius = t.radius + STONE_RADIUS;
-    if (segmentSphereDistanceSquared(previous, stone, t) <= radius * radius) {
-      stone.active = false;
-      mode = 'complete';
-      vibrate(t.kind === 'boss' ? [22, 30, 40] : 22);
-      tone(t.kind === 'boss' ? 92 : 440, 0.1, 0.075, t.kind === 'boss' ? 170 : 820);
-      setTimeout(showComplete, 430);
-      return true;
+    let best = null;
+    let bestDistance = Infinity;
+
+    for (const target of targets) {
+      if (target.hit) continue;
+
+      const hitRadius = target.radius * 1.08 + STONE_RADIUS;
+      const distanceSq = segmentSphereDistanceSquared(previous, stone, target);
+      if (distanceSq <= hitRadius * hitRadius && distanceSq < bestDistance) {
+        best = target;
+        bestDistance = distanceSq;
+      }
     }
-    return false;
+
+    if (!best) return null;
+    const centerDistance = Math.sqrt(bestDistance);
+    const quality = centerDistance <= best.radius * 0.28 ? 'BULLSEYE' : centerDistance <= best.radius * 0.7 ? 'SOLID HIT' : 'EDGE HIT';
+    return { target: best, quality };
+  }
+
+  function handleTargetHit(hit) {
+    hit.target.hit = true;
+    hitMessage = hit.quality;
+    hitMessageUntil = performance.now() + 900;
+    stone.active = false;
+    mode = 'targetHit';
+    vibrate(hit.target.kind === 'boss' ? [22, 30, 40] : 22);
+    tone(hit.target.kind === 'boss' ? 92 : 440, 0.1, 0.075, hit.target.kind === 'boss' ? 170 : 820);
+    updateHud();
+
+    if (targets.every(target => target.hit)) {
+      mode = 'complete';
+      setTimeout(showComplete, 520);
+      return;
+    }
+
+    setTimeout(() => {
+      mode = 'ready';
+      resetStone();
+      resetCameraToAim();
+    }, 520);
   }
 
   function segmentSphereDistanceSquared(a, b, c) {
@@ -397,7 +532,7 @@
   function starsForShots(value) {
     const par = levels[levelIndex].par;
     if (value <= par) return 3;
-    if (value <= par + 1) return 2;
+    if (value <= par + 2) return 2;
     return 1;
   }
 
@@ -409,8 +544,8 @@
     progress.unlocked = Math.max(progress.unlocked, Math.min(levels.length, levelIndex + 2));
     saveProgress();
     resultType = 'complete';
-    ui.resultEyebrow.textContent = level.boss ? 'GIANT RANGE CLEARED' : 'TARGET HIT';
-    ui.resultTitle.textContent = stars === 3 ? 'Bullseye.' : stars === 2 ? 'Great shot.' : 'Target down.';
+    ui.resultEyebrow.textContent = level.boss ? 'RANGE CLEARED' : 'ALL TARGETS HIT';
+    ui.resultTitle.textContent = stars === 3 ? 'Sharpshooter.' : stars === 2 ? 'Great shooting.' : 'Range cleared.';
     ui.resultStars.textContent = '★'.repeat(stars) + '☆'.repeat(3 - stars);
     ui.resultShots.textContent = String(shots);
     ui.resultBest.textContent = '★'.repeat(progress.bestStars[levelIndex]) + '☆'.repeat(3 - progress.bestStars[levelIndex]);
@@ -422,7 +557,7 @@
   function showFailed() {
     resultType = 'failed';
     ui.resultEyebrow.textContent = 'OUT OF STONES';
-    ui.resultTitle.textContent = 'Adjust your shot.';
+    ui.resultTitle.textContent = `${targets.filter(target => target.hit).length} of ${targets.length} targets hit`;
     ui.resultStars.textContent = '☆☆☆';
     ui.resultShots.textContent = String(shots);
     const best = Number(progress.bestStars[levelIndex] || 0);
@@ -450,12 +585,17 @@
     levels.forEach((level, index) => {
       const unlocked = index < progress.unlocked;
       const best = Number(progress.bestStars[index] || 0);
+      const distances = level.targets.map(target => target.z);
+      const label = distances.length > 1 ? `${level.targets.length} targets` : `${Math.round(distances[0])}m`;
       const button = document.createElement('button');
       button.className = `level-button${unlocked ? '' : ' locked'}${index === levelIndex ? ' current' : ''}`;
       button.type = 'button';
       button.disabled = !unlocked;
-      button.innerHTML = `<strong>${index + 1}</strong><span>${best ? '★'.repeat(best) : unlocked ? `${level.target.z}m` : 'LOCKED'}</span>`;
-      if (unlocked) button.addEventListener('click', () => { ui.levelDrawer.classList.remove('open'); loadLevel(index); });
+      button.innerHTML = `<strong>${index + 1}</strong><span>${best ? '★'.repeat(best) : unlocked ? label : 'LOCKED'}</span>`;
+      if (unlocked) button.addEventListener('click', () => {
+        ui.levelDrawer.classList.remove('open');
+        loadLevel(index);
+      });
       ui.levelGrid.append(button);
     });
   }
@@ -488,10 +628,11 @@
     drawScenery();
     drawRangeMarkers();
     drawLandingMarker();
-    drawTarget();
+    drawTargets();
     if (stone.active) drawStone();
-    if (!['flying', 'rolling'].includes(mode)) drawCrosshair();
+    if (!['flying', 'rolling', 'targetHit'].includes(mode)) drawCrosshair();
     drawShotStatus();
+    drawHitMessage();
     drawPowerControl();
   }
 
@@ -527,7 +668,6 @@
     ground.addColorStop(1, '#566044');
     ctx.fillStyle = ground;
     ctx.fillRect(0, horizon, W, H - horizon);
-
     drawWorldGrid();
   }
 
@@ -557,7 +697,11 @@
   }
 
   function drawScenery() {
-    const ordered = scenery.map(s => ({ ...s, p: projectWorld(s.x, 0, s.z) })).filter(s => s.p).sort((a, b) => b.p.depth - a.p.depth);
+    const ordered = scenery
+      .map(s => ({ ...s, p: projectWorld(s.x, 0, s.z) }))
+      .filter(s => s.p)
+      .sort((a, b) => b.p.depth - a.p.depth);
+
     for (const s of ordered) {
       const scale = clamp(170 / s.p.depth, 0.24, 2.2);
       ctx.save();
@@ -605,10 +749,8 @@
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(p.x, p.y, 8, 0, Math.PI * 2);
-    ctx.moveTo(p.x - 12, p.y);
-    ctx.lineTo(p.x + 12, p.y);
-    ctx.moveTo(p.x, p.y - 12);
-    ctx.lineTo(p.x, p.y + 12);
+    ctx.moveTo(p.x - 12, p.y); ctx.lineTo(p.x + 12, p.y);
+    ctx.moveTo(p.x, p.y - 12); ctx.lineTo(p.x, p.y + 12);
     ctx.stroke();
     ctx.fillStyle = 'rgba(19,39,31,.72)';
     roundRect(ctx, p.x - 34, p.y + 14, 68, 20, 10);
@@ -620,19 +762,27 @@
     ctx.restore();
   }
 
-  function drawTarget() {
-    const t = levels[levelIndex].target;
-    const p = projectWorld(t.x, t.y, t.z);
-    if (!p) {
-      if (!['flying', 'rolling'].includes(mode)) drawTargetDirectionArrow(t);
-      return;
+  function drawTargets() {
+    const activeTargets = targets
+      .filter(target => !target.hit)
+      .map(target => ({ target, p: projectWorld(target.x, target.y, target.z) }))
+      .sort((a, b) => (b.p?.depth || 0) - (a.p?.depth || 0));
+
+    for (const item of activeTargets) {
+      if (item.p) drawTarget(item.target, item.p);
     }
-    const radiusPx = clamp((t.radius / Math.max(1, p.depth)) * 330, 7, 72);
+
+    if (!['flying', 'rolling'].includes(mode)) drawTargetDirectionHint();
+  }
+
+  function drawTarget(target, p) {
+    const radiusPx = clamp((target.radius / Math.max(1, p.depth)) * 330, 7, 72);
     ctx.save();
     ctx.translate(p.x, p.y);
-    ctx.shadowColor = levels[levelIndex].boss ? 'rgba(103,31,21,.38)' : 'rgba(0,0,0,.28)';
+    ctx.shadowColor = target.kind === 'boss' ? 'rgba(103,31,21,.38)' : 'rgba(0,0,0,.28)';
     ctx.shadowBlur = 14;
-    if (t.kind === 'pot') {
+
+    if (target.kind === 'pot') {
       const s = radiusPx / 18;
       ctx.scale(s, s);
       ctx.fillStyle = '#9c5136';
@@ -646,37 +796,52 @@
       ctx.fillStyle = '#d08a63';
       ctx.fillRect(-12, -22, 24, 6);
     } else {
-      ctx.fillStyle = t.kind === 'boss' ? '#5b2c22' : '#eadbb5';
+      ctx.fillStyle = target.kind === 'boss' ? '#5b2c22' : '#eadbb5';
       ctx.beginPath();
       ctx.arc(0, 0, radiusPx, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = t.kind === 'boss' ? '#e3b76b' : '#9b5136';
-      ctx.lineWidth = Math.max(3, radiusPx * 0.22);
+
+      ctx.strokeStyle = target.kind === 'boss' ? '#e3b76b' : '#9b5136';
+      ctx.lineWidth = Math.max(3, radiusPx * 0.18);
       ctx.beginPath();
-      ctx.arc(0, 0, radiusPx * 0.62, 0, Math.PI * 2);
+      ctx.arc(0, 0, radiusPx * 0.66, 0, Math.PI * 2);
       ctx.stroke();
-      ctx.fillStyle = t.kind === 'boss' ? '#e3b76b' : '#9b5136';
+
+      ctx.strokeStyle = target.kind === 'boss' ? '#f3d28c' : '#c88762';
+      ctx.lineWidth = Math.max(2, radiusPx * 0.12);
       ctx.beginPath();
-      ctx.arc(0, 0, radiusPx * 0.19, 0, Math.PI * 2);
+      ctx.arc(0, 0, radiusPx * 0.36, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.fillStyle = target.kind === 'boss' ? '#e3b76b' : '#9b5136';
+      ctx.beginPath();
+      ctx.arc(0, 0, radiusPx * 0.14, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.restore();
 
     if (!['flying', 'rolling'].includes(mode)) {
       ctx.save();
-      ctx.fillStyle = 'rgba(19,39,31,.72)';
-      roundRect(ctx, p.x - 42, p.y + radiusPx + 9, 84, 22, 11);
+      ctx.fillStyle = 'rgba(19,39,31,.74)';
+      roundRect(ctx, p.x - 40, p.y + radiusPx + 8, 80, 21, 10);
       ctx.fill();
       ctx.fillStyle = '#f6e6bd';
-      ctx.font = '800 10px system-ui, sans-serif';
+      ctx.font = '800 9px system-ui, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(`${Math.round(t.z)} m`, p.x, p.y + radiusPx + 24);
+      ctx.fillText(`${Math.round(target.z)} m`, p.x, p.y + radiusPx + 22);
       ctx.restore();
     }
   }
 
-  function drawTargetDirectionArrow(t) {
-    const targetYaw = Math.atan2(t.x, t.z);
+  function drawTargetDirectionHint() {
+    const unhit = targets.filter(target => !target.hit);
+    if (!unhit.length) return;
+
+    const visible = unhit.some(target => projectWorld(target.x, target.y, target.z));
+    if (visible) return;
+
+    const target = unhit[0];
+    const targetYaw = Math.atan2(target.x, target.z);
     const rel = normalizeAngle(targetYaw - aimYaw);
     const right = rel > 0;
     ctx.save();
@@ -732,18 +897,7 @@
       ctx.arc(W / 2 - r * 0.28, H * 0.46 - r * 0.3, r * 0.28, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
-      return;
     }
-
-    const p = projectWorld(stone.x, stone.y, stone.z);
-    if (!p) return;
-    const r = clamp(15 / Math.max(0.65, p.depth * 0.05), 4, 17);
-    ctx.save();
-    ctx.fillStyle = '#d8d0bf';
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
   }
 
   function drawShotStatus() {
@@ -762,8 +916,21 @@
     ctx.restore();
   }
 
+  function drawHitMessage() {
+    if (!hitMessage || performance.now() > hitMessageUntil) return;
+    ctx.save();
+    ctx.fillStyle = 'rgba(19,39,31,.88)';
+    roundRect(ctx, W / 2 - 76, 78, 152, 40, 20);
+    ctx.fill();
+    ctx.fillStyle = '#f2d18e';
+    ctx.font = '900 14px system-ui, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(hitMessage, W / 2, 103);
+    ctx.restore();
+  }
+
   function drawPowerControl() {
-    if (['flying', 'rolling', 'complete', 'failed', 'verse'].includes(mode)) return;
+    if (['flying', 'rolling', 'complete', 'failed', 'verse', 'targetHit'].includes(mode)) return;
     const c = powerControlCenter();
     const pulledY = c.y + power * MAX_POWER_PULL;
     ctx.save();
