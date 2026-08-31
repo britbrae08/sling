@@ -12,8 +12,21 @@
     strokeRect: proto.strokeRect
   };
 
+  const canvas = document.getElementById('gameCanvas');
   const anchor = { x: 72, y: 548 };
   const pathState = new WeakMap();
+  let released = false;
+
+  canvas?.addEventListener('pointerdown', () => {
+    released = false;
+  }, { capture: true });
+
+  const markReleased = () => {
+    released = true;
+  };
+
+  canvas?.addEventListener('pointerup', markReleased, { capture: true });
+  canvas?.addEventListener('pointercancel', markReleased, { capture: true });
 
   function stateFor(ctx) {
     let state = pathState.get(ctx);
@@ -50,14 +63,11 @@
     const state = stateFor(this);
     const isSlingBand = stroke === '#4b2b1e' || stroke === '#3c2218' || stroke === 'rgb(75,43,30)' || stroke === 'rgb(60,34,24)';
 
-    if (isSlingBand && state.move && state.line) {
-      const distanceFromAnchor = Math.hypot(state.line.x - anchor.x, state.line.y - anchor.y);
-      if (distanceFromAnchor > 118) {
-        original.beginPath.call(this);
-        original.moveTo.call(this, state.move.x, state.move.y);
-        original.lineTo.call(this, anchor.x, anchor.y);
-        return original.stroke.apply(this, args);
-      }
+    if (released && isSlingBand && state.move && state.line) {
+      original.beginPath.call(this);
+      original.moveTo.call(this, state.move.x, state.move.y);
+      original.lineTo.call(this, anchor.x, anchor.y);
+      return original.stroke.apply(this, args);
     }
 
     return original.stroke.apply(this, args);
