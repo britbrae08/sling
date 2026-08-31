@@ -6,6 +6,7 @@
     beginPath: proto.beginPath,
     moveTo: proto.moveTo,
     lineTo: proto.lineTo,
+    arc: proto.arc,
     stroke: proto.stroke,
     fill: proto.fill,
     fillRect: proto.fillRect,
@@ -14,19 +15,85 @@
 
   const canvas = document.getElementById('gameCanvas');
   const anchor = { x: 72, y: 548 };
+  const canvasSize = { w: 390, h: 690 };
+  const groundY = 642;
+  const safeStoneY = 631;
+  const visualMaxPull = 128;
   const pathState = new WeakMap();
   let released = false;
+  let draggingVisual = false;
+  let visualPoint = { x: anchor.x, y: anchor.y };
 
-  canvas?.addEventListener('pointerdown', () => {
+  const nativeCanvasAdd = canvas?.addEventListener.bind(canvas);
+
+  function canvasPoint(event) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: (event.clientX - rect.left) * (canvasSize.w / rect.width),
+      y: (event.clientY - rect.top) * (canvasSize.h / rect.height)
+    };
+  }
+
+  function clampVisualPoint(point) {
+    let dx = point.x - anchor.x;
+    let dy = point.y - anchor.y;
+    const distance = Math.hypot(dx, dy);
+    if (distance > visualMaxPull) {
+      dx = dx / distance * visualMaxPull;
+      dy = dy / distance * visualMaxPull;
+    }
+    dx = Math.min(dx, 28);
+    return { x: anchor.x + dx, y: anchor.y + dy };
+  }
+
+  nativeCanvasAdd?.('pointerdown', event => {
     released = false;
+    draggingVisual = true;
+    visualPoint = clampVisualPoint(canvasPoint(event));
+  }, { capture: true });
+
+  nativeCanvasAdd?.('pointermove', event => {
+    if (!draggingVisual) return;
+    visualPoint = clampVisualPoint(canvasPoint(event));
   }, { capture: true });
 
   const markReleased = () => {
     released = true;
+    draggingVisual = false;
   };
 
-  canvas?.addEventListener('pointerup', markReleased, { capture: true });
-  canvas?.addEventListener('pointercancel', markReleased, { capture: true });
+  nativeCanvasAdd?.('pointerup', markReleased, { capture: true });
+  nativeCanvasAdd?.('pointercancel', markReleased, { capture: true });
+
+  // The original prototype treats a stone that begins below the collision line
+  // as if it has already hit the ground. Let the player's finger continue below
+  // the ground visually, while the physics stone stays just above the collision
+  // line so an upward release can actually take off.
+  if (canvas && nativeCanvasAdd) {
+    canvas.addEventListener = function (type, listener, options) {
+      if (type !== 'pointermove') {
+        return nativeCanvasAdd(type, listener, options);
+      }
+
+      return nativeCanvasAdd(type, event => {
+        const point = canvasPoint(event);
+        if (point.y <= safeStoneY) {
+          return listener.call(canvas, event);
+        }
+
+        const rect = canvas.getBoundingClientRect();
+        const safeClientY = rect.top + (safeStoneY / canvasSize.h) * rect.height;
+        const proxy = new Proxy(event, {
+          get(target, property) {
+            if (property === 'clientY') return safeClientY;
+            const value = Reflect.get(target, property, target);
+            return typeof value === 'function' ? value.bind(target) : value;
+          }
+        });
+        return listener.call(canvas, proxy);
+      }, options);
+    };
+  }
 
   function stateFor(ctx) {
     let state = pathState.get(ctx);
@@ -54,8 +121,26 @@
   };
 
   proto.lineTo = function (x, y) {
-    stateFor(this).line = { x, y };
+    const state = stateFor(this);
+    state.line = { x, y };
+
+    const stroke = color(this.strokeStyle);
+    const isSlingBand = stroke === '#4b2b1e' || stroke === '#3c2218' || stroke === 'rgb(75,43,30)' || stroke === 'rgb(60,34,24)';
+    if (!released && draggingVisual && isSlingBand && visualPoint.y > groundY - 12) {
+      state.line = { ...visualPoint };
+      return original.lineTo.call(this, visualPoint.x, visualPoint.y);
+    }
+
     return original.lineTo.call(this, x, y);
+  };
+
+  proto.arc = function (x, y, radius, startAngle, endAngle, counterclockwise) {
+    const fill = color(this.fillStyle);
+    const isStone = radius === 10 && (fill === '#d8d0bf' || fill === 'rgb(216,208,191)');
+    if (!released && draggingVisual && isStone && visualPoint.y > groundY - 12) {
+      return original.arc.call(this, visualPoint.x, visualPoint.y, radius, startAngle, endAngle, counterclockwise);
+    }
+    return original.arc.call(this, x, y, radius, startAngle, endAngle, counterclockwise);
   };
 
   proto.stroke = function (...args) {
