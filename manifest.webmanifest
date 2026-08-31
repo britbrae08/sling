@@ -1,7 +1,7 @@
 {
-  "name": "SLING — Small Stone. Big Challenge.",
+  "name": "SLING — Aim. Power. Release.",
   "short_name": "SLING",
-  "description": "A fast, tactile Bible-era physics puzzle game.",
+  "description": "A first-person Bible-era skill shooting game where aim, power, distance, and physics determine every shot.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0d1d17",
