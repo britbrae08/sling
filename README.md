@@ -58,10 +58,14 @@ SLING should remain a **game first**. The Bible is the setting and inspiration r
 
 The initial product is intended for short sessions—roughly 30 seconds to a few minutes at a time—with enough mastery and three-star replayability to appeal to teens and adults.
 
+## Brand relationship
+
+SLING is presented by **FaithCraft**. The public-facing brand can simply use the name **FaithCraft**, while the associated studio/agency website remains **faithcraft.agency**. The word “Agency” does not need to appear in the game branding itself.
+
 ## Current architecture
 
 The prototype deliberately uses plain HTML, CSS, Canvas, and JavaScript. This keeps iteration fast and makes it easy to test by URL before committing to a production framework. Once the mechanic is validated, the project can move to a game-focused stack that supports shared web/iOS/Android code.
 
 ---
 
-Prototype by **BibleCraft**.
+Prototype by **FaithCraft**.
