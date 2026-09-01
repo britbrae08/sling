@@ -2,7 +2,7 @@
   'use strict';
 
   async function boot() {
-    const response = await fetch('./game-v3.js?build=random-wheel-v5', { cache: 'no-store' });
+    const response = await fetch('./game-v3.js?build=audio-menu-v7', { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load FaithWords (${response.status})`);
     let source = await response.text();
 
@@ -62,8 +62,22 @@
       `  function shuffleLetters() {\n    const previousOrder = wheelOrder.join('');\n    wheelOrder = randomizeWheelOrder(wheelOrder, previousOrder);\n    selected = [];\n    ui.wheel.classList.remove('shuffle-spin');\n    void ui.wheel.offsetWidth;\n    ui.wheel.classList.add('shuffle-spin');\n    renderWheel();\n    setIdleReadout();\n    tone(300, .04, .02, 420);\n  }`
     );
 
+    // The top-right menu owns audio preferences. Core gameplay effects already
+    // cover letter selection, correct words, wrong words, shuffle, hints,
+    // bonus words and level completion; this gate makes that entire layer
+    // independently muteable from the background music.
+    source = source.replace(
+      "  function tone(startFreq, duration=.06, volume=.03, endFreq=null) {\n    if (!soundEnabled) return;",
+      "  function tone(startFreq, duration=.06, volume=.03, endFreq=null) {\n    if (window.FaithWordsPrefs && window.FaithWordsPrefs.sfxEnabled === false) return;\n    if (!soundEnabled) return;"
+    );
+
+    source = source.replace(
+      "      osc.type = 'sine';",
+      "      osc.type = startFreq >= 500 ? 'triangle' : 'sine';"
+    );
+
     const script = document.createElement('script');
-    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v5.js`;
+    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v7.js`;
     document.head.appendChild(script);
   }
 
