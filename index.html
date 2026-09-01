@@ -21,7 +21,8 @@
   <link rel="stylesheet" href="interface-v13.css" />
   <link rel="stylesheet" href="fullscreen-v15.css" />
   <link rel="stylesheet" href="board-background-v17.css" />
-  <link rel="stylesheet" href="hud-layout-v18.css?v=22" />
+  <link rel="stylesheet" href="hud-layout-v18.css?v=23" />
+  <link rel="stylesheet" href="hud-row-v23.css?v=23" />
 </head>
 <body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
@@ -79,17 +80,17 @@
         <div class="hill hill-front"></div>
         <div id="sceneSparkles" class="scene-sparkles" aria-hidden="true"></div>
         <div class="scene-copy">
-          <span id="levelLabel" class="level-label">LEVEL 1</span>
           <span id="hardBadge" class="hard-badge" hidden>HARD!</span>
           <h2 id="themeLabel" hidden aria-hidden="true"></h2>
-          <p id="themePrompt">3 LETTERS • FIND EVERY WORD</p>
+          <p id="themePrompt" hidden aria-hidden="true"></p>
         </div>
         <div class="puzzle-toolbar">
-          <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
+          <span id="levelLabel" class="level-label">LEVEL 1</span>
           <span id="wordProgress">0 / 2 words</span>
           <button id="hintButton" class="soft-button hint-button" type="button" aria-label="Use hint">
             💡 HINT <span id="hintCostLabel">5</span>
           </button>
+          <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
         </div>
       </div>
 
@@ -163,7 +164,7 @@
   <script src="board-pan-v13.js?v=21"></script>
   <script src="account-sync-v13.js"></script>
   <script src="next-level-v15.js?v=21"></script>
-  <script src="hud-layout-v18.js?v=21"></script>
+  <script src="hud-layout-v18.js?v=23"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
