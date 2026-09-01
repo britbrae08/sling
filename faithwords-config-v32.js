@@ -1,6 +1,16 @@
 (() => {
   'use strict';
 
+  // Establish Daily/Mini/Challenge mode before the asynchronous game runtime
+  // boots. This prevents a reload during a special HARD puzzle from briefly
+  // being treated as normal journey progression or earning a normal hard bonus.
+  try {
+    const activeSession = JSON.parse(sessionStorage.getItem('faithWordsSpecialSessionV32') || 'null');
+    window.FaithWordsSessionMode = activeSession?.type || 'normal';
+  } catch {
+    window.FaithWordsSessionMode = 'normal';
+  }
+
   const journeys = [
     {
       id: 'jesus-grace',
