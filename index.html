@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="interface-v13.css" />
   <link rel="stylesheet" href="fullscreen-v15.css" />
   <link rel="stylesheet" href="board-background-v17.css" />
+  <link rel="stylesheet" href="hud-layout-v18.css?v=21" />
 </head>
 <body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
@@ -62,6 +63,7 @@
           </div>
           <button id="googleAuthButton" class="google-auth-button" type="button">Sign in</button>
         </div>
+        <p class="dictionary-credit menu-credit">Dictionary validation by <a href="https://freedictionaryapi.com/" target="_blank" rel="noreferrer">FreeDictionaryAPI.com</a> using Wiktionary data.</p>
       </aside>
     </header>
 
@@ -77,11 +79,8 @@
           <span id="levelLabel" class="level-label">LEVEL 1</span>
           <span id="hardBadge" class="hard-badge" hidden>HARD!</span>
           <h2 id="themeLabel" hidden aria-hidden="true"></h2>
-          <p id="themePrompt">3 letters • find every word</p>
+          <p id="themePrompt">3 LETTERS • FIND EVERY WORD</p>
         </div>
-      </div>
-
-      <section class="puzzle-panel">
         <div class="puzzle-toolbar">
           <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
           <span id="wordProgress">0 / 2 words</span>
@@ -89,7 +88,9 @@
             💡 HINT <span id="hintCostLabel">5</span>
           </button>
         </div>
+      </div>
 
+      <section class="puzzle-panel">
         <div id="crosswordViewport" class="crossword-viewport">
           <div id="crossword" class="crossword" aria-label="Crossword puzzle"></div>
         </div>
@@ -109,8 +110,6 @@
         </div>
       </section>
     </section>
-
-    <p class="dictionary-credit">Dictionary validation by <a href="https://freedictionaryapi.com/" target="_blank" rel="noreferrer">FreeDictionaryAPI.com</a> using Wiktionary data.</p>
 
     <section id="startOverlay" class="overlay visible">
       <div class="modal-card intro-card">
@@ -135,7 +134,7 @@
         </div>
         <div class="reward-line">Hint points: <strong id="rewardAmount">0</strong></div>
         <button id="nextButton" class="primary-button" type="button">NEXT</button>
-        <button id="replayButton" class="secondary-button" type="button">REPLAY PUZZLE</button>
+        <button id="replayButton" type="button" hidden aria-hidden="true" tabindex="-1"></button>
       </div>
       <div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
     </section>
@@ -158,9 +157,10 @@
   <script src="hint-reward-v8.js"></script>
   <script src="word-feedback-v10.js"></script>
   <script src="mix-animation-v11.js"></script>
-  <script src="board-pan-v13.js"></script>
+  <script src="board-pan-v13.js?v=21"></script>
   <script src="account-sync-v13.js"></script>
-  <script src="next-level-v15.js"></script>
+  <script src="next-level-v15.js?v=21"></script>
+  <script src="hud-layout-v18.js?v=21"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
