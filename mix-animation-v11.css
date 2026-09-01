@@ -1,0 +1,29 @@
+/* FaithWords v11 — visible letter-to-letter shuffle motion */
+.letter-wheel.shuffle-spin {
+  animation: none !important;
+}
+
+.letter-wheel.mix-in-motion .letter-btn {
+  will-change: transform, opacity;
+  box-shadow: 0 10px 24px rgba(81,57,77,.18), 0 0 0 4px rgba(255,255,255,.5);
+}
+
+.shuffle-side.mix-active {
+  animation: mixButtonKick .62s cubic-bezier(.2,.82,.28,1.2);
+}
+
+.shuffle-side:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+@keyframes mixButtonKick {
+  0% { transform: translateY(-50%) rotate(0deg) scale(1); }
+  38% { transform: translateY(-50%) rotate(-155deg) scale(1.12); }
+  72% { transform: translateY(-50%) rotate(-315deg) scale(.96); }
+  100% { transform: translateY(-50%) rotate(-360deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shuffle-side.mix-active { animation-duration: .18s; }
+}
