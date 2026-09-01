@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v7-audio-menu';
+const CACHE_NAME = 'faithwords-v8-hint-reward';
 const APP_SHELL = [
   './',
   './index.html',
@@ -7,9 +7,11 @@ const APP_SHELL = [
   './progression-v3.css',
   './layout-v6.css',
   './audio-menu-v7.css',
+  './hint-reward-v8.css',
   './audio-v7.js',
   './game-runtime-v3.js',
   './game-v3.js',
+  './hint-reward-v8.js',
   './manifest.webmanifest',
   './icon.svg'
 ];
