@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v11-letter-mix';
+const CACHE_NAME = 'faithwords-v12-50-levels-accessible';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,7 +10,10 @@ const APP_SHELL = [
   './hint-reward-v8.css',
   './hard-level-v9.css',
   './mix-animation-v11.css',
-  './audio-v7.js',
+  './worlds-v12.css',
+  './accessibility-v12.css',
+  './audio-settings-v12.js',
+  './levels-v12.js',
   './game-runtime-v3.js',
   './game-v3.js',
   './hint-reward-v8.js',
