@@ -15,8 +15,10 @@
   <link rel="stylesheet" href="hint-reward-v8.css" />
   <link rel="stylesheet" href="hard-level-v9.css" />
   <link rel="stylesheet" href="mix-animation-v11.css" />
+  <link rel="stylesheet" href="worlds-v12.css" />
+  <link rel="stylesheet" href="accessibility-v12.css" />
 </head>
-<body>
+<body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
     <header class="topbar">
       <div>
@@ -37,33 +39,17 @@
       <aside id="audioMenu" class="audio-menu" aria-label="FaithWords menu">
         <div class="audio-menu-head">
           <strong>Menu</strong>
-          <span>Audio</span>
+          <span>Settings</span>
         </div>
-
-        <div class="audio-row">
-          <div class="audio-row-copy">
-            <strong>Music</strong>
-            <span>Gentle hymns and classical melodies</span>
-          </div>
-          <label class="audio-switch" aria-label="Background music">
-            <input id="musicToggle" type="checkbox" checked />
-            <span class="audio-switch-track" aria-hidden="true"></span>
-          </label>
-        </div>
-
         <div class="audio-row">
           <div class="audio-row-copy">
             <strong>Game sounds</strong>
-            <span>Letters, words, hints, bonus words and completion</span>
+            <span>Letters, words, hints, shuffling and completion</span>
           </div>
           <label class="audio-switch" aria-label="Game sounds">
             <input id="sfxToggle" type="checkbox" checked />
             <span class="audio-switch-track" aria-hidden="true"></span>
           </label>
-        </div>
-
-        <div id="nowPlaying" class="now-playing" aria-live="polite">
-          Public-domain hymn and classical melodies are gently synthesized inside the game.
         </div>
       </aside>
     </header>
@@ -80,7 +66,7 @@
           <span id="levelLabel" class="level-label">LEVEL 1</span>
           <span id="hardBadge" class="hard-badge" hidden>HARD!</span>
           <h2 id="themeLabel">God</h2>
-          <p id="themePrompt">3 letters • only 3-letter words</p>
+          <p id="themePrompt">3 letters • find every word</p>
         </div>
       </div>
 
@@ -117,7 +103,7 @@
       <div class="modal-card intro-card">
         <span class="eyebrow">A QUIET WORD GAME</span>
         <h2>Find words.<br />Uncover Scripture.</h2>
-        <p>FaithWords starts with three letters and builds gradually, like a classic mobile word game. Swipe to make the board words. Any other real dictionary word of three letters or more earns a hint point.</p>
+        <p>FaithWords starts with three letters and builds gradually. Swipe to make the board words. Any other real dictionary word of three letters or more earns a hint point.</p>
         <button id="startButton" class="primary-button" type="button">PLAY FAITHWORDS</button>
         <span class="microcopy">No 2-letter words • No timer • Extra words earn hints</span>
       </div>
@@ -152,7 +138,8 @@
     <button id="soundButton" type="button" hidden aria-hidden="true">♪</button>
   </main>
 
-  <script src="audio-v7.js"></script>
+  <script src="audio-settings-v12.js"></script>
+  <script src="levels-v12.js"></script>
   <script src="game-runtime-v3.js"></script>
   <script src="hint-reward-v8.js"></script>
   <script src="word-feedback-v10.js"></script>
