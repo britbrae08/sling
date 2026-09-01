@@ -11,7 +11,7 @@
   }
 
   async function boot() {
-    const response = await fetch('./game.js?controls=one-pull-v1', { cache: 'no-store' });
+    const response = await fetch('./game.js?controls=one-pull-v2', { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load SLING engine (${response.status})`);
     let source = await response.text();
 
@@ -78,7 +78,7 @@
     source = replaceRequired(
       source,
       /  function drawPowerControl\(\) \{[\s\S]*?\n  \}\n\n  function loop/,
-      `  function drawPowerControl() {\n    if (['flying', 'rolling', 'complete', 'failed', 'verse', 'targetHit'].includes(mode)) return;\n    const c = powerControlCenter();\n    const stoneX = c.x + pullDx;\n    const stoneY = c.y + pullDy;\n\n    ctx.save();\n    ctx.fillStyle = 'rgba(19,39,31,.76)';\n    ctx.beginPath();\n    ctx.arc(c.x, c.y, 46, 0, Math.PI * 2);\n    ctx.fill();\n\n    if (pointerMode === 'pull') {\n      ctx.strokeStyle = '#f2d18e';\n      ctx.lineWidth = 4;\n      ctx.lineCap = 'round';\n      ctx.beginPath();\n      ctx.moveTo(c.x - 22, c.y - 5);\n      ctx.lineTo(stoneX, stoneY);\n      ctx.moveTo(c.x + 22, c.y - 5);\n      ctx.lineTo(stoneX, stoneY);\n      ctx.stroke();\n    }\n\n    ctx.fillStyle = '#d8d0bf';\n    ctx.shadowColor = 'rgba(0,0,0,.34)';\n    ctx.shadowBlur = 7;\n    ctx.beginPath();\n    ctx.arc(pointerMode === 'pull' ? stoneX : c.x, pointerMode === 'pull' ? stoneY : c.y, 11, 0, Math.PI * 2);\n    ctx.fill();\n    ctx.shadowBlur = 0;\n\n    ctx.fillStyle = '#f7e8bf';\n    ctx.font = '900 10px system-ui, sans-serif';\n    ctx.textAlign = 'center';\n    ctx.fillText(pointerMode === 'pull' ? \`${Math.round(power * 100)}% POWER • RELEASE\` : 'TOUCH + PULL TO AIM', c.x, c.y - 58);\n    ctx.restore();\n  }\n\n  function loop`,
+      `  function drawPowerControl() {\n    if (['flying', 'rolling', 'complete', 'failed', 'verse', 'targetHit'].includes(mode)) return;\n    const c = powerControlCenter();\n    const stoneX = c.x + pullDx;\n    const stoneY = c.y + pullDy;\n\n    ctx.save();\n    ctx.fillStyle = 'rgba(19,39,31,.76)';\n    ctx.beginPath();\n    ctx.arc(c.x, c.y, 46, 0, Math.PI * 2);\n    ctx.fill();\n\n    if (pointerMode === 'pull') {\n      ctx.strokeStyle = '#f2d18e';\n      ctx.lineWidth = 4;\n      ctx.lineCap = 'round';\n      ctx.beginPath();\n      ctx.moveTo(c.x - 22, c.y - 5);\n      ctx.lineTo(stoneX, stoneY);\n      ctx.moveTo(c.x + 22, c.y - 5);\n      ctx.lineTo(stoneX, stoneY);\n      ctx.stroke();\n    }\n\n    ctx.fillStyle = '#d8d0bf';\n    ctx.shadowColor = 'rgba(0,0,0,.34)';\n    ctx.shadowBlur = 7;\n    ctx.beginPath();\n    ctx.arc(pointerMode === 'pull' ? stoneX : c.x, pointerMode === 'pull' ? stoneY : c.y, 11, 0, Math.PI * 2);\n    ctx.fill();\n    ctx.shadowBlur = 0;\n\n    ctx.fillStyle = '#f7e8bf';\n    ctx.font = '900 10px system-ui, sans-serif';\n    ctx.textAlign = 'center';\n    ctx.fillText(pointerMode === 'pull' ? (Math.round(power * 100) + '% POWER • RELEASE') : 'TOUCH + PULL TO AIM', c.x, c.y - 58);\n    ctx.restore();\n  }\n\n  function loop`,
       'unified pull control'
     );
 
