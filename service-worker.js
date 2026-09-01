@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v32-premium-experience';
+const CACHE_NAME = 'faithwords-v33-level-picker-hint-stack';
 const APP_SHELL = [
   './',
   './index.html',
@@ -21,6 +21,7 @@ const APP_SHELL = [
   './scramble-v31.css?v=31',
   './experience-v32.css?v=32',
   './experience-utils-v32.css?v=32',
+  './hud-v33.css?v=33',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -38,6 +39,7 @@ const APP_SHELL = [
   './hud-layout-v18.js?v=23',
   './hard-menu-v26.js?v=26',
   './experience-v32.js?v=32',
+  './hud-v33.js?v=33',
   './manifest.webmanifest',
   './icon.svg'
 ];
