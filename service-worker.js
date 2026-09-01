@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v20-double-tap-center';
+const CACHE_NAME = 'faithwords-v21-index-wiring-fix';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,7 +15,7 @@ const APP_SHELL = [
   './interface-v13.css',
   './fullscreen-v15.css',
   './board-background-v17.css',
-  './hud-layout-v18.css',
+  './hud-layout-v18.css?v=21',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -24,10 +24,10 @@ const APP_SHELL = [
   './hint-reward-v8.js',
   './word-feedback-v10.js',
   './mix-animation-v11.js',
-  './board-pan-v13.js',
+  './board-pan-v13.js?v=21',
   './account-sync-v13.js',
-  './next-level-v15.js',
-  './hud-layout-v18.js',
+  './next-level-v15.js?v=21',
+  './hud-layout-v18.js?v=21',
   './manifest.webmanifest',
   './icon.svg'
 ];
