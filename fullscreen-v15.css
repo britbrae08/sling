@@ -1,0 +1,54 @@
+/* FaithWords v15 — the entire screen is the gameplay surface */
+html,body{width:100%;min-height:100%;}
+body{min-height:100dvh!important;padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom))!important;overflow-x:hidden;}
+.app-shell{width:min(100%,520px)!important;min-height:calc(100dvh - max(16px,env(safe-area-inset-top)))!important;margin:0 auto!important;display:flex;flex-direction:column;}
+
+/* Remove the card/window appearance completely. */
+.game-card{flex:1 1 auto!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important;display:flex;flex-direction:column;min-height:0;}
+.scene{height:82px!important;min-height:82px!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;flex:0 0 auto;}
+.scene-copy{left:0!important;right:0!important;top:5px!important;max-width:none!important;text-align:center!important;padding:0 76px;}
+.scene-copy .level-label{font-size:1rem!important;color:#fff!important;text-shadow:0 2px 5px rgba(25,30,30,.55)!important;}
+.scene-copy p{margin-top:7px!important;color:#fff!important;font-size:.94rem!important;text-shadow:0 2px 5px rgba(25,30,30,.6)!important;}
+
+.puzzle-panel{flex:1 1 auto!important;min-height:0!important;padding:4px 7px 8px!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:flex;flex-direction:column;}
+.puzzle-toolbar{flex:0 0 auto;position:relative;z-index:6;padding:0 2px;text-shadow:0 1px 3px rgba(255,255,255,.65);}
+.puzzle-toolbar>span{padding:5px 9px;border-radius:12px;background:rgba(255,255,255,.48);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);color:#4d4743!important;}
+.soft-button{background:rgba(255,255,255,.72)!important;box-shadow:0 4px 14px rgba(25,35,35,.13)!important;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+
+/* The crossword has no visual container — only the tiles float over the scenery. */
+.crossword-viewport{flex:1 1 auto!important;height:auto!important;min-height:180px!important;max-height:36dvh!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:hidden!important;z-index:1!important;}
+.crossword-viewport .crossword{filter:drop-shadow(0 5px 8px rgba(25,35,35,.18));}
+.cross-cell{background:rgba(245,240,229,.84)!important;border:1px solid rgba(255,255,255,.48)!important;box-shadow:0 3px 9px rgba(25,35,35,.15),inset 0 -2px 0 rgba(72,62,52,.08)!important;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+.cross-cell.revealed{background:rgba(255,255,255,.94)!important;}
+
+.word-readout-wrap{flex:0 0 auto;min-height:34px!important;position:relative;z-index:5;}
+.word-readout:not(.idle),.message:not(:empty){padding:4px 10px;border-radius:12px;background:rgba(255,255,255,.62);box-shadow:0 3px 10px rgba(30,35,35,.10);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+
+.wheel-zone{flex:0 0 auto;position:relative;z-index:5;margin-top:0!important;padding-bottom:2px;}
+.letter-wheel{background:rgba(241,239,230,.70)!important;border:1px solid rgba(255,255,255,.56)!important;box-shadow:inset 0 0 0 9px rgba(255,255,255,.18),0 12px 30px rgba(20,30,30,.24)!important;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);}
+.letter-btn{background:rgba(255,255,255,.91)!important;box-shadow:0 7px 16px rgba(25,35,35,.18),inset 0 -3px 0 rgba(80,70,60,.08)!important;}
+.letter-btn.active{background:var(--plum)!important;color:#fff!important;}
+.shuffle-side{background:rgba(255,255,255,.78)!important;box-shadow:0 5px 16px rgba(25,35,35,.20)!important;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+
+/* Top controls float directly on the background too. */
+.topbar{flex:0 0 auto;background:transparent!important;border:0!important;box-shadow:none!important;color:#fff;text-shadow:0 2px 5px rgba(25,30,30,.5);}
+.topbar h1{color:#fff!important;text-shadow:0 2px 6px rgba(25,30,30,.55)!important;}
+.topbar .brand-kicker{color:#fff!important;text-shadow:0 2px 5px rgba(25,30,30,.55)!important;}
+.bonus-pill,.menu-button{background:rgba(255,255,255,.76)!important;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);box-shadow:0 5px 16px rgba(25,35,35,.18)!important;}
+
+.dictionary-credit{position:relative;z-index:2;margin:5px 0 0!important;padding:4px 7px;border-radius:9px;background:rgba(255,255,255,.50);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+
+/* The first otherwise-locked level is an explicit red next-level action. */
+.level-button.next-level{opacity:1!important;background:#fff0f0!important;border:2px solid #cf3737!important;color:#b52020!important;box-shadow:0 5px 15px rgba(166,37,37,.16)!important;animation:nextLevelPulse 1.8s ease-in-out infinite;}
+.level-button.next-level strong,.level-button.next-level span{color:#b52020!important;}
+.level-button.next-level span{font-weight:950!important;letter-spacing:.035em;text-transform:uppercase;}
+@keyframes nextLevelPulse{0%,100%{transform:scale(1);box-shadow:0 5px 15px rgba(166,37,37,.14)}50%{transform:scale(1.035);box-shadow:0 7px 20px rgba(166,37,37,.25)}}
+
+@media(max-height:760px){
+  .scene{height:68px!important;min-height:68px!important}.scene-copy{top:2px!important}.scene-copy p{font-size:.84rem!important;margin-top:4px!important}
+  .crossword-viewport{min-height:150px!important;max-height:30dvh!important}.dictionary-credit{display:none!important}
+}
+@media(max-height:680px){
+  .scene{height:56px!important;min-height:56px!important}.scene-copy p{display:none!important}.crossword-viewport{min-height:130px!important;max-height:27dvh!important}
+}
+@media(prefers-reduced-motion:reduce){.level-button.next-level{animation:none!important}}
