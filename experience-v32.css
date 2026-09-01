@@ -1,0 +1,251 @@
+/* FaithWords v32 — premium experience layer (illustrated worlds intentionally deferred) */
+
+/* Menu becomes a compact command center instead of a settings-only popover. */
+#audioMenu{
+  max-height:min(82dvh,690px)!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+.experience-menu-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:0 0 10px;
+}
+.experience-menu-action{
+  min-height:48px;
+  padding:8px 10px;
+  border:1px solid rgba(68,58,53,.12);
+  border-radius:14px;
+  background:#fffaf2;
+  color:#4d433d;
+  box-shadow:0 3px 9px rgba(60,50,45,.06);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+  gap:2px;
+  text-align:left;
+  font:inherit;
+  text-shadow:none!important;
+  cursor:pointer;
+}
+.experience-menu-action strong{font-size:.82rem!important;line-height:1.1;color:#4c423c!important;}
+.experience-menu-action span{font-size:.65rem!important;line-height:1.25;color:#8a7b72!important;}
+.experience-menu-action.wide{grid-column:1/-1;min-height:44px;flex-direction:row;align-items:center;justify-content:space-between;}
+.experience-menu-action.wide span{font-size:.72rem!important;}
+.experience-menu-action:active{transform:scale(.985);}
+.experience-menu-action:focus-visible{outline:3px solid rgba(110,79,104,.25);outline-offset:2px;}
+.daily-menu-stat{
+  margin:0 0 10px;
+  padding:7px 10px;
+  border-radius:11px;
+  background:#f4eee4;
+  color:#75685f!important;
+  font-size:.69rem!important;
+  line-height:1.3;
+  text-shadow:none!important;
+}
+
+/* Hint chooser keeps the familiar 5-point letter hint while adding two optional choices. */
+.hint-chooser{
+  position:fixed;
+  z-index:2147482900;
+  left:50%;
+  bottom:max(84px,calc(env(safe-area-inset-bottom) + 78px));
+  width:min(340px,calc(100vw - 24px));
+  transform:translateX(-50%) translateY(8px) scale(.98);
+  padding:10px;
+  border:1px solid rgba(68,58,53,.12);
+  border-radius:20px;
+  background:#fffdf9;
+  box-shadow:0 18px 46px rgba(39,32,28,.24);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .14s ease,transform .14s ease,visibility .14s ease;
+}
+.hint-chooser.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0) scale(1);}
+.hint-chooser-head{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 8px;}
+.hint-chooser-head strong{font-family:Georgia,"Times New Roman",serif;font-size:1rem;color:#4c423c;}
+.hint-chooser-head span{font-size:.68rem;color:#8a7b72;font-weight:800;}
+.hint-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.hint-option{
+  min-height:76px;
+  padding:8px 6px;
+  border:1px solid rgba(68,58,53,.11);
+  border-radius:15px;
+  background:#f8f1e7;
+  color:#54483f;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  text-align:center;
+  font:inherit;
+  cursor:pointer;
+}
+.hint-option.default{background:#fff8e8;border-color:rgba(188,147,70,.30);box-shadow:inset 0 0 0 1px rgba(212,174,103,.10);}
+.hint-option b{font-size:.78rem;line-height:1.1;}
+.hint-option small{font-size:.62rem;line-height:1.2;color:#8b7b71;}
+.hint-option em{font-style:normal;font-size:.66rem;font-weight:950;color:#8a622c;}
+.hint-option:active{transform:scale(.97);}
+
+/* Special modes: Daily, Daily Mini, or a private friend challenge. */
+.special-mode-badge{
+  position:fixed;
+  z-index:19;
+  right:max(12px,calc(50vw - 260px + 12px));
+  top:104px;
+  min-height:31px;
+  padding:0 9px 0 11px;
+  border:1px solid rgba(255,255,255,.50);
+  border-radius:999px;
+  background:#fffdf9;
+  color:#6b5645;
+  box-shadow:0 4px 12px rgba(28,35,35,.15);
+  display:none;
+  align-items:center;
+  gap:7px;
+  font-size:.66rem;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.special-mode .special-mode-badge{display:inline-flex;}
+.special-mode-badge button{width:24px;height:24px;padding:0;border:0;border-radius:50%;background:#eee3d5;color:#67584d;font-size:.95rem;line-height:1;cursor:pointer;}
+.special-mode .menu-levels-button,
+.special-mode #journeysMenuAction{display:none!important;}
+@media(max-width:520px){.special-mode-badge{right:12px;}}
+
+/* Reusable premium sheet for Journeys, Journal, Saved Verses and accessibility. */
+.experience-drawer{
+  position:fixed;
+  z-index:2147483005;
+  left:50%;
+  bottom:0;
+  width:min(520px,100vw);
+  height:min(88dvh,780px);
+  transform:translate(-50%,105%);
+  border-radius:26px 26px 0 0;
+  border:1px solid rgba(68,58,53,.12);
+  background:#fffdf9;
+  box-shadow:0 -18px 60px rgba(45,37,31,.26);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition:transform .2s cubic-bezier(.2,.8,.2,1);
+}
+.experience-drawer.open{transform:translate(-50%,0);}
+.experience-drawer-header{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 16px 12px;border-bottom:1px solid rgba(68,58,53,.09);}
+.experience-drawer-header div{min-width:0;}
+.experience-drawer-header small{display:block;margin-bottom:2px;font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#9a8061;}
+.experience-drawer-header h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:1.38rem;color:#443b36;}
+.experience-drawer-close{width:42px;height:42px;flex:0 0 42px;border:0;border-radius:50%;background:#f1e8dc;color:#5f5249;font-size:1.35rem;cursor:pointer;}
+.experience-drawer-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:14px 14px max(26px,env(safe-area-inset-bottom));}
+
+.journey-card{margin-bottom:12px;padding:14px;border:1px solid rgba(68,58,53,.10);border-radius:18px;background:#faf5ed;}
+.journey-card h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:1.05rem;color:#4b413a;}
+.journey-card>p{margin:4px 0 11px;color:#83756c;font-size:.76rem;line-height:1.4;}
+.journey-levels{display:flex;flex-wrap:wrap;gap:7px;}
+.journey-level{
+  min-width:58px;
+  min-height:42px;
+  padding:5px 8px;
+  border:1px solid rgba(68,58,53,.12);
+  border-radius:12px;
+  background:#fff;
+  color:#51473f;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font:inherit;
+  cursor:pointer;
+}
+.journey-level strong{font-size:.76rem;line-height:1;}
+.journey-level span{margin-top:2px;font-size:.58rem;line-height:1.1;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.journey-level[disabled]{opacity:.43;cursor:default;}
+.journey-level.hard{border-color:rgba(166,47,47,.50);}
+.journey-level.hard::after{content:"HARD";margin-top:3px;color:#a62f2f;font-size:.48rem;font-weight:950;letter-spacing:.05em;}
+
+.journal-empty,.saved-empty{padding:28px 14px;text-align:center;color:#81736a;font-size:.88rem;line-height:1.5;}
+.journal-level{margin-bottom:13px;padding:12px;border-radius:16px;background:#f8f1e7;}
+.journal-level h3{margin:0 0 8px;font-size:.83rem;color:#51463f;}
+.word-chip-wrap{display:flex;flex-wrap:wrap;gap:6px;}
+.word-chip{padding:5px 8px;border-radius:999px;background:#fff;color:#62544a;font-size:.69rem;font-weight:850;border:1px solid rgba(68,58,53,.09);}
+
+.saved-verse-card{position:relative;margin-bottom:11px;padding:13px 42px 13px 13px;border-radius:17px;border:1px solid rgba(68,58,53,.10);background:#faf5ed;}
+.saved-verse-card strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:.98rem;color:#4b413a;}
+.saved-verse-card p{margin:5px 0 0;color:#6f625a;font-size:.8rem;line-height:1.45;}
+.saved-verse-card button{position:absolute;right:8px;top:8px;width:30px;height:30px;border:0;border-radius:50%;background:#eee4d8;color:#79685c;cursor:pointer;}
+
+.settings-section{margin-bottom:15px;padding-bottom:14px;border-bottom:1px solid rgba(68,58,53,.08);}
+.settings-section:last-child{border-bottom:0;}
+.settings-section h3{margin:0 0 9px;font-size:.83rem;color:#51463f;}
+.text-size-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.text-size-options button{min-height:42px;border:1px solid rgba(68,58,53,.11);border-radius:12px;background:#f7f0e6;color:#66584e;font:inherit;font-size:.72rem;font-weight:850;cursor:pointer;}
+.text-size-options button.active{background:#725c70;color:#fff;border-color:#725c70;}
+.setting-row{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(68,58,53,.06);}
+.setting-row:first-of-type{border-top:0;}
+.setting-row span{font-size:.8rem;color:#584d46;}
+.setting-row input{width:21px;height:21px;accent-color:#6e4f68;}
+
+/* Verse Reveal: calm completion, no casino confetti. */
+.confetti{display:none!important;}
+.reading-card{overflow:visible!important;}
+.complete-overlay-glow{position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 50% 45%,rgba(255,242,188,.20),transparent 48%);}
+#completeOverlay.visible .reading-card{animation:verseCardRise .44s cubic-bezier(.2,.82,.22,1) both;}
+#completeOverlay.visible .complete-mark{animation:verseMarkGlow .75s ease-out both;}
+#completeOverlay.visible .reading-text{animation:verseRevealIn .42s .10s ease-out both;}
+#completeOverlay.visible .scripture-panel{animation:verseRevealIn .5s .20s ease-out both;}
+@keyframes verseCardRise{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes verseRevealIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes verseMarkGlow{0%{opacity:0;transform:scale(.65)}55%{opacity:1;transform:scale(1.15);filter:drop-shadow(0 0 12px rgba(216,179,112,.55))}100%{transform:scale(1);filter:none}}
+.carry-prompt{margin:11px 0 0;padding:11px 12px;border-radius:14px;background:#f5eee2;color:#64564d;font-size:.8rem;line-height:1.45;text-align:left;}
+.carry-prompt strong{display:block;margin-bottom:3px;color:#90703d;font-size:.63rem;letter-spacing:.07em;text-transform:uppercase;}
+.completion-stats{margin:10px 0 0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;color:#7a6b61;font-size:.67rem;font-weight:800;}
+.completion-stats span{padding:5px 8px;border-radius:999px;background:#f5eee5;}
+.completion-stats .hard-reward{background:#fff0ee;color:#a23838;}
+.completion-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.completion-actions button{min-height:42px;border:1px solid rgba(68,58,53,.11);border-radius:13px;background:#fffaf2;color:#5b4e45;font:inherit;font-size:.72rem;font-weight:900;cursor:pointer;}
+.completion-actions button.saved{background:#e7efe3;color:#466047;}
+.completion-actions .challenge-share{grid-column:1/-1;}
+
+/* Tactile polish. */
+.letter-btn{transition:transform .09s ease,box-shadow .12s ease,background .12s ease!important;}
+.letter-btn.active{transform:scale(1.075)!important;box-shadow:0 8px 20px rgba(46,34,51,.25),inset 0 -3px 0 rgba(40,30,45,.10)!important;}
+.cross-cell.word-pop{animation:premiumTilePop .38s cubic-bezier(.2,.9,.25,1.12) both!important;}
+@keyframes premiumTilePop{0%{transform:scale(.78);opacity:.55}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+body.level-reveal-glow .crossword{animation:boardResolveGlow .68s ease-out;}
+@keyframes boardResolveGlow{0%,100%{filter:drop-shadow(0 6px 10px rgba(18,28,30,.22))}45%{filter:drop-shadow(0 0 22px rgba(255,230,142,.70)) drop-shadow(0 6px 10px rgba(18,28,30,.20))}}
+
+/* Accessibility options. */
+body.text-large{font-size:108%;}
+body.text-extra-large{font-size:118%;}
+body.text-extra-large .audio-menu{width:min(340px,calc(100vw - 18px))!important;}
+body.high-contrast .cross-cell{background:#fff!important;border:2px solid #564a43!important;color:#2d2825!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+body.high-contrast .level-label,body.high-contrast #wordProgress{color:#fff!important;text-shadow:0 2px 2px #000,0 0 4px #000!important;}
+body.high-contrast #hintButton,body.high-contrast .bonus-pill{border:2px solid #594a3b!important;}
+body.reduced-motion *,body.reduced-motion *::before,body.reduced-motion *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+body.left-handed #shuffleButton.shuffle-side{left:auto!important;right:14px!important;}
+
+body.dark-ui #audioMenu,body.dark-ui .experience-drawer,body.dark-ui .hint-chooser,body.dark-ui .bonus-pill,body.dark-ui #hintButton{background:#2f2b29!important;color:#f6eee5!important;border-color:rgba(255,255,255,.14)!important;}
+body.dark-ui #audioMenu *,body.dark-ui .experience-drawer *,body.dark-ui .hint-chooser *{color:#eee4db!important;}
+body.dark-ui .menu-levels-button,body.dark-ui .experience-menu-action,body.dark-ui .hint-option,body.dark-ui .journey-card,body.dark-ui .journal-level,body.dark-ui .saved-verse-card,body.dark-ui .carry-prompt,body.dark-ui .completion-actions button{background:#3a3532!important;border-color:rgba(255,255,255,.12)!important;color:#f2e9df!important;}
+body.dark-ui .cross-cell{background:rgba(55,52,49,.92)!important;color:#fff!important;border-color:rgba(255,255,255,.18)!important;}
+body.dark-ui .letter-wheel{background:rgba(50,48,45,.82)!important;}
+body.dark-ui .letter-btn{background:#f5ede3!important;color:#433b36!important;}
+body.dark-ui .letter-btn.active{background:#806780!important;color:#fff!important;}
+
+@media(max-width:370px){
+  .experience-menu-grid{grid-template-columns:1fr;}
+  .experience-menu-action.wide{grid-column:auto;}
+  .hint-options{gap:5px;}
+  .hint-option{min-height:70px;padding:6px 4px;}
+  .completion-actions{grid-template-columns:1fr;}
+  .completion-actions .challenge-share{grid-column:auto;}
+}
