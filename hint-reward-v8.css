@@ -1,4 +1,4 @@
-/* FaithWords v8 — conspicuous hint-point reward animation */
+/* FaithWords v10 — wordless hint-point reward animation */
 .hint-reward-flyer {
   position: fixed;
   z-index: 140;
@@ -8,46 +8,53 @@
   will-change: transform, opacity;
 }
 
-.hint-reward-card {
-  min-width: 178px;
-  padding: 11px 16px 10px;
-  border-radius: 18px;
-  text-align: center;
-  background: linear-gradient(180deg, #fff7d7 0%, #f2d58f 100%);
-  border: 2px solid rgba(167, 125, 56, .36);
-  box-shadow: 0 14px 34px rgba(126, 90, 32, .28), 0 0 0 6px rgba(255, 238, 181, .24);
-  color: #73511f;
+.hint-reward-token {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #fff9d8 0 16%, #f3d37f 34%, #d8a944 72%, #b78128 100%);
+  border: 4px solid rgba(255, 246, 204, .95);
+  box-shadow: 0 16px 34px rgba(126, 90, 32, .30), 0 0 0 7px rgba(255, 238, 181, .24), inset 0 -7px 12px rgba(118, 77, 16, .18);
+  color: #6b4818;
 }
 
-.hint-reward-card small {
-  display: block;
-  margin-bottom: 2px;
-  font-size: .65rem;
+.hint-reward-token span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
   line-height: 1;
   font-weight: 950;
-  letter-spacing: .14em;
-  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255,255,255,.55);
 }
 
-.hint-reward-card strong {
-  display: block;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.2rem;
-  line-height: 1.12;
-  font-weight: 900;
-  white-space: nowrap;
+.hint-reward-token > i {
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  color: #fff9dc;
+  font-size: 1rem;
+  font-style: normal;
+  filter: drop-shadow(0 1px 2px rgba(104,75,24,.22));
+  animation: tokenTwinkle .7s ease-in-out infinite alternate;
+}
+
+@keyframes tokenTwinkle {
+  from { transform: scale(.75) rotate(-8deg); opacity: .65; }
+  to { transform: scale(1.18) rotate(9deg); opacity: 1; }
 }
 
 .hint-reward-spark {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 8px;
-  height: 8px;
-  margin: -4px;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px;
   border-radius: 50%;
   background: #f1c45f;
-  box-shadow: 0 0 12px rgba(241, 196, 95, .88);
+  box-shadow: 0 0 13px rgba(241, 196, 95, .92);
   animation: hintRewardSpark .78s ease-out forwards;
   animation-delay: var(--delay, 0ms);
 }
@@ -96,21 +103,22 @@
 .hint-impact-spark {
   position: fixed;
   z-index: 145;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #f1c45f;
   pointer-events: none;
-  box-shadow: 0 0 10px rgba(241,196,95,.9);
-  animation: hintImpactBurst .56s ease-out forwards;
+  box-shadow: 0 0 11px rgba(241,196,95,.92);
+  animation: hintImpactBurst .58s ease-out forwards;
 }
 
 @keyframes hintImpactBurst {
-  from { transform: translate(-50%,-50%) scale(.45); opacity: 1; }
+  from { transform: translate(-50%,-50%) scale(.5); opacity: 1; }
   to { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(.1); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hint-reward-spark, .hint-impact-spark { display: none; }
+  .hint-reward-token > i { animation: none; }
   .bonus-pill.hint-reward-hit, .bonus-pill.hint-reward-hit strong { animation-duration: .15s; }
 }
