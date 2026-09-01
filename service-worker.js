@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v29-crisp-menu-hints';
+const CACHE_NAME = 'faithwords-v30-recenter-drag-fix';
 const APP_SHELL = [
   './',
   './index.html',
@@ -26,7 +26,7 @@ const APP_SHELL = [
   './hint-reward-v8.js',
   './word-feedback-v10.js',
   './mix-animation-v11.js',
-  './board-pan-v13.js?v=21',
+  './board-pan-v13.js?v=30',
   './account-sync-v13.js',
   './next-level-v15.js?v=21',
   './hud-layout-v18.js?v=23',
