@@ -3,80 +3,94 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-  <meta name="theme-color" content="#13271f" />
-  <meta name="description" content="SLING — a first-person Bible-era precision shooting game." />
-  <title>SLING — Pull. Aim. Release.</title>
+  <meta name="theme-color" content="#fbf4e8" />
+  <meta name="description" content="FaithWords — a peaceful Bible-themed word puzzle game presented by FaithCraft." />
+  <title>FaithWords | FaithCraft</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="app-shell" aria-label="SLING game">
+  <main class="app-shell" aria-label="FaithWords game">
     <header class="topbar">
-      <div class="brand-lockup">
+      <div>
         <span class="brand-kicker">FAITHCRAFT PRESENTS</span>
-        <h1>SLING</h1>
+        <h1>FaithWords</h1>
       </div>
-      <button id="soundButton" class="icon-button" type="button" aria-label="Toggle sound">♪</button>
+      <div class="light-pill" aria-label="Light points"><span>✦</span><strong id="lightCount">0</strong></div>
     </header>
 
     <section class="game-card">
-      <div class="hud" aria-live="polite">
-        <div><span class="hud-label">LEVEL</span><strong id="levelLabel">1</strong></div>
-        <div class="hud-center">
-          <span id="worldLabel" class="world-label">Bethlehem Range</span>
-          <span id="objectiveLabel" class="objective-label">Hit the target • 42 m</span>
-        </div>
-        <div class="hud-right"><span class="hud-label">STONES</span><strong id="stonesLabel">4</strong></div>
-      </div>
-
-      <div class="canvas-wrap">
-        <canvas id="gameCanvas" width="390" height="690" aria-label="First-person SLING range"></canvas>
-
-        <div id="startOverlay" class="overlay visible">
-          <div class="overlay-card intro-card">
-            <p class="eyebrow">BETHLEHEM RANGE</p>
-            <h2>Pull. Aim.<br />Release.</h2>
-            <p>Touch the stone and pull back in one motion. The direction of your pull sets the shot direction, and how far you pull sets the power. Release to fire. Some ranges have several targets at different heights and distances, and hitting any part of a target face counts.</p>
-            <button id="startButton" class="primary-button" type="button">ENTER THE RANGE</button>
-            <span class="microcopy">One-motion aiming + power • Multiple targets • Edge hits count • Follow camera</span>
-          </div>
-        </div>
-
-        <div id="resultOverlay" class="overlay" aria-live="assertive">
-          <div class="overlay-card result-card">
-            <p id="resultEyebrow" class="eyebrow">TARGET HIT</p>
-            <h2 id="resultTitle">Sharpshooter.</h2>
-            <div id="resultStars" class="result-stars" aria-label="Level rating">★★★</div>
-            <div class="result-stats">
-              <div><span>Shots</span><strong id="resultShots">1</strong></div>
-              <div><span>Best</span><strong id="resultBest">★★★</strong></div>
-            </div>
-            <button id="nextButton" class="primary-button" type="button">NEXT</button>
-            <button id="retryButton" class="secondary-button" type="button">REPLAY</button>
-          </div>
+      <div class="scene" id="scene">
+        <div class="sun"></div>
+        <div class="hill hill-back"></div>
+        <div class="hill hill-front"></div>
+        <div class="scene-copy">
+          <span id="levelLabel" class="level-label">LEVEL 1</span>
+          <h2 id="themeLabel">Faith</h2>
+          <p id="themePrompt">Connect the letters. Find every word.</p>
         </div>
       </div>
 
-      <footer class="game-footer">
-        <button id="restartButton" class="text-button" type="button">↻ Restart</button>
-        <div class="progress-wrap" aria-label="Level progress">
-          <span id="progressText">1 / 12</span>
-          <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+      <section class="puzzle-panel">
+        <div class="puzzle-toolbar">
+          <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
+          <span id="wordProgress">0 / 5 words</span>
+          <button id="hintButton" class="soft-button" type="button">💡 <span id="hintCount">3</span></button>
         </div>
-        <button id="levelsButton" class="text-button" type="button">Levels</button>
-      </footer>
+
+        <div id="crossword" class="crossword" aria-label="Crossword puzzle"></div>
+
+        <div class="word-readout-wrap">
+          <div id="wordReadout" class="word-readout" aria-live="polite">Swipe through letters</div>
+          <div id="message" class="message" aria-live="polite"></div>
+        </div>
+
+        <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel">
+          <svg id="traceSvg" class="trace-svg" viewBox="0 0 260 260" aria-hidden="true"><polyline id="traceLine" points="" /></svg>
+          <div class="wheel-center">✦</div>
+        </div>
+
+        <div class="bottom-actions">
+          <button id="shuffleButton" class="round-action" type="button" aria-label="Shuffle letters">↻</button>
+          <span>Swipe through letters to make a word</span>
+          <button id="soundButton" class="round-action" type="button" aria-label="Toggle sound">♪</button>
+        </div>
+      </section>
     </section>
 
-    <section id="levelDrawer" class="level-drawer" aria-label="Choose a level">
+    <section id="startOverlay" class="overlay visible">
+      <div class="modal-card intro-card">
+        <span class="eyebrow">A QUIET WORD GAME</span>
+        <h2>Find words.<br />Uncover Scripture.</h2>
+        <p>Swipe through the letter circle to make words. Complete each puzzle to reveal a short Bible text and open the next level.</p>
+        <button id="startButton" class="primary-button" type="button">PLAY FAITHWORDS</button>
+        <span class="microcopy">Short levels • No timer • Play at your own pace</span>
+      </div>
+    </section>
+
+    <section id="completeOverlay" class="overlay">
+      <div class="modal-card verse-card">
+        <span class="eyebrow">PUZZLE COMPLETE</span>
+        <div class="complete-mark">✦</div>
+        <h2 id="completeTitle">Faith</h2>
+        <blockquote id="verseText"></blockquote>
+        <cite id="verseRef"></cite>
+        <div class="reward-line">+<strong id="rewardAmount">25</strong> ✦ LIGHT</div>
+        <button id="nextButton" class="primary-button" type="button">NEXT PUZZLE</button>
+        <button id="replayButton" class="secondary-button" type="button">REPLAY</button>
+      </div>
+    </section>
+
+    <section id="levelDrawer" class="level-drawer" aria-label="Choose a FaithWords level">
       <div class="drawer-header">
-        <div><span class="brand-kicker">SLING RANGE</span><h2>Choose a range</h2></div>
-        <button id="closeLevelsButton" class="icon-button" type="button" aria-label="Close levels">×</button>
+        <div><span class="brand-kicker">FAITHWORDS</span><h2>Choose a puzzle</h2></div>
+        <button id="closeLevelsButton" class="round-action" type="button" aria-label="Close levels">×</button>
       </div>
       <div id="levelGrid" class="level-grid"></div>
     </section>
   </main>
 
-  <script src="game-loader.js"></script>
+  <script src="game.js"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
