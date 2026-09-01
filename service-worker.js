@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v25-hud-collision-fix';
+const CACHE_NAME = 'faithwords-v26-hard-menu-labels';
 const APP_SHELL = [
   './',
   './index.html',
@@ -17,6 +17,7 @@ const APP_SHELL = [
   './board-background-v17.css',
   './hud-layout-v18.css?v=23',
   './hud-row-v23.css?v=25',
+  './hard-menu-v26.css?v=26',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -29,6 +30,7 @@ const APP_SHELL = [
   './account-sync-v13.js',
   './next-level-v15.js?v=21',
   './hud-layout-v18.js?v=23',
+  './hard-menu-v26.js?v=26',
   './manifest.webmanifest',
   './icon.svg'
 ];
