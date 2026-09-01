@@ -24,17 +24,17 @@
   function burstAtTarget(rect) {
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
       const spark = document.createElement('i');
       spark.className = 'hint-impact-spark';
       spark.style.left = `${cx}px`;
       spark.style.top = `${cy}px`;
-      const angle = Math.PI * 2 * i / 10 + Math.random() * .24;
-      const distance = 24 + Math.random() * 24;
+      const angle = Math.PI * 2 * i / 12 + Math.random() * .2;
+      const distance = 26 + Math.random() * 30;
       spark.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
       spark.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
       document.body.append(spark);
-      setTimeout(() => spark.remove(), 650);
+      setTimeout(() => spark.remove(), 700);
     }
   }
 
@@ -52,18 +52,19 @@
     flyer.className = 'hint-reward-flyer';
     flyer.style.left = `${sourceX}px`;
     flyer.style.top = `${sourceY}px`;
+    flyer.setAttribute('aria-hidden', 'true');
     flyer.innerHTML = `
-      <div class="hint-reward-card">
-        <small>BONUS WORD!</small>
-        <strong>+${delta} HINT POINT${delta === 1 ? '' : 'S'}</strong>
+      <div class="hint-reward-token">
+        <span>+${delta}</span>
+        <i>✦</i>
       </div>`;
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 12; i++) {
       const spark = document.createElement('i');
       spark.className = 'hint-reward-spark';
-      spark.style.setProperty('--angle', `${i * 40}deg`);
-      spark.style.setProperty('--distance', `${42 + (i % 3) * 9}px`);
-      spark.style.setProperty('--delay', `${i * 18}ms`);
+      spark.style.setProperty('--angle', `${i * 30}deg`);
+      spark.style.setProperty('--distance', `${46 + (i % 4) * 8}px`);
+      spark.style.setProperty('--delay', `${i * 16}ms`);
       flyer.append(spark);
     }
 
@@ -72,30 +73,30 @@
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const animation = flyer.animate(
       reduced ? [
-        { transform: 'translate(-50%,-50%) scale(.9)', opacity: 0 },
-        { transform: 'translate(-50%,-60%) scale(1)', opacity: 1 },
-        { transform: 'translate(-50%,-60%) scale(1)', opacity: 0 }
+        { transform: 'translate(-50%,-50%) scale(.8)', opacity: 0 },
+        { transform: 'translate(-50%,-58%) scale(1)', opacity: 1 },
+        { transform: 'translate(-50%,-58%) scale(1)', opacity: 0 }
       ] : [
-        { transform: 'translate(-50%,-42%) scale(.52)', opacity: 0 },
-        { transform: 'translate(-50%,-78%) scale(1.16)', opacity: 1, offset: .20 },
-        { transform: 'translate(-50%,-86%) scale(1)', opacity: 1, offset: .52 },
-        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.58)`, opacity: .92, offset: .88 },
-        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.28)`, opacity: 0 }
+        { transform: 'translate(-50%,-40%) scale(.42) rotate(-12deg)', opacity: 0 },
+        { transform: 'translate(-50%,-78%) scale(1.24) rotate(5deg)', opacity: 1, offset: .20 },
+        { transform: 'translate(-50%,-88%) scale(1) rotate(-2deg)', opacity: 1, offset: .50 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.56) rotate(12deg)`, opacity: .95, offset: .88 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.2) rotate(20deg)`, opacity: 0 }
       ],
-      { duration: reduced ? 520 : 1180, easing: 'cubic-bezier(.18,.82,.24,1)', fill: 'forwards' }
+      { duration: reduced ? 480 : 1120, easing: 'cubic-bezier(.18,.82,.24,1)', fill: 'forwards' }
     );
 
-    const impactDelay = reduced ? 280 : 990;
+    const impactDelay = reduced ? 250 : 940;
     setTimeout(() => {
       pill.classList.remove('hint-reward-hit');
       void pill.offsetWidth;
       pill.classList.add('hint-reward-hit');
       burstAtTarget(targetRect);
-      setTimeout(() => pill.classList.remove('hint-reward-hit'), 800);
+      setTimeout(() => pill.classList.remove('hint-reward-hit'), 820);
     }, impactDelay);
 
     animation.addEventListener('finish', () => flyer.remove(), { once: true });
-    setTimeout(() => flyer.remove(), 1600);
+    setTimeout(() => flyer.remove(), 1500);
   }
 
   const observer = new MutationObserver(() => {
