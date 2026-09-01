@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v16-unique-levels';
+const CACHE_NAME = 'faithwords-v17-progress-backtrack-board';
 const APP_SHELL = [
   './',
   './index.html',
@@ -14,6 +14,7 @@ const APP_SHELL = [
   './accessibility-v12.css',
   './interface-v13.css',
   './fullscreen-v15.css',
+  './board-background-v17.css',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
