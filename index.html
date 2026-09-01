@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="fullscreen-v15.css" />
   <link rel="stylesheet" href="board-background-v17.css" />
   <link rel="stylesheet" href="hud-layout-v18.css?v=23" />
-  <link rel="stylesheet" href="hud-row-v23.css?v=27" />
+  <link rel="stylesheet" href="hud-row-v23.css?v=28" />
   <link rel="stylesheet" href="hard-menu-v26.css?v=26" />
 </head>
 <body class="world-1">
@@ -168,14 +168,6 @@
   <script src="hud-layout-v18.js?v=23"></script>
   <script src="hard-menu-v26.js?v=26"></script>
   <script>
-    const menuLevelsButton = document.getElementById('levelsButton');
-    const audioMenu = document.getElementById('audioMenu');
-    const menuButton = document.getElementById('menuButton');
-    menuLevelsButton?.addEventListener('click', () => {
-      audioMenu?.classList.remove('open');
-      menuButton?.setAttribute('aria-expanded', 'false');
-    });
-
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
     }
