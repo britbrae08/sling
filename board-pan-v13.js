@@ -14,14 +14,19 @@
   let originY = 0;
   let activePointer = null;
 
-  viewport.setAttribute('aria-label', 'Crossword puzzle. Drag with one finger to move a large board.');
+  viewport.setAttribute('aria-label', 'Crossword puzzle. Drag with one finger in any direction to move the board.');
 
   function limits() {
-    const extraX = Math.max(0, board.scrollWidth - viewport.clientWidth);
-    const extraY = Math.max(0, board.scrollHeight - viewport.clientHeight);
+    const vw = Math.max(1, viewport.clientWidth);
+    const vh = Math.max(1, viewport.clientHeight);
+    const bw = Math.max(1, board.scrollWidth || board.offsetWidth);
+    const bh = Math.max(1, board.scrollHeight || board.offsetHeight);
+
+    // Every puzzle can be moved substantially, even when its board is smaller
+    // than the viewport. Large boards can travel until only a small edge remains.
     return {
-      x: extraX / 2 + (extraX ? 18 : 0),
-      y: extraY / 2 + (extraY ? 18 : 0)
+      x: Math.max(135, (vw + bw) / 2 - 34),
+      y: Math.max(120, (vh + bh) / 2 - 30)
     };
   }
 
