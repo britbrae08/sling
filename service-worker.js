@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v13-board-levels-sync';
+const CACHE_NAME = 'faithwords-v14-fullscreen-board-cap';
 const APP_SHELL = [
   './',
   './index.html',
