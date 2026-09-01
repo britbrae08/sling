@@ -6,6 +6,11 @@
     if (!response.ok) throw new Error(`Unable to load FaithWords (${response.status})`);
     let source = await response.text();
 
+    source = source.replace(
+      "const DICTIONARY_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';",
+      "const DICTIONARY_API = 'https://freedictionaryapi.com/api/v1/entries/en/';"
+    );
+
     // Keep the Grace crossword connected: GEAR remains a valid bonus word,
     // but is not required on the board.
     source = source.replace(
