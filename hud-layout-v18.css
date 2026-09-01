@@ -22,6 +22,33 @@ body,.app-shell,.game-card,.puzzle-panel{border-bottom:0!important;box-shadow:no
 }
 .audio-menu .dictionary-credit.menu-credit a{color:#66574f;font-weight:800;}
 
+/* FaithWords brand and ministry links live in the menu instead of the game header. */
+.faithwords-menu-links{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid rgba(68,58,53,.10);
+}
+.faithwords-menu-links a{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 12px;
+  border-radius:13px;
+  background:#f7f0e7;
+  color:#544a44;
+  text-decoration:none;
+  font-size:.9rem;
+  font-weight:900;
+  box-shadow:inset 0 0 0 1px rgba(68,58,53,.08);
+}
+.faithwords-menu-links a:active{transform:scale(.985);}
+.faithwords-menu-links a:focus-visible{outline:3px solid rgba(110,79,104,.28);outline-offset:2px;}
+.faithwords-menu-links a span{font-size:1rem;color:#8c8078;}
+
 /* Replay is intentionally removed from the completion experience. */
 #replayButton{display:none!important;}
 
