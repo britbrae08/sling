@@ -1,4 +1,4 @@
-/* FaithWords v28 — tighter title/HUD spacing + larger HARD badge */
+/* FaithWords v29 — tighter HUD + crisp menu and hint typography */
 
 #themePrompt{
   display:none!important;
@@ -31,7 +31,10 @@
   overflow:visible!important;
   isolation:isolate;
 }
-#audioMenu.open{z-index:2147483001!important;}
+#audioMenu.open{
+  z-index:2147483001!important;
+  transform:none!important;
+}
 
 .scene{
   position:relative!important;
@@ -146,7 +149,7 @@
   text-shadow:0 2px 6px rgba(24,31,32,.78)!important;
 }
 
-/* Hint remains the one intentional bubble on this row. */
+/* Hint remains the one intentional bubble on this row, but without blur. */
 .scene>.puzzle-toolbar #hintButton{
   display:inline-flex!important;
   align-items:center!important;
@@ -154,22 +157,28 @@
   min-height:38px!important;
   height:38px!important;
   padding:0 13px!important;
-  border:1px solid rgba(255,255,255,.45)!important;
+  border:1px solid rgba(176,145,89,.28)!important;
   border-radius:999px!important;
-  background:rgba(255,253,249,.88)!important;
-  color:#665648!important;
-  box-shadow:0 5px 15px rgba(30,42,43,.18)!important;
-  backdrop-filter:blur(6px)!important;
-  -webkit-backdrop-filter:blur(6px)!important;
+  background:#fffdf9!important;
+  color:#5c4b3f!important;
+  box-shadow:0 4px 12px rgba(30,42,43,.14)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  text-shadow:none!important;
   font-size:.78rem!important;
   line-height:1!important;
   font-weight:950!important;
   letter-spacing:.015em!important;
   white-space:nowrap!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 .scene>.puzzle-toolbar #hintCostLabel{
   display:inline!important;
   margin-left:2px!important;
+  color:#6b543d!important;
+  text-shadow:none!important;
 }
 
 /* Levels is now the first action inside the hamburger menu. */
@@ -178,29 +187,89 @@
   min-height:50px;
   margin:0 0 10px;
   padding:0 14px;
-  border:1px solid rgba(68,58,53,.10);
+  border:1px solid rgba(68,58,53,.12);
   border-radius:15px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
   background:#f3eadc;
-  color:#544a44;
-  box-shadow:0 4px 12px rgba(60,50,45,.07);
+  color:#4d433d;
+  box-shadow:0 3px 9px rgba(60,50,45,.07);
   font:inherit;
   font-size:.9rem;
-  font-weight:900;
+  font-weight:950;
   cursor:pointer;
+  text-shadow:none!important;
   -webkit-tap-highlight-color:transparent;
 }
 .menu-levels-button::after{
   content:"›";
   font-size:1.35rem;
   line-height:1;
-  color:#8b7769;
+  color:#765f50;
 }
 .menu-levels-button:active{transform:scale(.985);}
 .menu-levels-button:focus-visible{outline:3px solid rgba(110,79,104,.26);outline-offset:2px;}
+
+/* Crisp top Hint Points pill: solid surface, no inherited shadow/blur. */
+.bonus-pill{
+  background:#fffdf9!important;
+  border:1px solid rgba(176,145,89,.24)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  box-shadow:0 4px 13px rgba(25,35,35,.14)!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.bonus-pill span{
+  color:#80602d!important;
+  font-weight:950!important;
+  text-shadow:none!important;
+}
+.bonus-pill strong{
+  color:#5f4727!important;
+  font-weight:950!important;
+  text-shadow:none!important;
+}
+.bonus-pill *{
+  filter:none!important;
+  text-shadow:none!important;
+}
+
+/* The menu is intentionally opaque so Android does not composite its text through a blur layer. */
+#audioMenu{
+  background:#fffdf9!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  border-color:rgba(68,58,53,.13)!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+#audioMenu *,
+#audioMenu button,
+#audioMenu a,
+#audioMenu label{
+  text-shadow:none!important;
+  filter:none!important;
+}
+#audioMenu strong{
+  color:#463c37!important;
+  font-weight:900!important;
+}
+#audioMenu .audio-row-copy span,
+#audioMenu .account-copy span,
+#audioMenu .menu-credit{
+  color:#746862!important;
+}
+#audioMenu .faithwords-menu-links a{
+  color:#4d433d!important;
+  font-weight:850!important;
+}
 
 @media(max-width:390px){
   .topbar{min-height:46px!important;}
