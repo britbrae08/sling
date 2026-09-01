@@ -29,7 +29,7 @@
       </div>
 
       <div class="topbar-tools">
-        <div class="bonus-pill" aria-label="Hint points">
+        <div class="bonus-pill" aria-label="Hint points, maximum 200">
           <span>💡 HINT POINTS</span><strong id="bonusCount">0</strong>
           <i id="bonusBurst" class="bonus-burst" aria-hidden="true"></i>
         </div>
@@ -93,7 +93,7 @@
         </div>
 
         <div class="word-readout-wrap">
-          <div id="wordReadout" class="word-readout idle" aria-live="polite">Swipe through letters</div>
+          <div id="wordReadout" class="word-readout idle" aria-live="polite"></div>
           <div id="message" class="message" aria-live="polite"></div>
         </div>
 
@@ -122,9 +122,9 @@
 
     <section id="completeOverlay" class="overlay">
       <div id="completeCard" class="modal-card reading-card">
-        <span class="eyebrow">TAKE A MOMENT</span>
+        <span id="completeLevelLabel" class="eyebrow">LEVEL 1</span>
         <div class="complete-mark">✦</div>
-        <h2 id="completeTitle">Level 1</h2>
+        <h2 id="completeTitle" hidden aria-hidden="true"></h2>
         <p id="readingText" class="reading-text"></p>
         <div class="scripture-panel">
           <span>READ</span>
