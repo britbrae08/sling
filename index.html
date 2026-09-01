@@ -55,16 +55,16 @@
           <div id="message" class="message" aria-live="polite"></div>
         </div>
 
-        <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel">
-          <svg id="traceSvg" class="trace-svg" viewBox="0 0 300 300" aria-hidden="true">
-            <polyline id="traceLine" points="" />
-          </svg>
-          <div class="wheel-halo" aria-hidden="true"></div>
-          <div class="wheel-center">✦</div>
+        <div class="wheel-zone">
+          <button id="shuffleButton" class="round-action shuffle-side" type="button" aria-label="Mix up letters" title="Mix up letters">↻</button>
+          <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel">
+            <svg id="traceSvg" class="trace-svg" viewBox="0 0 300 300" aria-hidden="true">
+              <polyline id="traceLine" points="" />
+            </svg>
+          </div>
         </div>
 
         <div class="bottom-actions">
-          <button id="shuffleButton" class="round-action" type="button" aria-label="Shuffle letters">↻</button>
           <div class="bonus-help">
             <strong>Every valid extra word earns a hint point</strong>
             <span>5 hint points reveal a letter.</span>
