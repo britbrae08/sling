@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sling-arc-physics-v1';
+const CACHE_NAME = 'sling-one-pull-v1';
 const APP_SHELL = [
   './',
   './index.html',
