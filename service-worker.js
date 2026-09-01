@@ -20,6 +20,7 @@ const APP_SHELL = [
   './hard-menu-v26.css?v=26',
   './scramble-v31.css?v=31',
   './experience-v32.css?v=32',
+  './experience-utils-v32.css?v=32',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
