@@ -1,0 +1,176 @@
+/* FaithWords v33 — clickable level pill + separated hint stack */
+
+/* Give the two hint controls their own vertical stack so they never collide. */
+.topbar{
+  min-height:76px!important;
+  flex:0 0 76px!important;
+  padding:4px 6px 2px!important;
+  align-items:flex-start!important;
+}
+.topbar h1{
+  margin-top:10px!important;
+}
+.topbar-tools{
+  align-items:flex-start!important;
+  gap:7px!important;
+}
+.hint-stack{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:6px;
+  min-width:0;
+}
+.hint-stack .bonus-pill{
+  min-height:34px!important;
+  height:34px!important;
+  padding:0 12px!important;
+  white-space:nowrap!important;
+}
+.hint-stack #hintButton{
+  position:static!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:32px!important;
+  height:32px!important;
+  padding:0 12px!important;
+  margin:0!important;
+  border:1px solid rgba(176,145,89,.28)!important;
+  border-radius:999px!important;
+  background:#fffdf9!important;
+  color:#5c4b3f!important;
+  box-shadow:0 4px 12px rgba(30,42,43,.14)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  font-size:.74rem!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.015em!important;
+  white-space:nowrap!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.hint-stack #hintCostLabel{
+  display:inline!important;
+  margin-left:2px!important;
+  color:#6b543d!important;
+  text-shadow:none!important;
+}
+.menu-button{
+  margin-top:0!important;
+}
+
+/* The old Levels entry remains only as a compatibility hook for the legacy runtime. */
+#audioMenu .menu-levels-button{
+  display:none!important;
+}
+
+/* Pull the board line directly beneath the taller top bar. */
+.game-card{
+  margin-top:-2px!important;
+}
+.scene{
+  height:88px!important;
+  min-height:88px!important;
+  flex:0 0 88px!important;
+}
+
+/* Board line now contains only the current-level picker and word progress. */
+.scene>.puzzle-toolbar{
+  left:14px!important;
+  right:14px!important;
+  top:0!important;
+  min-height:40px!important;
+  display:grid!important;
+  grid-template-columns:max-content 1fr!important;
+  align-items:center!important;
+  column-gap:12px!important;
+}
+.scene>.puzzle-toolbar #wordProgress{
+  justify-self:center!important;
+}
+
+/* Every current LEVEL __ label is one polished clickable pill. */
+#levelPickerButton{
+  appearance:none;
+  -webkit-appearance:none;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  min-height:36px!important;
+  height:36px!important;
+  padding:0 11px 0 12px!important;
+  margin:0!important;
+  border:1px solid rgba(176,145,89,.30)!important;
+  border-radius:999px!important;
+  background:#fffdf9!important;
+  color:#5c4b3f!important;
+  box-shadow:0 4px 12px rgba(30,42,43,.14)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  text-shadow:none!important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+#levelPickerButton::after{
+  content:"▾";
+  color:#9a7440;
+  font-size:.72rem;
+  line-height:1;
+  transform:translateY(-1px);
+}
+#levelPickerButton:active{transform:scale(.97);}
+#levelPickerButton:focus-visible{outline:3px solid rgba(110,79,104,.30);outline-offset:2px;}
+#levelPickerButton #levelLabel{
+  display:inline!important;
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#5c4b3f!important;
+  font-size:.78rem!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.035em!important;
+  text-transform:uppercase!important;
+  text-shadow:none!important;
+}
+
+/* HARD stays clearly beneath the level row. */
+.scene-copy #hardBadge{
+  top:57px!important;
+}
+
+@media(max-width:390px){
+  .topbar{
+    min-height:72px!important;
+    flex-basis:72px!important;
+    padding-left:4px!important;
+    padding-right:4px!important;
+  }
+  .topbar h1{font-size:1.34rem!important;margin-top:10px!important;}
+  .topbar-tools{gap:5px!important;}
+  .hint-stack{gap:5px;}
+  .hint-stack .bonus-pill{min-height:32px!important;height:32px!important;padding:0 9px!important;}
+  .hint-stack .bonus-pill span{font-size:.50rem!important;}
+  .hint-stack #hintButton{min-height:30px!important;height:30px!important;padding:0 10px!important;font-size:.68rem!important;}
+  .menu-button{width:42px!important;height:42px!important;flex-basis:42px!important;}
+  .scene>.puzzle-toolbar{left:10px!important;right:10px!important;column-gap:8px!important;}
+  #levelPickerButton{min-height:34px!important;height:34px!important;padding:0 9px 0 10px!important;}
+  #levelPickerButton #levelLabel{font-size:.72rem!important;}
+}
+
+@media(max-width:350px){
+  .topbar h1{font-size:1.2rem!important;}
+  .hint-stack .bonus-pill{padding:0 7px!important;}
+  .hint-stack .bonus-pill span{font-size:.46rem!important;}
+  .hint-stack #hintButton{padding:0 8px!important;font-size:.63rem!important;}
+  .scene>.puzzle-toolbar{left:7px!important;right:7px!important;}
+  #levelPickerButton #levelLabel{font-size:.68rem!important;}
+}
