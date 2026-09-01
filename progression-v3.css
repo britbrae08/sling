@@ -6,3 +6,13 @@
 @keyframes hintPointFly{0%{transform:translateY(10px) scale(.7);opacity:0}25%{opacity:1;transform:translateY(-2px) scale(1.18)}100%{transform:translateY(-27px) scale(.8);opacity:0}}
 .hint-button span{font-weight:950}
 .dictionary-credit{margin:8px 0 0;text-align:center;color:#9b918a;font-size:.56rem;line-height:1.35}.dictionary-credit a{color:#85746b;text-decoration:none;border-bottom:1px solid rgba(133,116,107,.28)}
+
+/* Clean wheel center + dedicated mix control on the left. */
+.wheel-zone{position:relative;width:100%;min-height:300px;display:grid;place-items:center;margin:0 auto}
+.shuffle-side{position:absolute;left:4px;top:50%;z-index:8;width:46px;height:46px;transform:translateY(-50%);background:#fffaf2;border:1px solid rgba(110,79,104,.12);box-shadow:0 7px 18px rgba(78,62,52,.12);color:var(--plum);font-size:1.35rem;font-weight:900}
+.shuffle-side:active{transform:translateY(-50%) scale(.93)}
+.bottom-actions{grid-template-columns:1fr 46px}
+.bottom-actions .bonus-help{text-align:center;padding-left:46px}
+
+@media(max-height:820px){.wheel-zone{min-height:270px}}
+@media(max-width:380px){.shuffle-side{left:0;width:40px;height:40px;font-size:1.15rem}.bottom-actions .bonus-help{padding-left:40px}}
