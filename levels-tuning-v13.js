@@ -13,21 +13,21 @@
   });
 
   Object.assign(levels[34], {
-    theme: 'Crown',
-    letters: 'CROWN',
-    words: ['CROWN','WORN','CROW','OWN','NOW','ROW','WON','COW'],
-    verse: 'James 1:12',
-    verseText: 'Scripture uses a crown as a picture of enduring faithfulness.',
-    reading: 'Endurance grows through repeated faithful choices, especially when the easier option would be to stop.'
+    theme: 'Cedar',
+    letters: 'CEDAR',
+    words: ['CEDAR','DEAR','READ','DARE','CARD','CARE','RACE','ACRE','ACE','ARC','CAR','EAR','ERA','RED'],
+    verse: 'Psalm 92:12',
+    verseText: 'Scripture compares flourishing strength to the cedar of Lebanon.',
+    reading: 'Strong growth is often slow growth: rooted, steady, and able to endure changing seasons.'
   });
 
   Object.assign(levels[39], {
-    theme: 'Dream',
-    letters: 'DREAM',
-    words: ['DREAM','READ','DEAR','DARE','MADE','MARE','REAM','ARM','RAM','EAR','RED','MAD','DAM'],
-    verse: 'Genesis 37:5',
-    verseText: 'Joseph’s dreams became part of a much longer story.',
-    reading: 'A meaningful beginning does not guarantee an easy middle, but God can keep working through the whole story.'
+    theme: 'Table',
+    letters: 'TABLE',
+    words: ['TABLE','ABLE','BALE','LATE','TALE','BELT','BEAT','TEAL','BETA','BAT','BET','TAB','TEA','EAT','LET'],
+    verse: 'Psalm 23:5',
+    verseText: 'The psalm pictures God preparing a table even in the presence of trouble.',
+    reading: 'God’s provision does not require every difficulty to disappear before we can recognize His care.'
   });
 
   Object.assign(levels[44], {
@@ -40,11 +40,23 @@
   });
 
   Object.assign(levels[49], {
-    theme: 'Star',
+    theme: 'Stars',
     letters: 'STARS',
     words: ['STARS','STAR','TARS','RATS','TSAR','ART','RAT','TAR','SAT'],
     verse: 'Genesis 1:16',
     verseText: 'The lights of the heavens are part of God’s created order.',
     reading: 'The night sky can remind us how large creation is and how intentionally Scripture describes it.'
+  });
+
+  // Development guard: every level must have a unique primary puzzle word.
+  const seenPrimaryWords = new Map();
+  levels.forEach((level, index) => {
+    const primary = String(level.words?.[0] || '').toUpperCase();
+    if (!primary) return;
+    if (seenPrimaryWords.has(primary)) {
+      console.error(`FaithWords duplicate primary word: ${primary} on levels ${seenPrimaryWords.get(primary)} and ${index + 1}`);
+    } else {
+      seenPrimaryWords.set(primary, index + 1);
+    }
   });
 })();
