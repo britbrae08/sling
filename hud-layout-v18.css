@@ -22,6 +22,9 @@ body,.app-shell,.game-card,.puzzle-panel{border-bottom:0!important;box-shadow:no
 }
 .audio-menu .dictionary-credit.menu-credit a{color:#66574f;font-weight:800;}
 
+/* Replay is intentionally removed from the completion experience. */
+#replayButton{display:none!important;}
+
 /* One-line level meta, with toolbar directly beneath it in the same HUD area. */
 .scene{
   position:relative!important;
