@@ -24,6 +24,7 @@ const APP_SHELL = [
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
+  './level-quality-v32.js?v=32',
   './faithwords-config-v32.js?v=32',
   './lexicon-v32.js?v=32',
   './game-runtime-v3.js?v=32',
