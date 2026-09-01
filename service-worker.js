@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v23-one-line-hud';
+const CACHE_NAME = 'faithwords-v24-menu-front';
 const APP_SHELL = [
   './',
   './index.html',
@@ -16,7 +16,7 @@ const APP_SHELL = [
   './fullscreen-v15.css',
   './board-background-v17.css',
   './hud-layout-v18.css?v=23',
-  './hud-row-v23.css?v=23',
+  './hud-row-v23.css?v=24',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
