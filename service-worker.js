@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v14-fullscreen-board-cap';
+const CACHE_NAME = 'faithwords-v15-fullscreen-next-level';
 const APP_SHELL = [
   './',
   './index.html',
@@ -13,6 +13,7 @@ const APP_SHELL = [
   './worlds-v12.css',
   './accessibility-v12.css',
   './interface-v13.css',
+  './fullscreen-v15.css',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -23,6 +24,7 @@ const APP_SHELL = [
   './mix-animation-v11.js',
   './board-pan-v13.js',
   './account-sync-v13.js',
+  './next-level-v15.js',
   './manifest.webmanifest',
   './icon.svg'
 ];
