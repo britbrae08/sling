@@ -1,9 +1,8 @@
-const CACHE_NAME = 'sling-one-pull-v1';
+const CACHE_NAME = 'faithwords-v1';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
-  './game-loader.js',
   './game.js',
   './manifest.webmanifest',
   './icon.svg'
@@ -15,11 +14,9 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-    ))
-  );
+  event.waitUntil(caches.keys().then(keys => Promise.all(
+    keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+  )));
   self.clients.claim();
 });
 
