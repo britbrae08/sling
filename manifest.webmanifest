@@ -1,11 +1,11 @@
 {
-  "name": "SLING — Aim. Power. Release.",
-  "short_name": "SLING",
-  "description": "A first-person Bible-era skill shooting game where aim, power, distance, and physics determine every shot.",
+  "name": "FaithWords — Bible Word Puzzles",
+  "short_name": "FaithWords",
+  "description": "A peaceful Bible-themed word puzzle game presented by FaithCraft.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0d1d17",
-  "theme_color": "#13271f",
+  "background_color": "#fbf4e8",
+  "theme_color": "#fbf4e8",
   "orientation": "portrait-primary",
   "icons": [
     {
