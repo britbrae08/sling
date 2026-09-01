@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v10-word-feedback';
+const CACHE_NAME = 'faithwords-v11-letter-mix';
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,11 +9,13 @@ const APP_SHELL = [
   './audio-menu-v7.css',
   './hint-reward-v8.css',
   './hard-level-v9.css',
+  './mix-animation-v11.css',
   './audio-v7.js',
   './game-runtime-v3.js',
   './game-v3.js',
   './hint-reward-v8.js',
   './word-feedback-v10.js',
+  './mix-animation-v11.js',
   './manifest.webmanifest',
   './icon.svg'
 ];
