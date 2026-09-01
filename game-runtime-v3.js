@@ -2,7 +2,7 @@
   'use strict';
 
   async function boot() {
-    const response = await fetch('./game-v3.js?build=faithwords-v14', { cache: 'no-store' });
+    const response = await fetch('./game-v3.js?build=faithwords-v17', { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load FaithWords (${response.status})`);
     let source = await response.text();
 
@@ -55,6 +55,11 @@
     );
 
     source = source.replace(
+      `  function addSelected(index) {\n    if (selected.includes(index)) return;\n    selected.push(index);\n    updateSelectionVisuals();\n    tone(350 + selected.length * 38, .035, .025);\n  }`,
+      `  function addSelected(index) {\n    const previousIndex = selected.length > 1 ? selected[selected.length - 2] : null;\n    if (selected.includes(index)) {\n      if (index === previousIndex) {\n        selected.pop();\n        updateSelectionVisuals();\n        tone(Math.max(280, 350 + selected.length * 30), .028, .018);\n      }\n      return;\n    }\n    selected.push(index);\n    updateSelectionVisuals();\n    tone(350 + selected.length * 38, .035, .025);\n  }`
+    );
+
+    source = source.replace(
       `      save.hintPoints += BONUS_WORD_POINTS;\n      ui.bonusCount.textContent = save.hintPoints;\n      flashMessage(\`\${word}  +\${BONUS_WORD_POINTS} HINT POINT\`, false, 1500);\n      animateBonusPoint();`,
       `      const previousHintPoints = save.hintPoints;\n      save.hintPoints = Math.min(MAX_HINT_POINTS, save.hintPoints + BONUS_WORD_POINTS);\n      const earnedHintPoints = save.hintPoints - previousHintPoints;\n      ui.bonusCount.textContent = save.hintPoints;\n      if (earnedHintPoints > 0) {\n        flashMessage(\`\${word}  +\${earnedHintPoints} HINT POINT\`, false, 1500);\n        animateBonusPoint();\n      } else {\n        flashMessage(word, false, 1500);\n      }`
     );
@@ -92,7 +97,7 @@
     );
 
     const script = document.createElement('script');
-    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v14.js`;
+    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v17.js`;
     document.head.appendChild(script);
   }
 
