@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v21-index-wiring-fix';
+const CACHE_NAME = 'faithwords-v22-menu-brand-links';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,7 +15,7 @@ const APP_SHELL = [
   './interface-v13.css',
   './fullscreen-v15.css',
   './board-background-v17.css',
-  './hud-layout-v18.css?v=21',
+  './hud-layout-v18.css?v=22',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
