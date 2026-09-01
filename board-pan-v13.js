@@ -27,9 +27,6 @@
     const bw = Math.max(1, board.scrollWidth || board.offsetWidth);
     const bh = Math.max(1, board.scrollHeight || board.offsetHeight);
 
-    // The crossword is a full-screen background object now. Allow it to travel
-    // across almost the entire gameplay surface while keeping a small portion
-    // recoverable at the furthest edge.
     return {
       x: Math.max(vw * .82, (vw + bw) / 2 - 18),
       y: Math.max(vh * .82, (vh + bh) / 2 - 18)
@@ -47,34 +44,45 @@
     board.style.transform = `translate3d(${x}px, ${y}px, 0)`;
   }
 
-  function centerBoard({ animate = true } = {}) {
-    recenterAnimation?.cancel?.();
+  function stopRecenterAnimation() {
+    if (!recenterAnimation) return;
+    const animation = recenterAnimation;
     recenterAnimation = null;
+    try { animation.cancel(); } catch (_) {}
+  }
+
+  function centerBoard({ animate = true } = {}) {
+    stopRecenterAnimation();
 
     const fromX = x;
     const fromY = y;
     x = 0;
     y = 0;
 
+    // Make the centered transform the real underlying style immediately.
+    // The animation is visual-only, so it can never keep ownership of the
+    // transform after it finishes and block the next drag gesture.
+    board.style.transform = 'translate3d(0,0,0)';
+
     const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
     if (animate && !reduceMotion && board.animate && (Math.abs(fromX) > 1 || Math.abs(fromY) > 1)) {
-      recenterAnimation = board.animate([
+      const animation = board.animate([
         { transform: `translate3d(${fromX}px, ${fromY}px, 0)` },
         { transform: 'translate3d(0,0,0)' }
       ], {
         duration: 240,
         easing: 'cubic-bezier(.2,.8,.2,1)',
-        fill: 'forwards'
+        fill: 'none'
       });
-      recenterAnimation.addEventListener('finish', () => {
+
+      recenterAnimation = animation;
+      animation.addEventListener('finish', () => {
+        if (recenterAnimation === animation) recenterAnimation = null;
         board.style.transform = 'translate3d(0,0,0)';
-        recenterAnimation = null;
       }, { once: true });
-      recenterAnimation.addEventListener('cancel', () => {
-        recenterAnimation = null;
+      animation.addEventListener('cancel', () => {
+        if (recenterAnimation === animation) recenterAnimation = null;
       }, { once: true });
-    } else {
-      board.style.transform = 'translate3d(0,0,0)';
     }
   }
 
@@ -84,7 +92,10 @@
 
   viewport.addEventListener('pointerdown', event => {
     if (activePointer !== null) return;
-    recenterAnimation?.cancel?.();
+
+    // Any new touch immediately releases a still-running recenter animation.
+    stopRecenterAnimation();
+
     activePointer = event.pointerId;
     startX = event.clientX;
     startY = event.clientY;
@@ -148,5 +159,9 @@
     subtree: true
   });
 
-  new ResizeObserver(() => requestAnimationFrame(apply)).observe(viewport);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => requestAnimationFrame(apply)).observe(viewport);
+  } else {
+    window.addEventListener('resize', () => requestAnimationFrame(apply));
+  }
 })();
