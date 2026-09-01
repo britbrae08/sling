@@ -14,7 +14,7 @@
   let originY = 0;
   let activePointer = null;
 
-  viewport.setAttribute('aria-label', 'Crossword puzzle. Drag with one finger in any direction to move the board.');
+  viewport.setAttribute('aria-label', 'Crossword puzzle background. Drag with one finger anywhere on the open game background to move the puzzle.');
 
   function limits() {
     const vw = Math.max(1, viewport.clientWidth);
@@ -22,11 +22,12 @@
     const bw = Math.max(1, board.scrollWidth || board.offsetWidth);
     const bh = Math.max(1, board.scrollHeight || board.offsetHeight);
 
-    // Every puzzle can be moved substantially, even when its board is smaller
-    // than the viewport. Large boards can travel until only a small edge remains.
+    // The crossword is a full-screen background object now. Allow it to travel
+    // across almost the entire gameplay surface while keeping a small portion
+    // recoverable at the furthest edge.
     return {
-      x: Math.max(135, (vw + bw) / 2 - 34),
-      y: Math.max(120, (vh + bh) / 2 - 30)
+      x: Math.max(vw * .82, (vw + bw) / 2 - 18),
+      y: Math.max(vh * .82, (vh + bh) / 2 - 18)
     };
   }
 
