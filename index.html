@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="fullscreen-v15.css" />
   <link rel="stylesheet" href="board-background-v17.css" />
   <link rel="stylesheet" href="hud-layout-v18.css?v=23" />
-  <link rel="stylesheet" href="hud-row-v23.css?v=25" />
+  <link rel="stylesheet" href="hud-row-v23.css?v=27" />
   <link rel="stylesheet" href="hard-menu-v26.css?v=26" />
 </head>
 <body class="world-1">
@@ -47,6 +47,7 @@
           <strong>Menu</strong>
           <span>Settings</span>
         </div>
+        <button id="levelsButton" class="menu-levels-button" type="button">Levels</button>
         <div class="audio-row">
           <div class="audio-row-copy">
             <strong>Game sounds</strong>
@@ -91,7 +92,6 @@
           <button id="hintButton" class="soft-button hint-button" type="button" aria-label="Use hint">
             💡 HINT <span id="hintCostLabel">5</span>
           </button>
-          <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
         </div>
       </div>
 
@@ -168,6 +168,14 @@
   <script src="hud-layout-v18.js?v=23"></script>
   <script src="hard-menu-v26.js?v=26"></script>
   <script>
+    const menuLevelsButton = document.getElementById('levelsButton');
+    const audioMenu = document.getElementById('audioMenu');
+    const menuButton = document.getElementById('menuButton');
+    menuLevelsButton?.addEventListener('click', () => {
+      audioMenu?.classList.remove('open');
+      menuButton?.setAttribute('aria-expanded', 'false');
+    });
+
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
     }
