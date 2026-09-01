@@ -13,10 +13,12 @@
   let lastCount = Number(countEl.textContent) || 0;
 
   startButton?.addEventListener('click', () => {
-    requestAnimationFrame(() => {
+    // Give the game engine time to restore any saved balance first so only
+    // points earned after Play trigger the celebration.
+    setTimeout(() => {
       lastCount = Number(countEl.textContent) || 0;
       armed = true;
-    });
+    }, 700);
   });
 
   function burstAtTarget(rect) {
