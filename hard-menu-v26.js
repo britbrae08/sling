@@ -4,7 +4,10 @@
   const levelGrid = document.getElementById('levelGrid');
   if (!levelGrid) return;
 
-  const isHardLevel = levelNumber => levelNumber >= 20 && levelNumber % 5 === 0;
+  const isHardLevel = levelNumber => {
+    if (window.FaithWordsConfig?.isHardLevel) return window.FaithWordsConfig.isHardLevel(levelNumber);
+    return Number(levelNumber) >= 20 && Number(levelNumber) % 5 === 0;
+  };
 
   function annotateHardLevels() {
     levelGrid.querySelectorAll('.level-button').forEach(button => {
