@@ -1,0 +1,136 @@
+/* FaithWords v18 — compact top HUD and bottom letter wheel */
+:root{--faithwords-wheel-size:318px;--faithwords-bottom-gap:max(12px,env(safe-area-inset-bottom));}
+
+/* The former bottom dictionary strip is gone from gameplay. Attribution lives in Menu. */
+body,.app-shell,.game-card,.puzzle-panel{border-bottom:0!important;box-shadow:none;}
+.dictionary-credit{display:none!important;}
+.audio-menu .dictionary-credit.menu-credit{
+  display:block!important;
+  position:static!important;
+  width:100%;
+  height:auto!important;
+  margin:12px 0 0!important;
+  padding:10px 0 0!important;
+  border-radius:0!important;
+  border-top:1px solid rgba(68,58,53,.10);
+  background:transparent!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  color:#8c8078;
+  font-size:.76rem!important;
+  line-height:1.35!important;
+}
+.audio-menu .dictionary-credit.menu-credit a{color:#66574f;font-weight:800;}
+
+/* One-line level meta, with toolbar directly beneath it in the same HUD area. */
+.scene{
+  position:relative!important;
+  z-index:10!important;
+  height:90px!important;
+  min-height:90px!important;
+  flex:0 0 90px!important;
+  overflow:visible!important;
+  pointer-events:auto!important;
+}
+.scene-copy{
+  position:absolute!important;
+  left:8px!important;
+  right:8px!important;
+  top:2px!important;
+  max-width:none!important;
+  padding:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+  white-space:nowrap;
+  pointer-events:none!important;
+}
+.scene-copy .level-label,
+.scene-copy #themePrompt{
+  display:inline!important;
+  margin:0!important;
+  color:#fff!important;
+  font-size:.92rem!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+  letter-spacing:.035em!important;
+  text-transform:uppercase!important;
+  text-shadow:0 2px 5px rgba(25,30,30,.66)!important;
+}
+.scene-copy #themePrompt::before{content:" • ";}
+.scene-copy #hardBadge{position:absolute!important;right:0;top:28px;pointer-events:none;}
+
+.scene>.puzzle-toolbar{
+  position:absolute!important;
+  left:6px!important;
+  right:6px!important;
+  top:34px!important;
+  z-index:12!important;
+  display:grid!important;
+  grid-template-columns:1fr auto 1fr!important;
+  align-items:center!important;
+  gap:8px!important;
+  min-height:46px!important;
+  padding:0!important;
+  pointer-events:auto!important;
+}
+.scene>.puzzle-toolbar>span{
+  justify-self:center;
+  padding:6px 10px!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.72)!important;
+  color:#4d4743!important;
+  box-shadow:0 4px 14px rgba(25,35,35,.14)!important;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  white-space:nowrap;
+}
+.scene>.puzzle-toolbar>:first-child{justify-self:start;}
+.scene>.puzzle-toolbar>:last-child{justify-self:end;}
+
+/* The wheel belongs at the bottom, not in the middle of the screen. */
+.wheel-zone{
+  position:fixed!important;
+  z-index:12!important;
+  left:50%!important;
+  bottom:var(--faithwords-bottom-gap)!important;
+  transform:translateX(-50%)!important;
+  width:min(calc(100vw - 14px),500px)!important;
+  height:var(--faithwords-wheel-size)!important;
+  min-height:var(--faithwords-wheel-size)!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  pointer-events:none;
+}
+.wheel-zone .letter-wheel,
+.wheel-zone .shuffle-side{pointer-events:auto;}
+.letter-wheel{
+  width:var(--faithwords-wheel-size)!important;
+  height:var(--faithwords-wheel-size)!important;
+  flex:0 0 var(--faithwords-wheel-size)!important;
+  margin:0 auto!important;
+}
+
+/* Word/result feedback floats immediately above the wheel. */
+.word-readout-wrap{
+  position:fixed!important;
+  z-index:13!important;
+  left:50%!important;
+  bottom:calc(var(--faithwords-bottom-gap) + var(--faithwords-wheel-size) + 2px)!important;
+  transform:translateX(-50%)!important;
+  width:min(calc(100vw - 24px),470px)!important;
+  min-height:36px!important;
+  height:auto!important;
+  pointer-events:none!important;
+}
+
+/* With the toolbar moved into .scene, the panel is only a structural shell. */
+.puzzle-panel{padding:0!important;display:block!important;min-height:0!important;overflow:visible!important;}
+
+@media(max-height:780px){:root{--faithwords-wheel-size:276px}.scene{height:86px!important;min-height:86px!important;flex-basis:86px!important}.scene-copy .level-label,.scene-copy #themePrompt{font-size:.84rem!important}}
+@media(max-height:690px){:root{--faithwords-wheel-size:244px}.scene{height:82px!important;min-height:82px!important;flex-basis:82px!important}.scene-copy .level-label,.scene-copy #themePrompt{font-size:.78rem!important}.scene>.puzzle-toolbar{top:31px!important}.soft-button{min-height:38px!important}}
+@media(max-width:360px){.scene-copy .level-label,.scene-copy #themePrompt{font-size:.74rem!important;letter-spacing:.02em!important}.scene>.puzzle-toolbar{gap:5px!important}.scene>.puzzle-toolbar>span{padding:5px 7px!important}}
