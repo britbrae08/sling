@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v26-hard-menu-labels';
+const CACHE_NAME = 'faithwords-v27-menu-levels-clean-hud';
 const APP_SHELL = [
   './',
   './index.html',
@@ -16,7 +16,7 @@ const APP_SHELL = [
   './fullscreen-v15.css',
   './board-background-v17.css',
   './hud-layout-v18.css?v=23',
-  './hud-row-v23.css?v=25',
+  './hud-row-v23.css?v=27',
   './hard-menu-v26.css?v=26',
   './audio-settings-v12.js',
   './levels-v12.js',
