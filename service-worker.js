@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v17-progress-backtrack-board';
+const CACHE_NAME = 'faithwords-v18-top-hud-bottom-wheel';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,6 +15,7 @@ const APP_SHELL = [
   './interface-v13.css',
   './fullscreen-v15.css',
   './board-background-v17.css',
+  './hud-layout-v18.css',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -26,6 +27,7 @@ const APP_SHELL = [
   './board-pan-v13.js',
   './account-sync-v13.js',
   './next-level-v15.js',
+  './hud-layout-v18.js',
   './manifest.webmanifest',
   './icon.svg'
 ];
