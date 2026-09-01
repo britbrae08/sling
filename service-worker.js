@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v19-no-replay';
+const CACHE_NAME = 'faithwords-v20-double-tap-center';
 const APP_SHELL = [
   './',
   './index.html',
