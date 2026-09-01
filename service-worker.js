@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v15-fullscreen-next-level';
+const CACHE_NAME = 'faithwords-v16-unique-levels';
 const APP_SHELL = [
   './',
   './index.html',
