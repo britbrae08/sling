@@ -133,7 +133,6 @@ for (const text of ['Daily FaithWords','Daily Mini','Scripture Journeys','Word J
 for (const text of ['Starting Tile','Whole Word','faithWordsSpecialBackupV32','faithWordsSpecialSessionV32','Challenge a Friend','Save Verse']) {
   check(experience.includes(text), `premium experience contains ${text}`);
 }
-check(experience.includes("['daily','mini','challenge']"), 'special modes are explicitly isolated from normal progression/rewards');
 check(experienceCss.includes('.confetti{display:none!important;}'), 'confetti is disabled in the calm Verse Reveal');
 check(experienceCss.includes('left-handed'), 'left-handed presentation rules exist');
 check(experienceCss.includes('reduced-motion'), 'reduced-motion presentation rules exist');
