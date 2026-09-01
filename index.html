@@ -16,43 +16,56 @@
         <span class="brand-kicker">FAITHCRAFT PRESENTS</span>
         <h1>FaithWords</h1>
       </div>
-      <div class="light-pill" aria-label="Light points"><span>✦</span><strong id="lightCount">0</strong></div>
+      <div class="bonus-pill" aria-label="Bonus points available for hints">
+        <span>✦ BONUS</span><strong id="bonusCount">0</strong>
+      </div>
     </header>
 
     <section class="game-card">
       <div class="scene" id="scene">
         <div class="sun"></div>
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
         <div class="hill hill-back"></div>
         <div class="hill hill-front"></div>
+        <div id="sceneSparkles" class="scene-sparkles" aria-hidden="true"></div>
         <div class="scene-copy">
           <span id="levelLabel" class="level-label">LEVEL 1</span>
-          <h2 id="themeLabel">Faith</h2>
-          <p id="themePrompt">Connect the letters. Find every word.</p>
+          <h2 id="themeLabel">God</h2>
+          <p id="themePrompt">Start with simple three-letter words.</p>
         </div>
       </div>
 
       <section class="puzzle-panel">
         <div class="puzzle-toolbar">
           <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
-          <span id="wordProgress">0 / 5 words</span>
-          <button id="hintButton" class="soft-button" type="button">💡 <span id="hintCount">3</span></button>
+          <span id="wordProgress">0 / 2 words</span>
+          <button id="hintButton" class="soft-button hint-button" type="button" aria-label="Use hint">
+            💡 <span id="hintCost">12 ✦</span>
+          </button>
         </div>
 
         <div id="crossword" class="crossword" aria-label="Crossword puzzle"></div>
 
         <div class="word-readout-wrap">
-          <div id="wordReadout" class="word-readout" aria-live="polite">Swipe through letters</div>
+          <div id="wordReadout" class="word-readout idle" aria-live="polite">Swipe through letters</div>
           <div id="message" class="message" aria-live="polite"></div>
         </div>
 
         <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel">
-          <svg id="traceSvg" class="trace-svg" viewBox="0 0 260 260" aria-hidden="true"><polyline id="traceLine" points="" /></svg>
+          <svg id="traceSvg" class="trace-svg" viewBox="0 0 300 300" aria-hidden="true">
+            <polyline id="traceLine" points="" />
+          </svg>
+          <div class="wheel-halo" aria-hidden="true"></div>
           <div class="wheel-center">✦</div>
         </div>
 
         <div class="bottom-actions">
           <button id="shuffleButton" class="round-action" type="button" aria-label="Shuffle letters">↻</button>
-          <span>Swipe through letters to make a word</span>
+          <div class="bonus-help">
+            <strong>Extra real words earn bonus points</strong>
+            <span>Bonus points can buy hints.</span>
+          </div>
           <button id="soundButton" class="round-action" type="button" aria-label="Toggle sound">♪</button>
         </div>
       </section>
@@ -62,23 +75,28 @@
       <div class="modal-card intro-card">
         <span class="eyebrow">A QUIET WORD GAME</span>
         <h2>Find words.<br />Uncover Scripture.</h2>
-        <p>Swipe through the letter circle to make words. Complete each puzzle to reveal a short Bible text and open the next level.</p>
+        <p>Swipe across the letter circle to make common words. Every puzzle includes at least one clearly biblical word. Extra valid words earn bonus points you can spend on hints.</p>
         <button id="startButton" class="primary-button" type="button">PLAY FAITHWORDS</button>
-        <span class="microcopy">Short levels • No timer • Play at your own pace</span>
+        <span class="microcopy">No 2-letter words • No timer • Short, relaxing levels</span>
       </div>
     </section>
 
     <section id="completeOverlay" class="overlay">
-      <div class="modal-card verse-card">
-        <span class="eyebrow">PUZZLE COMPLETE</span>
+      <div id="completeCard" class="modal-card reading-card">
+        <span class="eyebrow">TAKE A MOMENT</span>
         <div class="complete-mark">✦</div>
-        <h2 id="completeTitle">Faith</h2>
-        <blockquote id="verseText"></blockquote>
-        <cite id="verseRef"></cite>
-        <div class="reward-line">+<strong id="rewardAmount">25</strong> ✦ LIGHT</div>
-        <button id="nextButton" class="primary-button" type="button">NEXT PUZZLE</button>
-        <button id="replayButton" class="secondary-button" type="button">REPLAY</button>
+        <h2 id="completeTitle">God</h2>
+        <p id="readingText" class="reading-text"></p>
+        <div class="scripture-panel">
+          <span>READ</span>
+          <strong id="verseRef"></strong>
+          <p id="verseText"></p>
+        </div>
+        <div class="reward-line">Puzzle complete</div>
+        <button id="nextButton" class="primary-button" type="button">NEXT</button>
+        <button id="replayButton" class="secondary-button" type="button">REPLAY PUZZLE</button>
       </div>
+      <div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
     </section>
 
     <section id="levelDrawer" class="level-drawer" aria-label="Choose a FaithWords level">
