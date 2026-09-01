@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="enhancements.css" />
   <link rel="stylesheet" href="progression-v3.css" />
   <link rel="stylesheet" href="layout-v6.css" />
+  <link rel="stylesheet" href="audio-menu-v7.css" />
 </head>
 <body>
   <main class="app-shell" aria-label="FaithWords game">
@@ -19,10 +20,49 @@
         <span class="brand-kicker">FAITHCRAFT PRESENTS</span>
         <h1>FaithWords</h1>
       </div>
-      <div class="bonus-pill" aria-label="Hint points">
-        <span>💡 HINT POINTS</span><strong id="bonusCount">0</strong>
-        <i id="bonusBurst" class="bonus-burst" aria-hidden="true"></i>
+
+      <div class="topbar-tools">
+        <div class="bonus-pill" aria-label="Hint points">
+          <span>💡 HINT POINTS</span><strong id="bonusCount">0</strong>
+          <i id="bonusBurst" class="bonus-burst" aria-hidden="true"></i>
+        </div>
+        <button id="menuButton" class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="audioMenu">
+          <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+        </button>
       </div>
+
+      <aside id="audioMenu" class="audio-menu" aria-label="FaithWords menu">
+        <div class="audio-menu-head">
+          <strong>Menu</strong>
+          <span>Audio</span>
+        </div>
+
+        <div class="audio-row">
+          <div class="audio-row-copy">
+            <strong>Music</strong>
+            <span>Gentle hymns and classical melodies</span>
+          </div>
+          <label class="audio-switch" aria-label="Background music">
+            <input id="musicToggle" type="checkbox" checked />
+            <span class="audio-switch-track" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <div class="audio-row">
+          <div class="audio-row-copy">
+            <strong>Game sounds</strong>
+            <span>Letters, words, hints, bonus words and completion</span>
+          </div>
+          <label class="audio-switch" aria-label="Game sounds">
+            <input id="sfxToggle" type="checkbox" checked />
+            <span class="audio-switch-track" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <div id="nowPlaying" class="now-playing" aria-live="polite">
+          Public-domain hymn and classical melodies are gently synthesized inside the game.
+        </div>
+      </aside>
     </header>
 
     <section class="game-card">
@@ -63,7 +103,6 @@
               <polyline id="traceLine" points="" />
             </svg>
           </div>
-          <button id="soundButton" class="round-action sound-side" type="button" aria-label="Toggle sound">♪</button>
         </div>
       </section>
     </section>
@@ -105,8 +144,11 @@
       </div>
       <div id="levelGrid" class="level-grid"></div>
     </section>
+
+    <button id="soundButton" type="button" hidden aria-hidden="true">♪</button>
   </main>
 
+  <script src="audio-v7.js"></script>
   <script src="game-runtime-v3.js"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
