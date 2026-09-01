@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v33-level-picker-hint-stack';
+const CACHE_NAME = 'faithwords-v32-release-hardening-1';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,7 +15,6 @@ const APP_SHELL = [
   './interface-v13.css',
   './fullscreen-v15.css',
   './board-background-v17.css',
-  './hud-layout-v18.css?v=23',
   './hud-row-v23.css?v=29',
   './hard-menu-v26.css?v=26',
   './scramble-v31.css?v=31',
@@ -25,10 +24,11 @@ const APP_SHELL = [
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
-  './level-quality-v32.js?v=32',
-  './faithwords-config-v32.js?v=32',
-  './lexicon-v32.js?v=32',
+  './level-quality-v32.js?v=32.1',
+  './faithwords-config-v32.js?v=32.1',
+  './lexicon-v32.js?v=32.1',
   './game-runtime-v3.js?v=32',
+  './experience-v32.js?v=32',
   './game-v3.js',
   './hint-reward-v8.js',
   './word-feedback-v10.js',
@@ -36,9 +36,7 @@ const APP_SHELL = [
   './board-pan-v13.js?v=30',
   './account-sync-v13.js',
   './next-level-v15.js?v=32',
-  './hud-layout-v18.js?v=23',
   './hard-menu-v26.js?v=26',
-  './experience-v32.js?v=32',
   './hud-v33.js?v=33',
   './manifest.webmanifest',
   './icon.svg'
