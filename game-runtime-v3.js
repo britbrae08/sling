@@ -11,6 +11,11 @@
       "const DICTIONARY_API = 'https://freedictionaryapi.com/api/v1/entries/en/';"
     );
 
+    source = source.replace(
+      "      const valid = response.ok;\n      dictionaryCache.set(word, valid);\n      return valid;",
+      "      let valid = false;\n      if (response.ok) {\n        const data = await response.json();\n        valid = !!data && Array.isArray(data.entries) && data.entries.length > 0;\n      }\n      dictionaryCache.set(word, valid);\n      return valid;"
+    );
+
     // Keep the Grace crossword connected: GEAR remains a valid bonus word,
     // but is not required on the board.
     source = source.replace(
