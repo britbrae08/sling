@@ -1,11 +1,15 @@
-/* FaithWords v24 — one-line gameplay HUD */
+/* FaithWords v25 — collision-proof single-row HUD */
 
-/* The old letter-count instruction remains in the DOM for runtime compatibility only. */
-#themePrompt{display:none!important;}
+#themePrompt{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  width:0!important;
+  height:0!important;
+  overflow:hidden!important;
+}
 
-/* When the menu is open, raise its entire parent stacking context above every
-   game layer. Raising the menu alone is not enough because .topbar is itself
-   a stacking context. */
+/* Keep the opened menu in front of every gameplay layer. */
 .app-shell:has(#audioMenu.open){
   position:relative!important;
   z-index:2147482998!important;
@@ -17,21 +21,18 @@
   overflow:visible!important;
   isolation:isolate;
 }
-#audioMenu.open{
-  z-index:2147483001!important;
-}
+#audioMenu.open{z-index:2147483001!important;}
 
 .scene{
   position:relative!important;
   z-index:10!important;
-  height:78px!important;
-  min-height:78px!important;
-  flex:0 0 78px!important;
+  height:76px!important;
+  min-height:76px!important;
+  flex:0 0 76px!important;
   overflow:visible!important;
   pointer-events:auto!important;
 }
 
-/* Hard badge lives by itself below the HUD on the left side of the scenery. */
 .scene-copy{
   position:absolute!important;
   inset:0!important;
@@ -40,94 +41,139 @@
   display:block!important;
   pointer-events:none!important;
 }
+
+/* HARD sits alone under the row and cannot inherit the oversized accessibility treatment. */
 .scene-copy #hardBadge{
   position:absolute!important;
-  left:8px!important;
+  left:7px!important;
   right:auto!important;
-  top:49px!important;
-  margin:0!important;
+  top:44px!important;
   z-index:13!important;
+  margin:0!important;
+  padding:4px 8px 5px!important;
+  border-width:2px!important;
+  font-size:.68rem!important;
+  line-height:1!important;
+  letter-spacing:.06em!important;
+  animation:hardPulse 1.35s ease-in-out infinite!important;
 }
 #hardBadge[hidden]{display:none!important;}
 
-/* Exact visual order: LEVEL → word progress → HINT → LEVELS. */
+/* Exact order: LEVEL → WORDS → HINT → LEVELS. */
 .scene>.puzzle-toolbar{
   position:absolute!important;
-  left:6px!important;
-  right:6px!important;
+  left:5px!important;
+  right:5px!important;
   top:2px!important;
   z-index:14!important;
-  min-height:42px!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:36px!important;
   padding:0!important;
-  display:flex!important;
-  flex-wrap:nowrap!important;
+  margin:0!important;
+  display:grid!important;
+  grid-template-columns:max-content max-content max-content max-content!important;
   align-items:center!important;
   justify-content:space-between!important;
-  gap:6px!important;
+  column-gap:3px!important;
   pointer-events:auto!important;
   white-space:nowrap!important;
+  overflow:visible!important;
 }
 
+.scene>.puzzle-toolbar>*{
+  box-sizing:border-box!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  flex:none!important;
+}
+
+/* Neutralize the old translucent pill that was appearing behind LEVEL. */
 .scene>.puzzle-toolbar .level-label{
-  flex:0 0 auto!important;
   display:inline-flex!important;
   align-items:center!important;
-  min-height:38px!important;
-  margin:0!important;
-  padding:0 4px!important;
+  justify-content:flex-start!important;
+  min-height:34px!important;
+  padding:0 2px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
   color:#fff!important;
-  font-size:.86rem!important;
+  font-size:.76rem!important;
   line-height:1!important;
   font-weight:950!important;
-  letter-spacing:.025em!important;
+  letter-spacing:.015em!important;
   text-transform:uppercase!important;
   text-shadow:0 2px 5px rgba(25,30,30,.72)!important;
 }
 
 .scene>.puzzle-toolbar #wordProgress{
-  flex:0 0 auto!important;
   display:inline-flex!important;
   align-items:center!important;
   justify-content:center!important;
-  min-height:38px!important;
-  margin:0!important;
-  padding:0 8px!important;
-  border-radius:13px!important;
-  background:rgba(255,255,255,.72)!important;
+  min-height:34px!important;
+  padding:0 6px!important;
+  border-radius:12px!important;
+  background:rgba(255,255,255,.76)!important;
   color:#4d4743!important;
-  box-shadow:0 4px 14px rgba(25,35,35,.14)!important;
-  backdrop-filter:blur(4px);
-  -webkit-backdrop-filter:blur(4px);
-  font-size:.78rem!important;
+  box-shadow:0 3px 10px rgba(25,35,35,.13)!important;
+  backdrop-filter:blur(4px)!important;
+  -webkit-backdrop-filter:blur(4px)!important;
+  font-size:.70rem!important;
+  line-height:1!important;
   font-weight:900!important;
 }
 
-.scene>.puzzle-toolbar .soft-button{
-  flex:0 0 auto!important;
-  min-height:38px!important;
-  height:38px!important;
-  margin:0!important;
-  padding:0 9px!important;
+.scene>.puzzle-toolbar #hintButton,
+.scene>.puzzle-toolbar #levelsButton{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:34px!important;
+  height:34px!important;
+  padding:0 7px!important;
   border-radius:999px!important;
-  font-size:.76rem!important;
+  font-size:0!important;
+  line-height:1!important;
   font-weight:900!important;
   white-space:nowrap!important;
 }
-
-/* No legacy layout rule may move these controls into different columns. */
-.scene>.puzzle-toolbar>:first-child,
-.scene>.puzzle-toolbar>:last-child{justify-self:auto!important;}
+.scene>.puzzle-toolbar #hintButton::after{
+  content:"HINT 5";
+  font-size:.69rem!important;
+  line-height:1!important;
+}
+.scene>.puzzle-toolbar #levelsButton::after{
+  content:"LEVELS";
+  font-size:.69rem!important;
+  line-height:1!important;
+}
+.scene>.puzzle-toolbar #hintCostLabel{display:none!important;}
 
 @media(max-width:390px){
-  .scene>.puzzle-toolbar{left:3px!important;right:3px!important;gap:4px!important;}
-  .scene>.puzzle-toolbar .level-label{font-size:.78rem!important;padding:0 2px!important;}
-  .scene>.puzzle-toolbar #wordProgress{font-size:.72rem!important;padding:0 6px!important;}
-  .scene>.puzzle-toolbar .soft-button{font-size:.70rem!important;padding:0 7px!important;}
+  .scene>.puzzle-toolbar{left:3px!important;right:3px!important;column-gap:2px!important;}
+  .scene>.puzzle-toolbar .level-label{font-size:.68rem!important;padding:0 1px!important;}
+  .scene>.puzzle-toolbar #wordProgress{font-size:.64rem!important;padding:0 5px!important;}
+  .scene>.puzzle-toolbar #hintButton,
+  .scene>.puzzle-toolbar #levelsButton{padding:0 5px!important;}
+  .scene>.puzzle-toolbar #hintButton::after,
+  .scene>.puzzle-toolbar #levelsButton::after{font-size:.63rem!important;}
 }
 
 @media(max-width:350px){
-  .scene>.puzzle-toolbar{gap:3px!important;}
-  .scene>.puzzle-toolbar .level-label{font-size:.72rem!important;}
-  .scene>.puzzle-toolbar #wordProgress{font-size:.67rem!important;padding:0 5px!important;}
-  .scene>.puzzle-toolbar .soft-button{font-size:.66rem!important;padding:0 6px!important;}
+  .scene>.puzzle-toolbar .level-label{font-size:.62rem!important;}
+  .scene>.puzzle-toolbar #wordProgress{font-size:.59rem!important;padding:0 4px!important;}
+  .scene>.puzzle-toolbar #hintButton,
+  .scene>.puzzle-toolbar #levelsButton{padding:0 4px!important;}
+  .scene>.puzzle-toolbar #hintButton::after,
+  .scene>.puzzle-toolbar #levelsButton::after{font-size:.58rem!important;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .scene-copy #hardBadge{animation:none!important;}
 }
