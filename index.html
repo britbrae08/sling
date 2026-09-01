@@ -21,7 +21,6 @@
   <link rel="stylesheet" href="interface-v13.css" />
   <link rel="stylesheet" href="fullscreen-v15.css" />
   <link rel="stylesheet" href="board-background-v17.css" />
-  <link rel="stylesheet" href="hud-layout-v18.css?v=23" />
   <link rel="stylesheet" href="hud-row-v23.css?v=29" />
   <link rel="stylesheet" href="hard-menu-v26.css?v=26" />
   <link rel="stylesheet" href="scramble-v31.css?v=31" />
@@ -32,9 +31,7 @@
 <body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
     <header class="topbar">
-      <div>
-        <h1>FaithWords</h1>
-      </div>
+      <div><h1>FaithWords</h1></div>
 
       <div class="topbar-tools">
         <div class="hint-stack">
@@ -170,19 +167,21 @@
   <script src="audio-settings-v12.js"></script>
   <script src="levels-v12.js"></script>
   <script src="levels-tuning-v13.js"></script>
-  <script src="level-quality-v32.js?v=32"></script>
-  <script src="faithwords-config-v32.js?v=32"></script>
-  <script src="lexicon-v32.js?v=32"></script>
+
+  <!-- FaithWords v32 core architecture: keep this order intentional. -->
+  <script src="level-quality-v32.js?v=32.1"></script>
+  <script src="faithwords-config-v32.js?v=32.1"></script>
+  <script src="lexicon-v32.js?v=32.1"></script>
   <script src="game-runtime-v3.js?v=32"></script>
+  <script src="experience-v32.js?v=32"></script>
+
   <script src="hint-reward-v8.js"></script>
   <script src="word-feedback-v10.js"></script>
   <script src="mix-animation-v11.js"></script>
   <script src="board-pan-v13.js?v=30"></script>
   <script src="account-sync-v13.js"></script>
   <script src="next-level-v15.js?v=32"></script>
-  <script src="hud-layout-v18.js?v=23"></script>
   <script src="hard-menu-v26.js?v=26"></script>
-  <script src="experience-v32.js?v=32"></script>
   <script src="hud-v33.js?v=33"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
