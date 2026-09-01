@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v22-menu-brand-links';
+const CACHE_NAME = 'faithwords-v23-one-line-hud';
 const APP_SHELL = [
   './',
   './index.html',
@@ -15,7 +15,8 @@ const APP_SHELL = [
   './interface-v13.css',
   './fullscreen-v15.css',
   './board-background-v17.css',
-  './hud-layout-v18.css?v=22',
+  './hud-layout-v18.css?v=23',
+  './hud-row-v23.css?v=23',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -27,7 +28,7 @@ const APP_SHELL = [
   './board-pan-v13.js?v=21',
   './account-sync-v13.js',
   './next-level-v15.js?v=21',
-  './hud-layout-v18.js?v=21',
+  './hud-layout-v18.js?v=23',
   './manifest.webmanifest',
   './icon.svg'
 ];
