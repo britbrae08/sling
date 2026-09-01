@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
   <meta name="theme-color" content="#fbf4e8" />
   <meta name="description" content="FaithWords — a peaceful Bible-themed word puzzle game presented by FaithCraft." />
+  <meta name="faithwords-google-client-id" content="" />
   <title>FaithWords | FaithCraft</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
@@ -17,6 +18,7 @@
   <link rel="stylesheet" href="mix-animation-v11.css" />
   <link rel="stylesheet" href="worlds-v12.css" />
   <link rel="stylesheet" href="accessibility-v12.css" />
+  <link rel="stylesheet" href="interface-v13.css" />
 </head>
 <body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
@@ -51,6 +53,13 @@
             <span class="audio-switch-track" aria-hidden="true"></span>
           </label>
         </div>
+        <div class="account-row">
+          <div class="account-copy">
+            <strong>Google progress</strong>
+            <span id="googleAccountStatus">Save progress across devices</span>
+          </div>
+          <button id="googleAuthButton" class="google-auth-button" type="button">Sign in</button>
+        </div>
       </aside>
     </header>
 
@@ -65,7 +74,7 @@
         <div class="scene-copy">
           <span id="levelLabel" class="level-label">LEVEL 1</span>
           <span id="hardBadge" class="hard-badge" hidden>HARD!</span>
-          <h2 id="themeLabel">God</h2>
+          <h2 id="themeLabel" hidden aria-hidden="true"></h2>
           <p id="themePrompt">3 letters • find every word</p>
         </div>
       </div>
@@ -79,7 +88,9 @@
           </button>
         </div>
 
-        <div id="crossword" class="crossword" aria-label="Crossword puzzle"></div>
+        <div id="crosswordViewport" class="crossword-viewport">
+          <div id="crossword" class="crossword" aria-label="Crossword puzzle"></div>
+        </div>
 
         <div class="word-readout-wrap">
           <div id="wordReadout" class="word-readout idle" aria-live="polite">Swipe through letters</div>
@@ -113,7 +124,7 @@
       <div id="completeCard" class="modal-card reading-card">
         <span class="eyebrow">TAKE A MOMENT</span>
         <div class="complete-mark">✦</div>
-        <h2 id="completeTitle">God</h2>
+        <h2 id="completeTitle">Level 1</h2>
         <p id="readingText" class="reading-text"></p>
         <div class="scripture-panel">
           <span>READ</span>
@@ -129,7 +140,7 @@
 
     <section id="levelDrawer" class="level-drawer" aria-label="Choose a FaithWords level">
       <div class="drawer-header">
-        <div><span class="brand-kicker">FAITHWORDS</span><h2>Choose a puzzle</h2></div>
+        <div><span class="brand-kicker">FAITHWORDS</span><h2>Choose a level</h2></div>
         <button id="closeLevelsButton" class="round-action" type="button" aria-label="Close levels">×</button>
       </div>
       <div id="levelGrid" class="level-grid"></div>
@@ -140,10 +151,13 @@
 
   <script src="audio-settings-v12.js"></script>
   <script src="levels-v12.js"></script>
+  <script src="levels-tuning-v13.js"></script>
   <script src="game-runtime-v3.js"></script>
   <script src="hint-reward-v8.js"></script>
   <script src="word-feedback-v10.js"></script>
   <script src="mix-animation-v11.js"></script>
+  <script src="board-pan-v13.js"></script>
+  <script src="account-sync-v13.js"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
