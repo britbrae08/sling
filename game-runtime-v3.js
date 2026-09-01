@@ -2,7 +2,7 @@
   'use strict';
 
   async function boot() {
-    const response = await fetch('./game-v3.js?build=random-wheel-v4', { cache: 'no-store' });
+    const response = await fetch('./game-v3.js?build=random-wheel-v5', { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load FaithWords (${response.status})`);
     let source = await response.text();
 
@@ -14,6 +14,13 @@
     source = source.replace(
       "      const valid = response.ok;\n      dictionaryCache.set(word, valid);\n      return valid;",
       "      let valid = false;\n      if (response.ok) {\n        const data = await response.json();\n        valid = !!data && Array.isArray(data.entries) && data.entries.length > 0;\n      }\n      dictionaryCache.set(word, valid);\n      return valid;"
+    );
+
+    // Level 12 wheel is W-I-S-E. Every required board word must use only
+    // those letters. SUE and USE incorrectly required a U, so they are removed.
+    source = source.replace(
+      "theme: 'Wise', letters: 'WISE', words: ['WISE', 'SEW', 'SUE', 'USE'],",
+      "theme: 'Wise', letters: 'WISE', words: ['WISE', 'SEW'],"
     );
 
     // Keep the Grace crossword connected: GEAR remains a valid bonus word,
@@ -28,6 +35,14 @@
     source = source.replace(
       "        let nextRow = Math.max(...rows) + 2;\n        while (!canPlace(item.word, nextRow, 0, 'h')) nextRow += 2;\n        place(item, nextRow, 0, 'h');",
       "        const nextRow = Math.max(...rows) + 2;\n        place(item, nextRow, 0, 'h');"
+    );
+
+    // Prevent this class of content bug from shipping again. After switching
+    // to a level, remove any required answer that cannot actually be formed
+    // from that level's letter wheel and report it in the console for fixing.
+    source = source.replace(
+      "    levelIndex = Math.max(0, Math.min(index, levels.length - 1));",
+      "    levelIndex = Math.max(0, Math.min(index, levels.length - 1));\n    const impossibleWords = currentLevel().words.filter(word => !canSpellFromRack(word, currentLevel().letters));\n    if (impossibleWords.length) {\n      console.error('FaithWords level has answers not present in its wheel:', levelIndex + 1, impossibleWords);\n      currentLevel().words = currentLevel().words.filter(word => canSpellFromRack(word, currentLevel().letters));\n    }"
     );
 
     // Randomize the wheel whenever a level opens. Avoid both the canonical
@@ -48,7 +63,7 @@
     );
 
     const script = document.createElement('script');
-    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v4.js`;
+    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v5.js`;
     document.head.appendChild(script);
   }
 
