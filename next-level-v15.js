@@ -1,22 +1,6 @@
 (() => {
   'use strict';
 
-  // v18 HUD: load the compact top controls and bottom wheel without requiring
-  // another permanent script/link tag in the older app shell.
-  if (!document.querySelector('link[data-faithwords-hud-v18]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './hud-layout-v18.css';
-    link.dataset.faithwordsHudV18 = 'true';
-    document.head.append(link);
-  }
-  if (!document.querySelector('script[data-faithwords-hud-v18]')) {
-    const script = document.createElement('script');
-    script.src = './hud-layout-v18.js';
-    script.dataset.faithwordsHudV18 = 'true';
-    document.body.append(script);
-  }
-
   const grid = document.getElementById('levelGrid');
   const levels = window.FaithWordsLevels;
   if (!grid || !Array.isArray(levels)) return;
