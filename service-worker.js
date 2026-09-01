@@ -32,7 +32,7 @@ const APP_SHELL = [
   './mix-animation-v11.js',
   './board-pan-v13.js?v=30',
   './account-sync-v13.js',
-  './next-level-v15.js?v=21',
+  './next-level-v15.js?v=32',
   './hud-layout-v18.js?v=23',
   './hard-menu-v26.js?v=26',
   './experience-v32.js?v=32',
