@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="hud-layout-v18.css?v=23" />
   <link rel="stylesheet" href="hud-row-v23.css?v=29" />
   <link rel="stylesheet" href="hard-menu-v26.css?v=26" />
+  <link rel="stylesheet" href="scramble-v31.css?v=31" />
 </head>
 <body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
@@ -106,7 +107,11 @@
         </div>
 
         <div class="wheel-zone">
-          <button id="shuffleButton" class="round-action shuffle-side" type="button" aria-label="Mix up letters" title="Mix up letters">↻</button>
+          <button id="shuffleButton" class="round-action shuffle-side" type="button" aria-label="Scramble letters" title="Scramble letters">
+            <svg class="shuffle-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h2.8c4.6 0 5.2 10 10 10H20M17 14l3 3-3 3M4 17h2.8c4.6 0 5.2-10 10-10H20M17 4l3 3-3 3" />
+            </svg>
+          </button>
           <div id="letterWheel" class="letter-wheel" aria-label="Letter wheel">
             <svg id="traceSvg" class="trace-svg" viewBox="0 0 300 300" aria-hidden="true">
               <polyline id="traceLine" points="" />
