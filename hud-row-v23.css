@@ -1,7 +1,25 @@
-/* FaithWords v23 — one-line gameplay HUD */
+/* FaithWords v24 — one-line gameplay HUD */
 
 /* The old letter-count instruction remains in the DOM for runtime compatibility only. */
 #themePrompt{display:none!important;}
+
+/* When the menu is open, raise its entire parent stacking context above every
+   game layer. Raising the menu alone is not enough because .topbar is itself
+   a stacking context. */
+.app-shell:has(#audioMenu.open){
+  position:relative!important;
+  z-index:2147482998!important;
+  overflow:visible!important;
+}
+.topbar:has(#audioMenu.open){
+  position:relative!important;
+  z-index:2147483000!important;
+  overflow:visible!important;
+  isolation:isolate;
+}
+#audioMenu.open{
+  z-index:2147483001!important;
+}
 
 .scene{
   position:relative!important;
