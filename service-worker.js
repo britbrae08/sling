@@ -1,10 +1,10 @@
-const CACHE_NAME = 'faithwords-v2-common-words';
+const CACHE_NAME = 'faithwords-v3-wordscapes-ramp';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
   './enhancements.css',
-  './game-v2.js',
+  './game-v3.js',
   './manifest.webmanifest',
   './icon.svg'
 ];
