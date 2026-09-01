@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v4-random-wheel';
+const CACHE_NAME = 'faithwords-v5-level12-fix';
 const APP_SHELL = [
   './',
   './index.html',
