@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v18-top-hud-bottom-wheel';
+const CACHE_NAME = 'faithwords-v19-no-replay';
 const APP_SHELL = [
   './',
   './index.html',
