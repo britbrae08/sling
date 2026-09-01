@@ -37,6 +37,7 @@
 .level-drawer {
   display: flex !important;
   flex-direction: column;
+  height: min(86dvh, 760px) !important;
   max-height: 86dvh !important;
   overflow: hidden !important;
   padding-bottom: max(18px, env(safe-area-inset-bottom)) !important;
