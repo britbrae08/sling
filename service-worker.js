@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v30-recenter-drag-fix';
+const CACHE_NAME = 'faithwords-v31-bottom-left-scramble';
 const APP_SHELL = [
   './',
   './index.html',
@@ -18,6 +18,7 @@ const APP_SHELL = [
   './hud-layout-v18.css?v=23',
   './hud-row-v23.css?v=29',
   './hard-menu-v26.css?v=26',
+  './scramble-v31.css?v=31',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
