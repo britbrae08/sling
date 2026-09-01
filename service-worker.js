@@ -1,10 +1,11 @@
-const CACHE_NAME = 'faithwords-v5-level12-fix';
+const CACHE_NAME = 'faithwords-v6-single-screen';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
   './enhancements.css',
   './progression-v3.css',
+  './layout-v6.css',
   './game-runtime-v3.js',
   './game-v3.js',
   './manifest.webmanifest',
