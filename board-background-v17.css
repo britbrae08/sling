@@ -1,0 +1,71 @@
+/* FaithWords v17 — the crossword itself lives in the full gameplay background */
+.crossword-viewport{
+  position:fixed!important;
+  inset:0!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:min(100vw,520px)!important;
+  height:100dvh!important;
+  min-height:100dvh!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  display:grid!important;
+  place-items:center!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  z-index:1!important;
+  touch-action:none!important;
+  pointer-events:auto!important;
+}
+
+.crossword-viewport .crossword{
+  position:relative!important;
+  z-index:1!important;
+  width:max-content!important;
+  min-width:max-content!important;
+  min-height:max-content!important;
+  margin:0!important;
+  padding:12px!important;
+  filter:drop-shadow(0 6px 10px rgba(18,28,30,.22));
+  will-change:transform;
+}
+
+/* Everything interactive stays above the freely moving background puzzle. */
+.topbar{position:relative!important;z-index:9!important;}
+.scene{position:relative!important;z-index:7!important;pointer-events:none;}
+.scene-copy{position:relative!important;z-index:7!important;pointer-events:none;}
+.puzzle-toolbar,.word-readout-wrap,.wheel-zone{position:relative!important;z-index:8!important;}
+.dictionary-credit{position:relative!important;z-index:8!important;}
+.audio-menu{z-index:20!important;}
+.level-drawer{z-index:40!important;}
+.overlay{z-index:50!important;}
+
+/* The old center arena no longer reserves a boxed board region. */
+.puzzle-panel{position:relative!important;z-index:2!important;}
+.puzzle-panel>.crossword-viewport{flex:none!important;}
+
+/* Keep the floating board readable against every full-screen world. */
+.cross-cell{
+  background:rgba(247,244,236,.82)!important;
+  border:1px solid rgba(255,255,255,.52)!important;
+  box-shadow:0 3px 10px rgba(20,30,30,.18),inset 0 -2px 0 rgba(65,58,51,.08)!important;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+}
+.cross-cell.revealed{background:rgba(255,255,255,.95)!important;}
+
+/* Red progression target: exactly one level at a time. */
+.level-button.next-level{
+  background:#fff0f0!important;
+  border:2px solid #d12f2f!important;
+  color:#b51f1f!important;
+}
+.level-button.next-level strong,.level-button.next-level span{color:#b51f1f!important;}
+
+@media(min-width:521px){
+  .crossword-viewport{width:520px!important;}
+}
