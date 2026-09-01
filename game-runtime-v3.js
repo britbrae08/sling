@@ -10,17 +10,11 @@
       "const DICTIONARY_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';",
       "const DICTIONARY_API = 'https://freedictionaryapi.com/api/v1/entries/en/';"
     );
-
-    source = source.replace(
-      '  const levels = [',
-      '  const levels = window.FaithWordsLevels || ['
-    );
-
+    source = source.replace('  const levels = [','  const levels = window.FaithWordsLevels || [');
     source = source.replace(
       "      const valid = response.ok;\n      dictionaryCache.set(word, valid);\n      return valid;",
       "      let valid = false;\n      if (response.ok) {\n        const data = await response.json();\n        valid = !!data && Array.isArray(data.entries) && data.entries.length > 0;\n      }\n      dictionaryCache.set(word, valid);\n      return valid;"
     );
-
     source = source.replace(
       "        let nextRow = Math.max(...rows) + 2;\n        while (!canPlace(item.word, nextRow, 0, 'h')) nextRow += 2;\n        place(item, nextRow, 0, 'h');",
       "        const nextRow = Math.max(...rows) + 2;\n        place(item, nextRow, 0, 'h');"
@@ -30,11 +24,7 @@
       "  function loadLevel(index) {",
       `  function randomizeWheelOrder(sourceLetters, previousOrder = '') {\n    const base = [...sourceLetters];\n    if (base.length < 2) return base;\n    const canonical = currentLevel().letters;\n    const previous = Array.isArray(previousOrder) ? previousOrder.join('') : previousOrder;\n    for (let attempt = 0; attempt < 30; attempt++) {\n      const mixed = [...base];\n      for (let i = mixed.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n        [mixed[i], mixed[j]] = [mixed[j], mixed[i]];\n      }\n      const key = mixed.join('');\n      if (key !== canonical && key !== previous) return mixed;\n    }\n    const fallback = [...base];\n    fallback.push(fallback.shift());\n    return fallback;\n  }\n\n  function loadLevel(index) {`
     );
-
-    source = source.replace(
-      "    wheelOrder = currentLevel().letters.split('');",
-      "    wheelOrder = randomizeWheelOrder(currentLevel().letters.split(''));"
-    );
+    source = source.replace("    wheelOrder = currentLevel().letters.split('');","    wheelOrder = randomizeWheelOrder(currentLevel().letters.split(''));");
 
     source = source.replace(
       `    ui.levelLabel.textContent = \`LEVEL \${levelIndex + 1}\`;\n    ui.themeLabel.textContent = currentLevel().theme;\n    const wheelSize = expectedWheelSize(levelIndex + 1);\n    ui.themePrompt.textContent = levelIndex < 4\n      ? \`\${wheelSize} letters • only 3-letter words\`\n      : \`\${wheelSize} letters • find every word\`;`,
@@ -50,11 +40,15 @@
       "  function tone(startFreq, duration=.06, volume=.03, endFreq=null) {\n    if (!soundEnabled) return;",
       "  function tone(startFreq, duration=.06, volume=.03, endFreq=null) {\n    if (window.FaithWordsPrefs && window.FaithWordsPrefs.sfxEnabled === false) return;\n    if (!soundEnabled) return;"
     );
+    source = source.replace("      osc.type = 'sine';","      osc.type = startFreq >= 500 ? 'triangle' : 'sine';");
 
-    source = source.replace(
-      "      osc.type = 'sine';",
-      "      osc.type = startFreq >= 500 ? 'triangle' : 'sine';"
-    );
+    // Dedicated word-feedback-v10.js owns valid/invalid result chimes so they
+    // stay distinct and do not double with the older generic game tones.
+    source = source.replace("      tone(520, .08, .045, 760);", "      // reward chime handled by word-feedback-v10.js");
+    source = source.replace("      tone(260, .05, .02);", "      // duplicate-word sound handled by word-feedback-v10.js");
+    source = source.replace("      tone(280, .05, .02);", "      // duplicate bonus-word sound handled by word-feedback-v10.js");
+    source = source.replace("      tone(660, .1, .045, 960);", "      // bonus-word reward chime handled by word-feedback-v10.js");
+    source = source.replace("    tone(160, .06, .02);", "    // invalid-word sound handled by word-feedback-v10.js");
 
     const script = document.createElement('script');
     script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v12.js`;
