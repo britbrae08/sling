@@ -17,8 +17,9 @@
         <span class="brand-kicker">FAITHCRAFT PRESENTS</span>
         <h1>FaithWords</h1>
       </div>
-      <div class="bonus-pill" aria-label="Bonus points available for hints">
-        <span>✦ BONUS</span><strong id="bonusCount">0</strong>
+      <div class="bonus-pill" aria-label="Hint points">
+        <span>💡 HINT POINTS</span><strong id="bonusCount">0</strong>
+        <i id="bonusBurst" class="bonus-burst" aria-hidden="true"></i>
       </div>
     </header>
 
@@ -33,7 +34,7 @@
         <div class="scene-copy">
           <span id="levelLabel" class="level-label">LEVEL 1</span>
           <h2 id="themeLabel">God</h2>
-          <p id="themePrompt">Start with simple three-letter words.</p>
+          <p id="themePrompt">3 letters • only 3-letter words</p>
         </div>
       </div>
 
@@ -42,7 +43,7 @@
           <button id="levelsButton" class="soft-button" type="button">☰ Levels</button>
           <span id="wordProgress">0 / 2 words</span>
           <button id="hintButton" class="soft-button hint-button" type="button" aria-label="Use hint">
-            💡 <span id="hintCost">12 ✦</span>
+            💡 HINT <span id="hintCostLabel">5</span>
           </button>
         </div>
 
@@ -64,8 +65,8 @@
         <div class="bottom-actions">
           <button id="shuffleButton" class="round-action" type="button" aria-label="Shuffle letters">↻</button>
           <div class="bonus-help">
-            <strong>Extra real words earn bonus points</strong>
-            <span>Bonus points can buy hints.</span>
+            <strong>Every valid extra word earns a hint point</strong>
+            <span>5 hint points reveal a letter.</span>
           </div>
           <button id="soundButton" class="round-action" type="button" aria-label="Toggle sound">♪</button>
         </div>
@@ -76,9 +77,9 @@
       <div class="modal-card intro-card">
         <span class="eyebrow">A QUIET WORD GAME</span>
         <h2>Find words.<br />Uncover Scripture.</h2>
-        <p>Swipe across the letter circle to make common words. Every puzzle includes at least one clearly biblical word. Extra valid words earn bonus points you can spend on hints.</p>
+        <p>FaithWords starts with three letters and builds gradually, like a classic mobile word game. Swipe to make the board words. Any other real dictionary word of three letters or more earns a hint point.</p>
         <button id="startButton" class="primary-button" type="button">PLAY FAITHWORDS</button>
-        <span class="microcopy">No 2-letter words • No timer • Short, relaxing levels</span>
+        <span class="microcopy">No 2-letter words • No timer • Extra words earn hints</span>
       </div>
     </section>
 
@@ -93,7 +94,7 @@
           <strong id="verseRef"></strong>
           <p id="verseText"></p>
         </div>
-        <div class="reward-line">Puzzle complete</div>
+        <div class="reward-line">Hint points: <strong id="rewardAmount">0</strong></div>
         <button id="nextButton" class="primary-button" type="button">NEXT</button>
         <button id="replayButton" class="secondary-button" type="button">REPLAY PUZZLE</button>
       </div>
@@ -109,7 +110,7 @@
     </section>
   </main>
 
-  <script src="game-v2.js"></script>
+  <script src="game-v3.js"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
