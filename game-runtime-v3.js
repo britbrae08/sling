@@ -2,7 +2,7 @@
   'use strict';
 
   async function boot() {
-    const response = await fetch('./game-v3.js?build=faithwords-v13', { cache: 'no-store' });
+    const response = await fetch('./game-v3.js?build=faithwords-v14', { cache: 'no-store' });
     if (!response.ok) throw new Error(`Unable to load FaithWords (${response.status})`);
     let source = await response.text();
 
@@ -11,6 +11,10 @@
       "const DICTIONARY_API = 'https://freedictionaryapi.com/api/v1/entries/en/';"
     );
     source = source.replace('  const levels = [','  const levels = window.FaithWordsLevels || [');
+    source = source.replace(
+      '  const BONUS_WORD_POINTS = 1;',
+      '  const BONUS_WORD_POINTS = 1;\n  const MAX_HINT_POINTS = 200;'
+    );
     source = source.replace(
       "      const valid = response.ok;\n      dictionaryCache.set(word, valid);\n      return valid;",
       "      let valid = false;\n      if (response.ok) {\n        const data = await response.json();\n        valid = !!data && Array.isArray(data.entries) && data.entries.length > 0;\n      }\n      dictionaryCache.set(word, valid);\n      return valid;"
@@ -21,8 +25,13 @@
     );
 
     source = source.replace(
+      '  let save = loadSave();',
+      '  let save = loadSave();\n  save.hintPoints = Math.min(MAX_HINT_POINTS, Math.max(0, Number(save.hintPoints) || 0));'
+    );
+
+    source = source.replace(
       `  function persist() {\n    save.lastLevel = levelIndex;\n    localStorage.setItem(saveKey, JSON.stringify(save));\n  }`,
-      `  function persist() {\n    save.lastLevel = levelIndex;\n    localStorage.setItem(saveKey, JSON.stringify(save));\n    window.dispatchEvent(new CustomEvent('faithwords-progress-changed'));\n  }`
+      `  function persist() {\n    save.lastLevel = levelIndex;\n    save.hintPoints = Math.min(MAX_HINT_POINTS, Math.max(0, Number(save.hintPoints) || 0));\n    localStorage.setItem(saveKey, JSON.stringify(save));\n    window.dispatchEvent(new CustomEvent('faithwords-progress-changed'));\n  }`
     );
 
     source = source.replace(
@@ -37,13 +46,27 @@
     );
 
     source = source.replace(
+      "    ui.wordReadout.textContent = word || 'Swipe through letters';",
+      "    ui.wordReadout.textContent = word || '';"
+    );
+    source = source.replace(
+      `  function setIdleReadout() {\n    ui.wordReadout.textContent = 'Swipe through letters';\n    ui.wordReadout.classList.add('idle');`,
+      `  function setIdleReadout() {\n    ui.wordReadout.textContent = '';\n    ui.wordReadout.classList.add('idle');`
+    );
+
+    source = source.replace(
+      `      save.hintPoints += BONUS_WORD_POINTS;\n      ui.bonusCount.textContent = save.hintPoints;\n      flashMessage(\`\${word}  +\${BONUS_WORD_POINTS} HINT POINT\`, false, 1500);\n      animateBonusPoint();`,
+      `      const previousHintPoints = save.hintPoints;\n      save.hintPoints = Math.min(MAX_HINT_POINTS, save.hintPoints + BONUS_WORD_POINTS);\n      const earnedHintPoints = save.hintPoints - previousHintPoints;\n      ui.bonusCount.textContent = save.hintPoints;\n      if (earnedHintPoints > 0) {\n        flashMessage(\`\${word}  +\${earnedHintPoints} HINT POINT\`, false, 1500);\n        animateBonusPoint();\n      } else {\n        flashMessage(word, false, 1500);\n      }`
+    );
+
+    source = source.replace(
       "    ui.completeTitle.textContent = level.theme;",
-      "    ui.completeTitle.textContent = `Level ${levelIndex + 1}`;"
+      "    const completedLabel = document.getElementById('completeLevelLabel');\n    if (completedLabel) completedLabel.textContent = `LEVEL ${levelIndex + 1}`;\n    ui.completeTitle.textContent = '';"
     );
 
     source = source.replace(
       `  function renderLevelGrid() {\n    ui.levelGrid.replaceChildren();\n    levels.forEach((level, index) => {\n      const unlocked = index < save.unlocked;\n      const button = document.createElement('button');\n      button.type = 'button';\n      button.disabled = !unlocked;\n      button.className = \`level-button\${unlocked ? '' : ' locked'}\${index === levelIndex ? ' current' : ''}\`;\n      button.innerHTML = \`<strong>\${unlocked ? index + 1 : '🔒'}</strong><span>\${unlocked ? level.theme : 'Locked'}</span><small>\${unlocked ? level.letters.length + ' letters' : ''}</small>\`;\n      if (unlocked) button.addEventListener('click', () => loadLevel(index));\n      ui.levelGrid.append(button);\n    });\n  }`,
-      `  function renderLevelGrid() {\n    ui.levelGrid.replaceChildren();\n    for (let groupStart = 0; groupStart < levels.length; groupStart += 10) {\n      const groupNumber = Math.floor(groupStart / 10) + 1;\n      const groupEnd = Math.min(levels.length, groupStart + 10);\n      const section = document.createElement('section');\n      section.className = \`level-group level-group-\${groupNumber}\`;\n      const heading = document.createElement('h3');\n      heading.textContent = \`Levels \${groupStart + 1}–\${groupEnd}\`;\n      const grid = document.createElement('div');\n      grid.className = 'level-group-grid';\n\n      for (let index = groupStart; index < groupEnd; index++) {\n        const unlocked = index < save.unlocked;\n        const button = document.createElement('button');\n        button.type = 'button';\n        button.disabled = !unlocked;\n        button.className = \`level-button\${unlocked ? '' : ' locked'}\${index === levelIndex ? ' current' : ''}\`;\n        button.setAttribute('aria-label', \`Level \${index + 1}\${unlocked ? '' : ', locked'}\`);\n        button.innerHTML = \`<strong>\${unlocked ? index + 1 : '🔒'}</strong><span>Level \${index + 1}</span>\`;\n        if (unlocked) button.addEventListener('click', () => loadLevel(index));\n        grid.append(button);\n      }\n\n      section.append(heading, grid);\n      ui.levelGrid.append(section);\n    }\n  }`
+      `  function renderLevelGrid() {\n    ui.levelGrid.replaceChildren();\n    for (let groupStart = 0; groupStart < levels.length; groupStart += 10) {\n      const groupNumber = Math.floor(groupStart / 10) + 1;\n      const groupEnd = Math.min(levels.length, groupStart + 10);\n      const section = document.createElement('section');\n      section.className = \`level-group level-group-\${groupNumber}\`;\n      const heading = document.createElement('h3');\n      heading.textContent = \`Levels \${groupStart + 1}–\${groupEnd}\`;\n      const grid = document.createElement('div');\n      grid.className = 'level-group-grid';\n\n      for (let index = groupStart; index < groupEnd; index++) {\n        const level = levels[index];\n        const unlocked = index < save.unlocked;\n        const button = document.createElement('button');\n        button.type = 'button';\n        button.disabled = !unlocked;\n        button.className = \`level-button\${unlocked ? '' : ' locked'}\${index === levelIndex ? ' current' : ''}\`;\n        button.setAttribute('aria-label', unlocked ? \`Level \${index + 1}, \${level.theme}\` : \`Level \${index + 1}, locked\`);\n        button.innerHTML = unlocked\n          ? \`<strong>\${index + 1}</strong><span>\${level.theme}</span>\`\n          : \`<strong>🔒</strong><span>Level \${index + 1}</span>\`;\n        if (unlocked) button.addEventListener('click', () => loadLevel(index));\n        grid.append(button);\n      }\n\n      section.append(heading, grid);\n      ui.levelGrid.append(section);\n    }\n  }`
     );
 
     source = source.replace(
@@ -65,11 +88,11 @@
 
     source = source.replace(
       "  loadLevel(levelIndex);\n})();",
-      `  window.FaithWordsGame = {\n    exportProgress() {\n      return JSON.parse(JSON.stringify(save));\n    },\n    importProgress(progress) {\n      if (!progress || typeof progress !== 'object') return false;\n      localStorage.setItem(saveKey, JSON.stringify(progress));\n      save = loadSave();\n      levelIndex = Math.min(save.lastLevel || 0, levels.length - 1);\n      loadLevel(levelIndex);\n      return true;\n    }\n  };\n\n  loadLevel(levelIndex);\n})();`
+      `  window.FaithWordsGame = {\n    exportProgress() {\n      return JSON.parse(JSON.stringify(save));\n    },\n    importProgress(progress) {\n      if (!progress || typeof progress !== 'object') return false;\n      localStorage.setItem(saveKey, JSON.stringify(progress));\n      save = loadSave();\n      save.hintPoints = Math.min(MAX_HINT_POINTS, Math.max(0, Number(save.hintPoints) || 0));\n      levelIndex = Math.min(save.lastLevel || 0, levels.length - 1);\n      loadLevel(levelIndex);\n      return true;\n    }\n  };\n\n  loadLevel(levelIndex);\n})();`
     );
 
     const script = document.createElement('script');
-    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v13.js`;
+    script.textContent = `${source}\n//# sourceURL=faithwords-runtime-v14.js`;
     document.head.appendChild(script);
   }
 
