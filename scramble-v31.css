@@ -1,0 +1,60 @@
+/* FaithWords v31 — bottom-left scramble control */
+#shuffleButton.shuffle-side{
+  position:fixed!important;
+  left:max(14px,calc(50vw - 260px + 14px))!important;
+  bottom:max(16px,calc(env(safe-area-inset-bottom) + 10px))!important;
+  top:auto!important;
+  right:auto!important;
+  transform:none!important;
+  width:56px!important;
+  height:56px!important;
+  z-index:18!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  border:1px solid rgba(176,145,89,.30)!important;
+  border-radius:50%!important;
+  background:#fffdf9!important;
+  color:#66513d!important;
+  box-shadow:0 5px 14px rgba(26,34,35,.16)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  text-shadow:none!important;
+  -webkit-tap-highlight-color:transparent;
+}
+#shuffleButton.shuffle-side:active{transform:scale(.94)!important;}
+#shuffleButton.shuffle-side:focus-visible{outline:3px solid rgba(110,79,104,.28);outline-offset:3px;}
+#shuffleButton .shuffle-icon{
+  width:30px;
+  height:30px;
+  display:block;
+  overflow:visible;
+}
+#shuffleButton .shuffle-icon path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+#shuffleButton.mix-active .shuffle-icon{
+  animation:scramblePulse .48s ease-in-out alternate infinite;
+}
+@keyframes scramblePulse{
+  from{transform:scale(.94) rotate(-4deg)}
+  to{transform:scale(1.06) rotate(4deg)}
+}
+@media(max-width:520px){
+  #shuffleButton.shuffle-side{left:14px!important;}
+}
+@media(max-height:700px){
+  #shuffleButton.shuffle-side{
+    width:50px!important;
+    height:50px!important;
+    bottom:max(12px,calc(env(safe-area-inset-bottom) + 8px))!important;
+  }
+  #shuffleButton .shuffle-icon{width:27px;height:27px;}
+}
+@media(prefers-reduced-motion:reduce){
+  #shuffleButton.mix-active .shuffle-icon{animation:none;}
+}
