@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v32-release-hardening-1';
+const CACHE_NAME = 'faithwords-v34-aligned-hud-bottom-wheel';
 const APP_SHELL = [
   './',
   './index.html',
@@ -14,13 +14,13 @@ const APP_SHELL = [
   './accessibility-v12.css',
   './interface-v13.css',
   './fullscreen-v15.css',
-  './board-background-v17.css',
+  './board-background-v17.css?v=34',
   './hud-row-v23.css?v=29',
   './hard-menu-v26.css?v=26',
   './scramble-v31.css?v=31',
   './experience-v32.css?v=32',
   './experience-utils-v32.css?v=32',
-  './hud-v33.css?v=33',
+  './hud-v33.css?v=34',
   './audio-settings-v12.js',
   './levels-v12.js',
   './levels-tuning-v13.js',
@@ -37,7 +37,7 @@ const APP_SHELL = [
   './account-sync-v13.js',
   './next-level-v15.js?v=32',
   './hard-menu-v26.js?v=26',
-  './hud-v33.js?v=33',
+  './hud-v33.js?v=34',
   './manifest.webmanifest',
   './icon.svg'
 ];
