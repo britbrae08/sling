@@ -1,96 +1,103 @@
-/* FaithWords v33 — clickable level pill + separated hint stack */
+/* FaithWords v34 — aligned two-row HUD + reserved board/wheel zones */
 
-/* Give the two hint controls their own vertical stack so they never collide. */
+:root{
+  --fw-shell-width:520px;
+  --fw-board-top:126px;
+  --fw-wheel-clearance:300px;
+  --fw-wheel-bottom:max(18px,calc(env(safe-area-inset-bottom) + 12px));
+}
+
+/* Row 1: FaithWords | Hint Points | Menu */
 .topbar{
-  min-height:76px!important;
-  flex:0 0 76px!important;
-  padding:4px 6px 2px!important;
+  min-height:56px!important;
+  height:56px!important;
+  flex:0 0 56px!important;
+  padding:6px 14px 4px!important;
   align-items:flex-start!important;
+}
+.topbar>div:first-child{
+  display:flex!important;
+  align-items:center!important;
+  min-height:42px!important;
 }
 .topbar h1{
-  margin-top:10px!important;
+  margin:4px 0 0!important;
+  line-height:1!important;
+  text-align:left!important;
 }
 .topbar-tools{
+  display:flex!important;
   align-items:flex-start!important;
-  gap:7px!important;
+  gap:8px!important;
+  margin-left:auto!important;
 }
 .hint-stack{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:6px;
-  min-width:0;
+  display:block!important;
+  min-width:0!important;
 }
 .hint-stack .bonus-pill{
-  min-height:34px!important;
-  height:34px!important;
+  min-height:36px!important;
+  height:36px!important;
   padding:0 12px!important;
   white-space:nowrap!important;
-}
-.hint-stack #hintButton{
-  position:static!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  min-height:32px!important;
-  height:32px!important;
-  padding:0 12px!important;
-  margin:0!important;
-  border:1px solid rgba(176,145,89,.28)!important;
-  border-radius:999px!important;
   background:#fffdf9!important;
-  color:#5c4b3f!important;
-  box-shadow:0 4px 12px rgba(30,42,43,.14)!important;
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
   filter:none!important;
-  text-shadow:none!important;
-  font-size:.74rem!important;
-  line-height:1!important;
-  font-weight:950!important;
-  letter-spacing:.015em!important;
-  white-space:nowrap!important;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-.hint-stack #hintCostLabel{
-  display:inline!important;
-  margin-left:2px!important;
-  color:#6b543d!important;
   text-shadow:none!important;
 }
 .menu-button{
   margin-top:0!important;
 }
 
-/* The old Levels entry remains only as a compatibility hook for the legacy runtime. */
+/* The old Levels entry remains only as a compatibility hook for the runtime. */
 #audioMenu .menu-levels-button{
   display:none!important;
 }
 
-/* Pull the board line directly beneath the taller top bar. */
+/* Row 2: LEVEL __ | x / y WORDS | HINT 5 */
 .game-card{
-  margin-top:-2px!important;
+  margin-top:0!important;
 }
 .scene{
-  height:88px!important;
-  min-height:88px!important;
-  flex:0 0 88px!important;
+  height:74px!important;
+  min-height:74px!important;
+  flex:0 0 74px!important;
+  overflow:visible!important;
 }
-
-/* Board line now contains only the current-level picker and word progress. */
 .scene>.puzzle-toolbar{
+  position:absolute!important;
   left:14px!important;
   right:14px!important;
   top:0!important;
+  width:auto!important;
   min-height:40px!important;
+  padding:0!important;
+  margin:0!important;
   display:grid!important;
-  grid-template-columns:max-content 1fr!important;
+  grid-template-columns:max-content 1fr max-content!important;
   align-items:center!important;
   column-gap:12px!important;
+  white-space:nowrap!important;
+  pointer-events:auto!important;
 }
 .scene>.puzzle-toolbar #wordProgress{
   justify-self:center!important;
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  color:#fff!important;
+  font-size:.76rem!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.025em!important;
+  text-transform:uppercase!important;
+  text-shadow:0 2px 5px rgba(25,30,30,.64)!important;
 }
 
 /* Every current LEVEL __ label is one polished clickable pill. */
@@ -142,35 +149,132 @@
   text-shadow:none!important;
 }
 
-/* HARD stays clearly beneath the level row. */
+/* HINT 5 is the only actionable pill on row 2. */
+.scene>.puzzle-toolbar #hintButton{
+  position:static!important;
+  justify-self:end!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:34px!important;
+  height:34px!important;
+  padding:0 12px!important;
+  margin:0!important;
+  border:1px solid rgba(176,145,89,.30)!important;
+  border-radius:999px!important;
+  background:#fffdf9!important;
+  color:#5c4b3f!important;
+  box-shadow:0 4px 12px rgba(30,42,43,.14)!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  text-shadow:none!important;
+  font-size:.74rem!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.015em!important;
+  white-space:nowrap!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.scene>.puzzle-toolbar #hintCostLabel{
+  display:inline!important;
+  margin-left:2px!important;
+  color:#6b543d!important;
+  text-shadow:none!important;
+}
+
+/* HARD lives on its own line below the HUD and stays fully visible. */
 .scene-copy #hardBadge{
-  top:57px!important;
+  left:14px!important;
+  top:45px!important;
+  padding:6px 11px 7px!important;
+  font-size:.80rem!important;
+  line-height:1!important;
+  z-index:18!important;
+}
+
+/* The wheel is an independent bottom control, not part of board flow. */
+.wheel-zone{
+  position:fixed!important;
+  left:50%!important;
+  bottom:var(--fw-wheel-bottom)!important;
+  width:min(100vw,var(--fw-shell-width))!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  z-index:12!important;
+  pointer-events:none!important;
+}
+.wheel-zone .letter-wheel{
+  margin:0 auto!important;
+  pointer-events:auto!important;
+}
+
+/* Word feedback floats just above the bottom wheel instead of pushing it upward. */
+.word-readout-wrap{
+  position:fixed!important;
+  left:50%!important;
+  bottom:calc(var(--fw-wheel-clearance) - 22px)!important;
+  width:min(100vw,var(--fw-shell-width))!important;
+  min-height:38px!important;
+  height:38px!important;
+  transform:translateX(-50%)!important;
+  z-index:13!important;
+  pointer-events:none!important;
+}
+.word-readout-wrap>*{pointer-events:none!important;}
+
+@media(max-height:780px){
+  :root{
+    --fw-board-top:116px;
+    --fw-wheel-clearance:270px;
+    --fw-wheel-bottom:max(12px,calc(env(safe-area-inset-bottom) + 8px));
+  }
+  .topbar{min-height:52px!important;height:52px!important;flex-basis:52px!important;}
+  .scene{height:68px!important;min-height:68px!important;flex-basis:68px!important;}
+  .scene-copy #hardBadge{top:43px!important;}
+}
+
+@media(max-height:690px){
+  :root{
+    --fw-board-top:106px;
+    --fw-wheel-clearance:238px;
+  }
+  .topbar{min-height:48px!important;height:48px!important;flex-basis:48px!important;padding-top:3px!important;}
+  .scene{height:62px!important;min-height:62px!important;flex-basis:62px!important;}
+  .scene>.puzzle-toolbar{min-height:36px!important;}
+  .scene-copy #hardBadge{top:39px!important;padding:5px 9px 6px!important;font-size:.74rem!important;}
 }
 
 @media(max-width:390px){
-  .topbar{
-    min-height:72px!important;
-    flex-basis:72px!important;
-    padding-left:4px!important;
-    padding-right:4px!important;
-  }
-  .topbar h1{font-size:1.34rem!important;margin-top:10px!important;}
+  .topbar{padding-left:10px!important;padding-right:10px!important;}
+  .topbar h1{font-size:1.34rem!important;margin-top:5px!important;}
   .topbar-tools{gap:5px!important;}
-  .hint-stack{gap:5px;}
-  .hint-stack .bonus-pill{min-height:32px!important;height:32px!important;padding:0 9px!important;}
+  .hint-stack .bonus-pill{min-height:34px!important;height:34px!important;padding:0 9px!important;}
   .hint-stack .bonus-pill span{font-size:.50rem!important;}
-  .hint-stack #hintButton{min-height:30px!important;height:30px!important;padding:0 10px!important;font-size:.68rem!important;}
   .menu-button{width:42px!important;height:42px!important;flex-basis:42px!important;}
   .scene>.puzzle-toolbar{left:10px!important;right:10px!important;column-gap:8px!important;}
   #levelPickerButton{min-height:34px!important;height:34px!important;padding:0 9px 0 10px!important;}
   #levelPickerButton #levelLabel{font-size:.72rem!important;}
+  .scene>.puzzle-toolbar #wordProgress{font-size:.68rem!important;}
+  .scene>.puzzle-toolbar #hintButton{min-height:32px!important;height:32px!important;padding:0 10px!important;font-size:.68rem!important;}
+  .scene-copy #hardBadge{left:10px!important;}
 }
 
 @media(max-width:350px){
   .topbar h1{font-size:1.2rem!important;}
   .hint-stack .bonus-pill{padding:0 7px!important;}
   .hint-stack .bonus-pill span{font-size:.46rem!important;}
-  .hint-stack #hintButton{padding:0 8px!important;font-size:.63rem!important;}
-  .scene>.puzzle-toolbar{left:7px!important;right:7px!important;}
+  .scene>.puzzle-toolbar{left:7px!important;right:7px!important;column-gap:6px!important;}
   #levelPickerButton #levelLabel{font-size:.68rem!important;}
+  .scene>.puzzle-toolbar #wordProgress{font-size:.62rem!important;}
+  .scene>.puzzle-toolbar #hintButton{padding:0 8px!important;font-size:.63rem!important;}
+  .scene-copy #hardBadge{left:7px!important;}
 }
