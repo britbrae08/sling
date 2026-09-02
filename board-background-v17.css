@@ -1,12 +1,14 @@
-/* FaithWords v17 — the crossword itself lives in the full gameplay background */
+/* FaithWords v34 — the crossword lives in a reserved middle gameplay zone */
 .crossword-viewport{
   position:fixed!important;
-  inset:0!important;
+  inset:auto!important;
   left:50%!important;
+  top:var(--fw-board-top,126px)!important;
+  bottom:var(--fw-wheel-clearance,300px)!important;
   transform:translateX(-50%)!important;
   width:min(100vw,520px)!important;
-  height:100dvh!important;
-  min-height:100dvh!important;
+  height:auto!important;
+  min-height:0!important;
   max-height:none!important;
   margin:0!important;
   padding:0!important;
