@@ -20,13 +20,13 @@
   <link rel="stylesheet" href="accessibility-v12.css" />
   <link rel="stylesheet" href="interface-v13.css" />
   <link rel="stylesheet" href="fullscreen-v15.css" />
-  <link rel="stylesheet" href="board-background-v17.css" />
+  <link rel="stylesheet" href="board-background-v17.css?v=34" />
   <link rel="stylesheet" href="hud-row-v23.css?v=29" />
   <link rel="stylesheet" href="hard-menu-v26.css?v=26" />
   <link rel="stylesheet" href="scramble-v31.css?v=31" />
   <link rel="stylesheet" href="experience-v32.css?v=32" />
   <link rel="stylesheet" href="experience-utils-v32.css?v=32" />
-  <link rel="stylesheet" href="hud-v33.css?v=33" />
+  <link rel="stylesheet" href="hud-v33.css?v=34" />
 </head>
 <body class="world-1">
   <main class="app-shell" aria-label="FaithWords game">
@@ -39,9 +39,6 @@
             <span>💡 HINT POINTS</span><strong id="bonusCount">0</strong>
             <i id="bonusBurst" class="bonus-burst" aria-hidden="true"></i>
           </div>
-          <button id="hintButton" class="soft-button hint-button topbar-hint-button" type="button" aria-label="Use hint">
-            💡 HINT <span id="hintCostLabel">5</span>
-          </button>
         </div>
         <button id="menuButton" class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="audioMenu">
           <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -97,6 +94,9 @@
             <span id="levelLabel" class="level-label">LEVEL 1</span>
           </button>
           <span id="wordProgress">0 / 2 words</span>
+          <button id="hintButton" class="soft-button hint-button" type="button" aria-label="Use hint">
+            💡 HINT <span id="hintCostLabel">5</span>
+          </button>
         </div>
       </div>
 
@@ -182,7 +182,7 @@
   <script src="account-sync-v13.js"></script>
   <script src="next-level-v15.js?v=32"></script>
   <script src="hard-menu-v26.js?v=26"></script>
-  <script src="hud-v33.js?v=33"></script>
+  <script src="hud-v33.js?v=34"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').then(registration => registration.update()).catch(() => {}));
