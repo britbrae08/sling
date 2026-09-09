@@ -7,6 +7,33 @@
   const menuButton = document.getElementById('menuButton');
   const wheel = document.getElementById('letterWheel');
 
+  // Keep the word currently being traced clearly above the letter wheel.
+  // The puzzle board may sit behind this feedback, which is intentional: the
+  // board can be moved, while the active word should never cover the letters.
+  if (!document.getElementById('faithwords-word-readout-v37')) {
+    const readoutStyle = document.createElement('style');
+    readoutStyle.id = 'faithwords-word-readout-v37';
+    readoutStyle.textContent = `
+      .word-readout-wrap {
+        bottom: calc(var(--fw-wheel-clearance) + 22px) !important;
+        min-height: 42px !important;
+        height: auto !important;
+        padding: 0 16px !important;
+        align-content: center !important;
+        z-index: 14 !important;
+      }
+      .word-readout { margin: 0 !important; line-height: 1.08 !important; }
+      .message { line-height: 1.15 !important; }
+      @media (max-height: 780px) {
+        .word-readout-wrap { bottom: calc(var(--fw-wheel-clearance) + 18px) !important; }
+      }
+      @media (max-height: 690px) {
+        .word-readout-wrap { bottom: calc(var(--fw-wheel-clearance) + 14px) !important; }
+      }
+    `;
+    document.head.append(readoutStyle);
+  }
+
   if (levelPickerButton && levelDrawer) {
     levelPickerButton.setAttribute('aria-expanded', levelDrawer.classList.contains('open') ? 'true' : 'false');
 
