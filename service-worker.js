@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v35-controls-and-wheel';
+const CACHE_NAME = 'faithwords-v36-live-gesture-trace';
 const APP_SHELL = [
   './',
   './index.html',
@@ -27,7 +27,8 @@ const APP_SHELL = [
   './level-quality-v32.js?v=32.1',
   './faithwords-config-v32.js?v=32.1',
   './lexicon-v32.js?v=32.1',
-  './game-runtime-v3.js?v=32',
+  './game-runtime-v3.js?v=36',
+  './gesture-trace-v36.js?v=36',
   './experience-v32.js?v=32',
   './game-v3.js',
   './hint-reward-v8.js',
