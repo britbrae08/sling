@@ -1,0 +1,24 @@
+/* FaithWords v37 — keep the active word above the letter wheel. */
+.word-readout-wrap{
+  bottom:calc(var(--fw-wheel-clearance) + 22px)!important;
+  min-height:42px!important;
+  height:auto!important;
+  padding:0 16px!important;
+  align-content:center!important;
+  z-index:14!important;
+}
+.word-readout{
+  margin:0!important;
+  line-height:1.08!important;
+}
+.message{
+  line-height:1.15!important;
+}
+
+@media(max-height:780px){
+  .word-readout-wrap{bottom:calc(var(--fw-wheel-clearance) + 18px)!important;}
+}
+
+@media(max-height:690px){
+  .word-readout-wrap{bottom:calc(var(--fw-wheel-clearance) + 14px)!important;}
+}
