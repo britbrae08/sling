@@ -1,4 +1,4 @@
-const CACHE_NAME = 'faithwords-v34-aligned-hud-bottom-wheel';
+const CACHE_NAME = 'faithwords-v35-controls-and-wheel';
 const APP_SHELL = [
   './',
   './index.html',
@@ -17,7 +17,7 @@ const APP_SHELL = [
   './board-background-v17.css?v=34',
   './hud-row-v23.css?v=29',
   './hard-menu-v26.css?v=26',
-  './scramble-v31.css?v=31',
+  './scramble-v31.css?v=35',
   './experience-v32.css?v=32',
   './experience-utils-v32.css?v=32',
   './hud-v33.css?v=34',
@@ -32,12 +32,12 @@ const APP_SHELL = [
   './game-v3.js',
   './hint-reward-v8.js',
   './word-feedback-v10.js',
-  './mix-animation-v11.js',
+  './mix-animation-v11.js?v=35',
   './board-pan-v13.js?v=30',
   './account-sync-v13.js',
   './next-level-v15.js?v=32',
   './hard-menu-v26.js?v=26',
-  './hud-v33.js?v=34',
+  './hud-v33.js?v=35',
   './manifest.webmanifest',
   './icon.svg'
 ];
