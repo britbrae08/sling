@@ -20,6 +20,11 @@
     });
   }
 
+  function clearMixState() {
+    wheel.classList.remove('mix-in-motion');
+    shuffleButton.classList.remove('mix-active');
+  }
+
   function animateToNewPositions() {
     if (!beforePositions?.length) return;
 
@@ -35,7 +40,11 @@
 
     wheel.classList.add('mix-in-motion');
     shuffleButton.classList.add('mix-active');
-    shuffleButton.disabled = true;
+
+    // Do not disable the button. Older mobile browsers can fail while starting
+    // a Web Animation; disabling first could leave the Mix control stuck.
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(clearMixState, reduced ? 260 : 900);
 
     let longest = 0;
 
@@ -50,9 +59,6 @@
       const dx = old.x - newX;
       const dy = old.y - newY;
       const distance = Math.hypot(dx, dy);
-
-      // If an identical duplicate happens to map onto the same visible spot,
-      // still give it a small hop so the entire mix feels alive.
       const stationary = distance < 3;
       const curveSign = index % 2 === 0 ? 1 : -1;
       const curve = Math.min(34, 16 + distance * .11) * curveSign;
@@ -62,6 +68,8 @@
       const delay = reduced ? 0 : index * 42;
       const duration = reduced ? 180 : 500 + Math.min(130, distance * .45);
       longest = Math.max(longest, delay + duration);
+
+      if (typeof button.animate !== 'function') return;
 
       const frames = stationary
         ? [
@@ -76,27 +84,28 @@
             { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1, offset: 1 }
           ];
 
-      button.animate(frames, {
-        duration,
-        delay,
-        easing: 'cubic-bezier(.2,.82,.24,1.12)',
-        fill: 'both'
-      });
+      try {
+        button.getAnimations?.().forEach(animation => animation.cancel());
+        button.animate(frames, {
+          duration,
+          delay,
+          easing: 'cubic-bezier(.2,.82,.24,1.12)',
+          fill: 'none'
+        });
+      } catch {
+        // The letters were already mixed by the game engine. Animation is only
+        // decorative, so a browser animation failure must never break the control.
+      }
     });
 
     clearTimeout(unlockTimer);
-    unlockTimer = setTimeout(() => {
-      wheel.classList.remove('mix-in-motion');
-      shuffleButton.classList.remove('mix-active');
-      shuffleButton.disabled = false;
-    }, Math.max(220, longest + 40));
+    unlockTimer = setTimeout(clearMixState, Math.max(240, longest + 60));
   }
 
-  // Capture the old positions before the game engine handles the click.
+  // Capture old positions before the game engine performs its synchronous mix.
   shuffleButton.addEventListener('click', capturePositions, true);
 
-  // The game engine shuffles/re-renders synchronously in its own click handler.
-  // This listener was loaded afterward, so the new positions are ready here.
+  // Then animate from the old positions to the newly rendered positions.
   shuffleButton.addEventListener('click', () => {
     requestAnimationFrame(animateToNewPositions);
   });
