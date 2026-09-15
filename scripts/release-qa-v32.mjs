@@ -35,6 +35,7 @@ vm.createContext(sandbox);
 for (const file of [
   'levels-v12.js',
   'levels-tuning-v13.js',
+  'levels-extra-v37.js',
   'level-quality-v32.js',
   'faithwords-config-v32.js',
   'lexicon-v32.js'
@@ -47,7 +48,7 @@ const quality = sandbox.FaithWordsLevelQuality;
 const config = sandbox.FaithWordsConfig;
 const lexicon = sandbox.FaithWordsLexicon;
 
-check(Array.isArray(levels) && levels.length === 50, '50 level definitions load');
+check(Array.isArray(levels) && levels.length === 100, '100 level definitions load');
 check(quality?.version === 32, 'v32 puzzle-quality layer loads');
 check(quality?.summary?.errorCount === 0, 'puzzle-quality audit has zero errors');
 check(config?.version === 32, 'v32 central configuration loads');
@@ -66,13 +67,19 @@ levels.forEach((level, index) => {
   check((level.bonusOnlyWords || []).every(word => !words.includes(word)), `Level ${number} keeps bonus-only words off board`);
 });
 
+const addedLevels = levels.slice(50);
+check(addedLevels.length === 50, '50 new levels extend the original journey');
+check(addedLevels.every(level => level.letters.length <= 5), 'Levels 51–100 never use more than five wheel letters');
+check(levels[99]?.letters?.length === 5, 'Level 100 uses exactly five wheel letters');
+check(addedLevels.every((level, index) => index === 0 || level.words.length >= addedLevels[index - 1].words.length), 'Levels 51–100 increase required-answer load without stepping backward');
+
 check(quality.rules.minimumRequiredWordLength === 3, 'minimum required-word length is centralized');
 check(quality.rules.bonusOnlyWords.includes('PEE'), 'questionable word PEE is classified bonus-only');
 check(lexicon.isBonusOnly('PEE') && lexicon.isAccepted('PEE'), 'bonus-only words validate locally without becoming board answers');
 check(lexicon.excluded.every(word => !lexicon.isAccepted(word)), 'excluded lexicon words cannot be locally accepted');
 
-const expectedHard = [20,25,30,35,40,45,50];
-check(JSON.stringify([...config.hardLevels]) === JSON.stringify(expectedHard), 'HARD cadence is exactly 20,25,30,35,40,45,50');
+const expectedHard = [20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100];
+check(JSON.stringify([...config.hardLevels]) === JSON.stringify(expectedHard), 'HARD cadence continues every five levels through 100');
 check(config.hardCompletionBonus === 2, 'HARD first-completion reward is +2 Hint Points');
 check(config.maxHintPoints === 200, 'Hint Points are capped at 200');
 check(config.hints.nudge === 3 && config.hints.letter === 5 && config.hints.word === 15, 'three hint costs are 3/5/15');
@@ -122,6 +129,7 @@ const sequence = [
   'experience-v32.js'
 ].map(name => index.indexOf(name));
 check(sequence.every(position => position >= 0) && sequence.every((position, i) => i === 0 || position > sequence[i - 1]), 'index loads quality → config → lexicon → runtime → premium experience in order');
+check(index.includes('levels-extra-v37.js') && index.indexOf('levels-extra-v37.js') < index.indexOf('level-quality-v32.js'), 'new levels load before puzzle-quality auditing');
 check(!index.includes('hud-layout-v18.js'), 'legacy HUD relocator script is not loaded');
 check(!index.includes('hud-layout-v18.css'), 'legacy HUD relocator stylesheet is not loaded');
 check(index.includes('id="levelPickerButton"'), 'current-level pill is the level-picker entry point');
@@ -166,7 +174,7 @@ check(generatedRuntime.includes("ui.wheel.addEventListener('pointercancel', even
 check(generatedRuntime.includes('faithwords-level-completed'), 'generated runtime emits Verse Reveal completion event');
 check(!generatedRuntime.includes("ui.wheel.addEventListener('pointercancel', endSelection"), 'legacy pointer-cancel submission path is removed');
 
-check(serviceWorker.includes('level-quality-v32.js') && serviceWorker.includes('faithwords-config-v32.js') && serviceWorker.includes('lexicon-v32.js') && serviceWorker.includes('experience-v32.js'), 'offline shell caches all v32 architecture layers');
+check(serviceWorker.includes('levels-extra-v37.js') && serviceWorker.includes('level-quality-v32.js') && serviceWorker.includes('faithwords-config-v32.js') && serviceWorker.includes('lexicon-v32.js') && serviceWorker.includes('experience-v32.js'), 'offline shell caches the 100-level data and all v32 architecture layers');
 check(!serviceWorker.includes('hud-layout-v18.js') && !serviceWorker.includes('hud-layout-v18.css'), 'offline shell no longer caches legacy HUD relocator');
 check(index.includes('meta name="faithwords-google-client-id" content=""'), 'Google OAuth Client ID remains intentionally unconfigured');
 check(accountSync.includes("if (!CLIENT_ID)"), 'Google sync framework safely handles missing OAuth Client ID');
