@@ -15,7 +15,7 @@
     window.FaithWordsSessionMode = 'normal';
   }
 
-  const HARD_LEVELS = Object.freeze([20,25,30,35,40,45,50]);
+  const HARD_LEVELS = Object.freeze([20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]);
 
   const journeys = Object.freeze([
     Object.freeze({
